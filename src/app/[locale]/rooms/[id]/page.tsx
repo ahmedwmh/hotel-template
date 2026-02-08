@@ -83,7 +83,7 @@ export default async function RoomDetailsPage({
           <div className="flex items-center justify-center gap-2 mt-4 flex-wrap">
             <Link
               href={`/${locale}`}
-              className="text-base lg:text-xl text-[#c19d68] font-semibold font-Garamond"
+              className="text-base lg:text-xl text-[#C9A24D] font-semibold font-Garamond"
             >
               {homeLabel} <span className="mx-2 text-white">/</span>
             </Link>
@@ -103,7 +103,7 @@ export default async function RoomDetailsPage({
           <div className="col-span-1 md:col-span-4 lg:col-span-4">
             <RoomDetailsSlider />
             <div className="pt-5 lg:pt-8 pr-0 lg:pr-3">
-              <p className="text-base font-Lora text-[#c19d68]">{luxuryRoom}</p>
+              <p className="text-base font-Lora text-[#C9A24D]">{luxuryRoom}</p>
               <h2 className="py-2 sm:py-3 md:py-4 lg:py-5 font-Garamond text-xl sm:text-2xl md:text-3xl lg:text-4xl 2xl:text-[38px] leading-snug text-white font-semibold">
                 {displayName}
               </h2>
@@ -128,36 +128,36 @@ export default async function RoomDetailsPage({
               <div className="md:flex md:justify-between gap-8 py-10 lg:py-14">
                 <div>
                   <div className="flex items-center gap-2">
-                    <FiLogOut className="text-[#c19d68] rotate-180" size={24} />
+                    <FiLogOut className="text-[#C9A24D] rotate-180" size={24} />
                     <h4 className="text-lg md:text-xl lg:text-2xl font-Garamond text-white font-semibold">
                       {checkInLabel}
                     </h4>
                   </div>
                   <ul className="space-y-2 lg:space-y-3 mt-4">
                     <li className="flex items-center gap-2">
-                      <BsCheck2 size={16} className="text-[#c19d68] shrink-0" />
+                      <BsCheck2 size={16} className="text-[#C9A24D] shrink-0" />
                       <span className="text-sm lg:text-base text-zinc-400 font-Lora">{checkInFrom}</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <BsCheck2 size={16} className="text-[#c19d68] shrink-0" />
+                      <BsCheck2 size={16} className="text-[#C9A24D] shrink-0" />
                       <span className="text-sm lg:text-base text-zinc-400 font-Lora">{earlyCheckIn}</span>
                     </li>
                   </ul>
                 </div>
                 <div className="mt-6 md:mt-0">
                   <div className="flex items-center gap-2">
-                    <FiLogOut className="text-[#c19d68]" size={24} />
+                    <FiLogOut className="text-[#C9A24D]" size={24} />
                     <h4 className="text-lg md:text-xl lg:text-2xl font-Garamond text-white font-semibold">
                       {checkOutLabel}
                     </h4>
                   </div>
                   <ul className="space-y-2 lg:space-y-3 mt-4">
                     <li className="flex items-center gap-2">
-                      <BsCheck2 size={16} className="text-[#c19d68] shrink-0" />
+                      <BsCheck2 size={16} className="text-[#C9A24D] shrink-0" />
                       <span className="text-sm lg:text-base text-zinc-400 font-Lora">{checkOutBefore}</span>
                     </li>
                     <li className="flex items-center gap-2">
-                      <BsCheck2 size={16} className="text-[#c19d68] shrink-0" />
+                      <BsCheck2 size={16} className="text-[#C9A24D] shrink-0" />
                       <span className="text-sm lg:text-base text-zinc-400 font-Lora">{checkOutFrom}</span>
                     </li>
                   </ul>
@@ -183,7 +183,7 @@ export default async function RoomDetailsPage({
                 <ul className="space-y-2">
                   {guestRates.map(({ guests, rate }) => (
                     <li key={guests} className="flex items-center gap-2">
-                      <BsCheck2 size={16} className="text-[#c19d68] shrink-0" />
+                      <BsCheck2 size={16} className="text-[#C9A24D] shrink-0" />
                       <span className="text-sm lg:text-base text-zinc-400 font-Lora">
                         {guests} {guests === 1 ? (isAr ? "ضيف" : "guest") : isAr ? "ضيوف" : "guests"} • {rate} / {isAr ? "ليلة" : "night"}
                       </span>
@@ -203,18 +203,18 @@ export default async function RoomDetailsPage({
               <div className="space-y-3">
                 <div className="bg-zinc-700/50 border border-zinc-600 h-12 lg:h-14 flex items-center px-4">
                   <p className="text-sm lg:text-base font-Lora text-zinc-100">
-                    {roomLabel} — <span className="text-[#c19d68]">{displayName}</span>
+                    {roomLabel} — <span className="text-[#C9A24D]">{displayName}</span>
                   </p>
                 </div>
                 <div className="bg-zinc-700/50 border border-zinc-600 h-12 lg:h-14 flex items-center px-4">
                   <p className="text-sm lg:text-base font-Lora text-zinc-100">
-                    {isAr ? "السعة" : "Capacity"} — <span className="text-[#c19d68]">{room.capacity}</span>{" "}
+                    {isAr ? "السعة" : "Capacity"} — <span className="text-[#C9A24D]">{room.capacity}</span>{" "}
                     {isAr ? "ضيوف" : "guests"}
                   </p>
                 </div>
                 <div className="bg-zinc-700/50 border border-zinc-600 h-12 lg:h-14 flex items-center px-4">
                   <p className="text-sm lg:text-base font-Lora text-zinc-100">
-                    {isAr ? "السعر" : "Rate"} — <span className="text-[#c19d68]">{room.rate}</span> /{" "}
+                    {isAr ? "السعر" : "Rate"} — <span className="text-[#C9A24D]">{room.rate}</span> /{" "}
                     {isAr ? "ليلة" : "night"} {isAr ? "(لـ 1 ضيف)" : "(1 guest)"}
                   </p>
                 </div>
@@ -222,7 +222,7 @@ export default async function RoomDetailsPage({
               <div className="pt-5">
                 <Link
                   href={`/${locale}/book?room=${room.id}`}
-                  className="block w-full h-12 2xl:h-14 bg-[#c19d68] text-white font-Lora font-semibold text-center leading-[3rem] hover:bg-[#a88652] transition-colors"
+                  className="block w-full h-12 2xl:h-14 bg-[#C9A24D] text-white font-Lora font-semibold text-center leading-[3rem] hover:bg-[#B8923F] transition-colors"
                 >
                   {confirmBookingLabel}
                 </Link>

@@ -23,6 +23,16 @@ function toDecimal(n: number): Prisma.Decimal {
   return new Prisma.Decimal(n);
 }
 
+const FACILITIES_ITEMS_JSON = JSON.stringify([
+  { image: "/images/home-1/facilities-1.png", number: "01", categoryEn: "Services", categoryAr: "خدمات", titleEn: "24-Hour Reception", titleAr: "استقبال 24 ساعة", description: "Round-the-clock reception for your convenience." },
+  { image: "/images/home-1/facilities-thumb-2.jpg", number: "02", categoryEn: "Services", categoryAr: "خدمات", titleEn: "Room Service", titleAr: "خدمة الغرف", description: "In-room dining and service at your request." },
+  { image: "/images/home-1/facilities-thumb-3.jpg", number: "03", categoryEn: "Dining", categoryAr: "مطعم", titleEn: "Hotel Restaurant", titleAr: "مطعم الفندق", description: "Full-service hotel restaurant for breakfast, lunch and dinner." },
+  { image: "/images/home-1/facilities-thumb-4.jpg", number: "04", categoryEn: "Dining", categoryAr: "مقهى", titleEn: "Elegant Coffee Shop", titleAr: "كوفي شوب أنيق", description: "A refined coffee shop for drinks and light bites." },
+  { image: "/images/home-1/facilities-1.png", number: "05", categoryEn: "Lounge", categoryAr: "لاونج", titleEn: "Luxury Shisha Lounge", titleAr: "شيشه لاونج فاخر", description: "A luxury shisha lounge for relaxation." },
+  { image: "/images/home-1/facilities-thumb-2.jpg", number: "06", categoryEn: "Amenities", categoryAr: "مرافق", titleEn: "Free Wi-Fi", titleAr: "واي فاي مجاني", description: "Complimentary high-speed Wi-Fi throughout the hotel." },
+  { image: "/images/home-1/facilities-thumb-3.jpg", number: "07", categoryEn: "Amenities", categoryAr: "مرافق", titleEn: "Modern Elevators", titleAr: "مصاعد حديثة", description: "Modern elevators for easy access to all floors." },
+]);
+
 async function seedAdmin() {
   const adminEmail = process.env.ADMIN_EMAIL ?? "admin@najafhotel.com";
   const adminPassword = process.env.ADMIN_PASSWORD ?? "Admin123!";
@@ -89,11 +99,40 @@ async function seedSiteSettings() {
     { key: "hero_subtitle", value: "رفاهية وراحة في قلب النجف", locale: "ar" },
     { key: "contact_address", value: "Najaf, Iraq", locale: "en" },
     { key: "contact_address", value: "النجف، العراق", locale: "ar" },
+    { key: "contact_title", value: "Contact With Us", locale: "en" },
+    { key: "contact_title", value: "تواصل معنا", locale: "ar" },
+    { key: "contact_subtitle", value: "Contact Us", locale: "en" },
+    { key: "contact_subtitle", value: "اتصل بنا", locale: "ar" },
+    { key: "contact_description", value: "Get in touch for reservations, inquiries or feedback. We are here to help.", locale: "en" },
+    { key: "contact_description", value: "تواصل معنا للحجوزات أو الاستفسارات. نحن هنا لمساعدتك.", locale: "ar" },
+    { key: "contact_form_heading", value: "Get in Touch", locale: "en" },
+    { key: "contact_form_heading", value: "تواصل معنا", locale: "ar" },
+    { key: "contact_email", value: "info@najafhotel.com", locale: "en" },
+    { key: "contact_email", value: "info@najafhotel.com", locale: "ar" },
+    { key: "contact_phone", value: "+964 770 123 4567", locale: "en" },
+    { key: "contact_phone", value: "+964 770 123 4567", locale: "ar" },
+    { key: "about_title", value: "Luxury Best Hotel in Najaf", locale: "en" },
+    { key: "about_title", value: "أفضل فندق فاخر في النجف", locale: "ar" },
+    { key: "about_subtitle", value: "Luxury Hotel and Resort", locale: "en" },
+    { key: "about_subtitle", value: "فندق ومنتجع فاخر", locale: "ar" },
+    { key: "about_text", value: "Rapidiously myocardinate cross-platform intellectual capital after marketing model. Appropriately create interactive infrastructures after maintainable. Holisticly facilitate stand-alone inframe. Compellingly create premier experiences for our guests in the heart of Najaf.", locale: "en" },
+    { key: "about_text", value: "نسعى لتقديم تجربة إقامة فاخرة وخدمة متميزة في قلب النجف. مرافق متكاملة وطاقم متخصص لراحتك. نلتزم بمعايير عالمية في الضيافة لضمان إقامة لا تُنسى لضيوفنا.", locale: "ar" },
+    { key: "action_title", value: "LUXURY BEST HOTEL IN NAJAF", locale: "en" },
+    { key: "action_title", value: "أفضل فندق فاخر في النجف", locale: "ar" },
+    { key: "action_description", value: "At Najaf International Hotel, we believe that true hospitality is not measured by service alone, but by respect, genuine care, and the sense of peace throughout the stay.", locale: "en" },
+    { key: "action_description", value: "في فندق النجف الدولي نؤمن بأن الضيافة الحقيقية لا تُقاس بالخدمة فقط بل بالاحترام والاهتمام والشعور بالطمأنينة طوال الإقامة.", locale: "ar" },
+    { key: "action_quote", value: "At Najaf International Hotel, we believe that true hospitality is not measured by service alone, but by respect, genuine care, and the sense of peace throughout the stay.", locale: "en" },
+    { key: "action_quote", value: "في فندق النجف الدولي نؤمن بأن الضيافة الحقيقية لا تُقاس بالخدمة فقط بل بالاحترام والاهتمام والشعور بالطمأنينة طوال الإقامة.", locale: "ar" },
+    { key: "facilities_title", value: "ENJOY COMPLETE & BEST QUALITY FACILITIES", locale: "en" },
+    { key: "facilities_title", value: "ENJOY COMPLETE & BEST QUALITY FACILITIES", locale: "ar" },
+    { key: "facilities_subtitle", value: "24-Hour Reception – Room Service – Hotel Restaurant – Elegant Coffee Shop – Luxury Shisha Lounge – Free Wi-Fi – Modern Elevators", locale: "en" },
+    { key: "facilities_subtitle", value: "استقبال 24 ساعة – خدمة الغرف – مطعم الفندق – كوفي شوب أنيق – شيشه لاونج فاخر – واي فاي مجاني – مصاعد حديثة", locale: "ar" },
+    { key: "facilities_items", value: FACILITIES_ITEMS_JSON, locale: "en" },
+    { key: "facilities_items", value: FACILITIES_ITEMS_JSON, locale: "ar" },
   ];
 
   const settingsLocaleNull: { key: string; value: string }[] = [
-    { key: "contact_email", value: "info@najafhotel.com" },
-    { key: "contact_phone", value: "+964 770 123 4567" },
+    { key: "contact_map_embed", value: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.0!2d44.33!3d32.03!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDAxJzQ4LjAiTiA0NMKwMTknNDguMCJF!5e0!3m2!1sen!2s!4v1" },
   ];
 
   for (const { key, value, locale } of settingsWithLocale) {

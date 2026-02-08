@@ -14,7 +14,9 @@ const sectionIcons: Record<string, string> = {
   testimonials: "💬",
   "latest-blog": "📝",
   "about-main": "📄",
+  "contact-hero": "📋",
   "contact-info": "📧",
+  "contact-form": "📝",
 };
 
 export function ContentSectionGrid({

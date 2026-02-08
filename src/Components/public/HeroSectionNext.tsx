@@ -55,34 +55,27 @@ export function HeroSectionNext({
               }}
             >
               <div className="font-Garamond 2xl:w-[720px] text-center">
-                <div className="flex space-x-2 items-center justify-center mb-5 lg:mb-6">
-                  {[1, 2, 3, 4, 5].map((j) => (
-                    <FaStar key={j} className="w-[14px] h-[14px] lg:w-[16px] lg:h-[16px] text-[#c19d68]" />
-                  ))}
-                </div>
-                <h4 className="text-base mb-4">
-                  {locale === "ar" ? "فندق ومنتجع فاخر" : "LUXURY HOTEL AND RESORT"}
-                </h4>
+              
+              <img src="/images/logo/logo-c.svg" alt="" className="  mx-auto  object-contain" />
+
                 <div className="mb-7 md:mb-8 lg:mb-9 xl:mb-10">
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 3xl:text-6xl font-semibold leading-[40px] md:leading-[50px] 3xl:leading-[70px]">
+                  <h1 className="text-xl sm:text-3xl md:text-2xl lg:text-3xl 3xl:text-3xl font-semibold  ">
                     {slide.title1}
                   </h1>
-                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 3xl:text-6xl font-semibold leading-[40px] lg:leading-[50px] 2xl:leading-[60px]">
-                    {slide.title2}
-                  </h1>
+                 
                 </div>
                 <Link href={`/${locale}/about`}>
                   <button
                     type="button"
-                    className="w-[185px] h-[48px] lg:h-[56px] bg-[#c19d68] text-base font-Garamond font-medium uppercase text-white hover:bg-[#272727] transition-colors"
+                    className="w-[185px] h-[48px] lg:h-[56px] bg-[#C9A24D] text-base font-Garamond font-medium uppercase text-white hover:bg-[#272727] transition-colors"
                   >
                     {discoverLabel}
                   </button>
                 </Link>
               </div>
               <div className="min-w-[200px] min-h-[72px] py-3 px-4 border border-white hidden md:flex items-center justify-center absolute left-3 top-1/2 -rotate-90 origin-center -translate-x-1/2 -translate-y-1/2 overflow-visible whitespace-nowrap bg-[#1e1e1e]/80 backdrop-blur-sm">
-                <BiPhoneCall className="w-5 h-5 mr-2 shrink-0 text-[#c19d68]" aria-hidden />
-                <a href={telHref} className="text-white font-Lora text-sm md:text-base hover:text-[#c19d68] transition-colors">
+                <BiPhoneCall className="w-5 h-5 mr-2 shrink-0 text-[#C9A24D]" aria-hidden />
+                <a href={telHref} className="text-white font-Lora text-sm md:text-base hover:text-[#C9A24D] transition-colors">
                   {phone}
                 </a>
               </div>

@@ -17,7 +17,7 @@
   margin: 0 5px;
   padding: 5px;
   cursor: pointer;
-  border: 1px solid #c19d68;
+  border: 1px solid #C9A24D;
 }
 
 .dot:focus {
@@ -25,7 +25,7 @@
 }
 
 .dot.active {
-  background: #c19d68;
+  background: #C9A24D;
 }
 
 .arrow {

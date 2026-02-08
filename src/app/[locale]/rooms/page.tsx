@@ -44,9 +44,9 @@ export default async function RoomsPage({
       >
         <div className="text-center px-4">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <hr className="w-[100px] h-[1px] bg-[#c19d68]" />
+            <hr className="w-[100px] h-[1px] bg-[#C9A24D]" />
             <img src="/images/logo/logo-s.svg" alt="" className="w-[50px] h-[50px]" />
-            <hr className="w-[100px] h-[1px] bg-[#c19d68]" />
+            <hr className="w-[100px] h-[1px] bg-[#C9A24D]" />
           </div>
           <h1 className="text-2xl md:text-4xl lg:text-5xl 2xl:text-6xl leading-tight text-white font-semibold font-Garamond uppercase">
             {pageTitle}
@@ -85,7 +85,7 @@ export default async function RoomsPage({
               <p className="text-zinc-400 font-Lora text-lg">{noRoomsLabel}</p>
               <Link
                 href={`/${locale}`}
-                className="inline-block mt-6 px-8 py-3 bg-[#c19d68] text-white font-Garamond font-medium uppercase hover:bg-[#a88652] transition-colors"
+                className="inline-block mt-6 px-8 py-3 bg-[#C9A24D] text-white font-Garamond font-medium uppercase hover:bg-[#B8923F] transition-colors"
               >
                 {isAr ? "العودة للرئيسية" : "Back to Home"}
               </Link>

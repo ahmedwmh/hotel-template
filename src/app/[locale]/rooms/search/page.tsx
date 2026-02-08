@@ -58,7 +58,7 @@ export default async function RoomsSearchPage({
           {results.map((room) => (
             <Card key={room.id}>
               <CardHeader className="font-medium">
-                <Link href={`/${locale}/rooms/${room.id}`} className="hover:text-[#c19d68] transition-colors">
+                <Link href={`/${locale}/rooms/${room.id}`} className="hover:text-[#C9A24D] transition-colors">
                   {room.name}
                 </Link>
               </CardHeader>

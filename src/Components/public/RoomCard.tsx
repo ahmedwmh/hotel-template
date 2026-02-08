@@ -45,22 +45,22 @@ export function RoomCard({
           alt={displayName}
           className="w-full h-[260px] lg:h-[280px] object-cover group-hover:scale-110 transition-transform duration-300"
         />
-        <div className="absolute top-3 right-3 inline-flex items-center justify-center bg-[#c19d68] text-white text-sm font-Lora font-normal leading-[26px] px-3 py-1.5">
+        <div className="absolute top-3 right-3 inline-flex items-center justify-center bg-[#C9A24D] text-white text-sm font-Lora font-normal leading-[26px] px-3 py-1.5">
           <span>{room.rate}</span>
           <span className="mx-2">|</span>
           <span>{nightLabel}</span>
         </div>
-        <div className="flex items-center justify-center gap-2 text-[15px] leading-[38px] bg-zinc-900/90 absolute bottom-0 -left-full w-full py-2 text-white group-hover:left-0 transition-all duration-300 hover:bg-[#c19d68]">
+        <div className="flex items-center justify-center gap-2 text-[15px] leading-[38px] bg-zinc-900/90 absolute bottom-0 -left-full w-full py-2 text-white group-hover:left-0 transition-all duration-300 hover:bg-[#C9A24D]">
           {viewDetailsLabel}
           <BsArrowRight className="w-4 h-4" />
         </div>
       </div>
       <div className="border-t-0 border border-zinc-600">
         <div className="py-5 px-5 lg:px-6">
-          <p className="text-sm leading-[26px] text-[#c19d68] uppercase font-semibold">
+          <p className="text-sm leading-[26px] text-[#C9A24D] uppercase font-semibold">
             {roomLabel}
           </p>
-          <h2 className="text-xl lg:text-2xl leading-[26px] font-semibold text-white py-3 group-hover:text-[#c19d68] transition-colors">
+          <h2 className="text-xl lg:text-2xl leading-[26px] font-semibold text-white py-3 group-hover:text-[#C9A24D] transition-colors">
             {displayName}
           </h2>
           <p className="text-sm font-normal text-zinc-400 font-Lora">
@@ -71,7 +71,7 @@ export function RoomCard({
           <span className="font-Lora text-sm text-zinc-400">
             {room.capacity} {isAr ? "سرير" : "Guests"}
           </span>
-          <ul className="flex items-center text-[#c19d68] gap-1">
+          <ul className="flex items-center text-[#C9A24D] gap-1">
             {[1, 2, 3, 4, 5].map((i) => (
               <li key={i}>
                 <FaStar className="w-4 h-4" />
@@ -91,7 +91,7 @@ export function RoomCard({
               e.stopPropagation();
               router.push(bookHref);
             }}
-            className="flex-1 flex items-center justify-center h-12 bg-[#c19d68] text-white font-Garamond font-medium text-sm uppercase hover:bg-[#a88652] transition-colors"
+            className="flex-1 flex items-center justify-center h-12 bg-[#C9A24D] text-white font-Garamond font-medium text-sm uppercase hover:bg-[#B8923F] transition-colors"
           >
             {bookLabel}
           </button>

@@ -34,9 +34,9 @@ export default async function BookingConfirmationPage({
       <section className="bg-[#1e1e1e] border-b border-zinc-800">
         <div className="max-w-[1330px] mx-auto px-4 md:px-6 py-12 md:py-16">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <hr className="w-16 sm:w-24 h-px border-0 bg-[#c19d68]/50" />
-            <HiCheckCircle className="w-8 h-8 text-[#c19d68] shrink-0" aria-hidden />
-            <hr className="w-16 sm:w-24 h-px border-0 bg-[#c19d68]/50" />
+            <hr className="w-16 sm:w-24 h-px border-0 bg-[#C9A24D]/50" />
+            <HiCheckCircle className="w-8 h-8 text-[#C9A24D] shrink-0" aria-hidden />
+            <hr className="w-16 sm:w-24 h-px border-0 bg-[#C9A24D]/50" />
           </div>
           <h1 className="font-Garamond text-2xl md:text-3xl lg:text-4xl font-semibold text-center text-zinc-100">
             {isAr ? "تم تأكيد طلبك" : "Booking confirmed"}

@@ -27,5 +27,23 @@
     "invalidDatesDescription": "Check-out must be after check-in. Please correct your dates.",
     "errorTitle": "Something went wrong",
     "success": "Booking received. We will confirm shortly."
+  },
+  "contact": {
+    "title": "Contact",
+    "contactUs": "Contact Us",
+    "contactWithUs": "Contact With Us",
+    "callUsNow": "Call Us Now",
+    "sendEmail": "Send Email",
+    "ourLocation": "Our Location",
+    "getInTouch": "Get in Touch",
+    "yourName": "Your Name",
+    "enterEmail": "Enter E-mail",
+    "selectSubject": "Select Subject",
+    "writeMessage": "Write Message",
+    "sendMessage": "Send Message",
+    "messageSent": "Message sent. We will get back to you soon.",
+    "subjectBooking": "Booking",
+    "subjectInfo": "General inquiry",
+    "subjectOther": "Other"
   }
 }

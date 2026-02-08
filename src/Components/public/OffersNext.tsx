@@ -60,7 +60,7 @@ export function OffersNext({
       <div className="Container py-20 lg:py-[120px]" style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto", paddingLeft: "1rem", paddingRight: "1rem" }}>
         <div className="flex items-center justify-between relative">
           <div className="md:w-[450px] lg:w-[450px] xl:w-[500px] font-Garamond">
-            <h5 className="mb-3 text-base text-[#c19d68] leading-[26px] font-medium">
+            <h5 className="mb-3 text-base text-[#C9A24D] leading-[26px] font-medium">
               {locale === "ar" ? "عروض" : "OFFERS"}
             </h5>
             <h1 className="text-xl sm:text-3xl 2xl:text-[38px] leading-7 sm:leading-8 md:leading-[38px] lg:leading-[44px] text-[#1e1e1e] font-semibold">
@@ -78,7 +78,7 @@ export function OffersNext({
                     <img src={offer.image} className="w-full h-full object-cover min-h-[200px]" alt="" />
                   </div>
                   <div className="font-Garamond border border-t-0 border-white">
-                    <div className="px-6 3xl:px-7 py-2 flex items-center justify-center text-white absolute top-[10px] left-[10px] border border-white group-hover:bg-[#c19d68] transition-all duration-300">
+                    <div className="px-6 3xl:px-7 py-2 flex items-center justify-center text-white absolute top-[10px] left-[10px] border border-white group-hover:bg-[#C9A24D] transition-all duration-300">
                       <span className="text-[22px] leading-[26px] font-Garamond">
                         {offer.discount}
                       </span>
@@ -86,7 +86,7 @@ export function OffersNext({
                     <div className="bg-white">
                       <div className="py-[30px] text-center">
                         <Link href={offer.href}>
-                          <h2 className="text-[24px] leading-[26px] font-semibold text-[#1e1e1e] hover:underline hover:text-[#c19d68] transition-colors">
+                          <h2 className="text-[24px] leading-[26px] font-semibold text-[#1e1e1e] hover:underline hover:text-[#C9A24D] transition-colors">
                             {offer.name}
                           </h2>
                         </Link>

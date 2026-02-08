@@ -858,14 +858,14 @@ const Room = () => {
                         cancelButtonColor: "#d33",
                         confirmButtonText: "Yes, complete!",
                         color: "#fff",
-                        background: "#c19d68",
+                        background: "#C9A24D",
                       }).then((result) => {
                         if (result.isConfirmed) {
                           Swal.fire({
                             title: "Congratulation!",
                             text: "Your Appointment Added Successful!",
                             icon: "success",
-                            background: "#c19d68",
+                            background: "#C9A24D",
                             color: "#fff",
                             confirmButtonColor: "#008000",
                           });

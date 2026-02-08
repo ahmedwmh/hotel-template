@@ -144,10 +144,12 @@ export const CONTENT_PAGES: ContentPage[] = [
       {
         id: "about-main",
         label: "About content",
-        description: "Main about text and headings",
+        description: "Title, subtitle, main text and optional image",
         keys: [
           { key: "about_title", label: "Page title", locale: true },
-          { key: "about_text", label: "About text", locale: true, type: "textarea" },
+          { key: "about_subtitle", label: "Subtitle (small label above title)", locale: true },
+          { key: "about_text", label: "About text (main body)", locale: true, type: "textarea" },
+          { key: "about_image", label: "About section image URL (optional)", locale: false, type: "text" },
         ],
       },
     ],
@@ -159,6 +161,16 @@ export const CONTENT_PAGES: ContentPage[] = [
     path: "/contact",
     sections: [
       {
+        id: "contact-hero",
+        label: "Contact page heading",
+        description: "Title and intro text",
+        keys: [
+          { key: "contact_title", label: "Page title", locale: true },
+          { key: "contact_subtitle", label: "Subtitle", locale: true },
+          { key: "contact_description", label: "Description (intro paragraph)", locale: true, type: "textarea" },
+        ],
+      },
+      {
         id: "contact-info",
         label: "Contact information",
         description: "Email, phone, address",
@@ -166,6 +178,15 @@ export const CONTENT_PAGES: ContentPage[] = [
           { key: "contact_email", label: "Email", locale: true },
           { key: "contact_phone", label: "Phone", locale: true },
           { key: "contact_address", label: "Address", locale: true },
+        ],
+      },
+      {
+        id: "contact-form",
+        label: "Contact form & map",
+        description: "Form heading and map embed",
+        keys: [
+          { key: "contact_form_heading", label: "Form section heading", locale: true },
+          { key: "contact_map_embed", label: "Google Maps embed URL (iframe src)", locale: false, type: "text" },
         ],
       },
     ],

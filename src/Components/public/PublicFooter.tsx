@@ -31,20 +31,20 @@ export function PublicFooter({ locale }: { locale: Locale }) {
               <div className="py-6 md:py-7 lg:py-[50px] px-10 lg:px-5 xl:px-8 2xl:px-9">
                 <img src="/images/logo/logo-s.svg" alt="Najaf Hotel" className="h-12 w-auto object-contain" />
                 <div className="py-8 2xl:py-[50px]">
-                  <h2 className="text-lg sm:text-xl md:text-[22px] leading-[38px] font-medium text-white relative font-Garamond before:w-7 before:h-[1px] before:bg-[#c19d68] before:absolute before:left-0 before:top-10">
+                  <h2 className="text-lg sm:text-xl md:text-[22px] leading-[38px] font-medium text-white relative font-Garamond before:w-7 before:h-[1px] before:bg-[#C9A24D] before:absolute before:left-0 before:top-10">
                     {contactInfoLabel}
                   </h2>
                   <div className="space-y-4 pt-[30px] pb-2 2xl:pb-[30px]">
                     <p className="flex items-center text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px] mt-2">
-                      <IoIosCall className="text-[#c19d68] w-5 h-5 mr-3 2xl:mr-4" size={14} />
+                      <IoIosCall className="text-[#C9A24D] w-5 h-5 mr-3 2xl:mr-4" size={14} />
                       +980 (1234) 567 220
                     </p>
                     <p className="flex items-center text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px]">
-                      <BiEnvelope className="text-[#c19d68] w-5 h-5 mr-3 2xl:mr-4" size={14} />
+                      <BiEnvelope className="text-[#C9A24D] w-5 h-5 mr-3 2xl:mr-4" size={14} />
                       info@najafhotel.com
                     </p>
                     <p className="flex items-center text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px]">
-                      <IoLocationSharp className="text-[#c19d68] w-5 h-5 mr-3 2xl:mr-4" size={14} />
+                      <IoLocationSharp className="text-[#C9A24D] w-5 h-5 mr-3 2xl:mr-4" size={14} />
                       Najaf, Iraq
                     </p>
                   </div>
@@ -53,21 +53,21 @@ export function PublicFooter({ locale }: { locale: Locale }) {
             </div>
 
             <div className="pt-0 pb-8 overflow-x-hidden lg:col-span-2 2xl:col-span-2 ml-2">
-              <h2 className="text-lg sm:text-xl md:text-[22px] leading-[38px] font-medium text-white relative font-Garamond before:w-7 before:h-[1px] before:bg-[#c19d68] before:absolute before:left-0 before:top-10 uppercase">
+              <h2 className="text-lg sm:text-xl md:text-[22px] leading-[38px] font-medium text-white relative font-Garamond before:w-7 before:h-[1px] before:bg-[#C9A24D] before:absolute before:left-0 before:top-10 uppercase">
                 {usefulLinksLabel}
               </h2>
               <div className="pt-[30px] pb-0 lg:py-[30px]">
                 <ul className="text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px] list-none">
-                  <li className="leading-[44px] hover:text-[#c19d68] transition-colors">
+                  <li className="leading-[44px] hover:text-[#C9A24D] transition-colors">
                     <Link href={`/${locale}/about`}>{aboutLabel}</Link>
                   </li>
-                  <li className="leading-[44px] hover:text-[#c19d68] transition-colors">
+                  <li className="leading-[44px] hover:text-[#C9A24D] transition-colors">
                     <Link href={`/${locale}/rooms`}>{roomsLabel}</Link>
                   </li>
-                  <li className="leading-[44px] hover:text-[#c19d68] transition-colors">
+                  <li className="leading-[44px] hover:text-[#C9A24D] transition-colors">
                     <Link href={`/${locale}/book`}>{reservationsLabel}</Link>
                   </li>
-                  <li className="leading-[44px] hover:text-[#c19d68] transition-colors">
+                  <li className="leading-[44px] hover:text-[#C9A24D] transition-colors">
                     <Link href={`/${locale}/contact`}>{contactLabel}</Link>
                   </li>
                 </ul>
@@ -75,7 +75,7 @@ export function PublicFooter({ locale }: { locale: Locale }) {
             </div>
 
             <div className="pt-0 pb-8 lg:col-span-3 2xl:col-span-3">
-              <h2 className="text-lg sm:text-xl md:text-[22px] leading-[38px] font-medium text-white relative font-Garamond before:w-7 before:h-[1px] before:bg-[#c19d68] before:absolute before:left-0 before:top-10 uppercase">
+              <h2 className="text-lg sm:text-xl md:text-[22px] leading-[38px] font-medium text-white relative font-Garamond before:w-7 before:h-[1px] before:bg-[#C9A24D] before:absolute before:left-0 before:top-10 uppercase">
                 {galleryLabel}
               </h2>
               <div className="grid grid-cols-3 gap-2 mt-[45px] w-[250px] sm:w-[300px] lg:w-full content-center">

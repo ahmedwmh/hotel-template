@@ -27,5 +27,23 @@
     "invalidDatesDescription": "تاريخ المغادرة يجب أن يكون بعد تاريخ الوصول. يرجى تصحيح التواريخ.",
     "errorTitle": "حدث خطأ",
     "success": "تم استلام الحجز. سنؤكد قريباً."
+  },
+  "contact": {
+    "title": "اتصل بنا",
+    "contactUs": "اتصل بنا",
+    "contactWithUs": "تواصل معنا",
+    "callUsNow": "اتصل بنا الآن",
+    "sendEmail": "أرسل بريداً",
+    "ourLocation": "موقعنا",
+    "getInTouch": "تواصل معنا",
+    "yourName": "اسمك",
+    "enterEmail": "البريد الإلكتروني",
+    "selectSubject": "اختر الموضوع",
+    "writeMessage": "اكتب رسالتك",
+    "sendMessage": "إرسال الرسالة",
+    "messageSent": "تم إرسال رسالتك. سنرد عليك قريباً.",
+    "subjectBooking": "حجز",
+    "subjectInfo": "استفسار عام",
+    "subjectOther": "أخرى"
   }
 }

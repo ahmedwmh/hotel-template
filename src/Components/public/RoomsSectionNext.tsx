@@ -45,11 +45,11 @@ export function RoomsSectionNext({
       <div className="py-20 2xl:py-[120px] w-full">
         <div className="Container" style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto", paddingLeft: "1rem", paddingRight: "1rem" }}>
           <div className="text-center sm:px-8 md:px-[80px] lg:px-[120px] xl:px-[200px] 2xl:px-[335px] mx-auto px-5">
-            <div className="flex items-center justify-center space-x-2 mb-4 lg:mb-[20px]">
-              <hr className="w-[100px] h-[1px] border-0 bg-[#c19d68]" />
+            {/* <div className="flex items-center justify-center space-x-2 mb-4 lg:mb-[20px]">
+              <hr className="w-[100px] h-[1px] border-0 bg-[#C9A24D]" />
               <img src="/images/logo/logo-s.svg" alt="" className="w-[60px] h-[70px] object-contain" />
-              <hr className="w-[100px] h-[1px] border-0 bg-[#c19d68]" />
-            </div>
+              <hr className="w-[100px] h-[1px] border-0 bg-[#C9A24D]" />
+            </div> */}
             <h1 className="text-[22px] sm:text-2xl md:text-3xl 2xl:text-[38px] leading-7 sm:leading-8 md:leading-9 lg:leading-[42px] 2xl:leading-[52px] text-white mb-[6] font-Garamond font-semibold uppercase">
               {sectionTitle}
             </h1>
@@ -75,23 +75,23 @@ export function RoomsSectionNext({
                             className="w-full h-full object-cover group-hover:scale-110 transition-all duration-300 min-h-[240px]"
                           />
                         </div>
-                        <div className="flex items-center justify-center text-[15px] leading-[38px] bg-[#1e1e1e] absolute bottom-0 -left-40 px-5 text-white group-hover:left-0 transition-all duration-300 hover:bg-[#c19d68]">
+                        <div className="flex items-center justify-center text-[15px] leading-[38px] bg-[#1e1e1e] absolute bottom-0 -left-40 px-5 text-white group-hover:left-0 transition-all duration-300 hover:bg-[#C9A24D]">
                           {viewDetailsLabel}
                           <BsArrowRight className="w-4 h-4 ml-2 text-white" />
                         </div>
                       </div>
                       <div className="font-Garamond">
-                        <div className="px-5 3xl:px-6 py-2 inline-flex bg-[#c19d68] text-sm items-center justify-center text-white font-Lora font-normal leading-[26px] absolute top-[10px] right-[10px]">
+                        <div className="px-5 3xl:px-6 py-2 inline-flex bg-[#C9A24D] text-sm items-center justify-center text-white font-Lora font-normal leading-[26px] absolute top-[10px] right-[10px]">
                           <span>{room.rate}</span>
                           <span className="mx-2">|</span>
                           <span>{nightLabel}</span>
                         </div>
                         <div className="border border-zinc-600 border-t-0 bg-zinc-800/50">
                           <div className="py-6 px-[30px]">
-                            <h4 className="text-sm leading-[26px] text-[#c19d68] uppercase font-semibold">
+                            <h4 className="text-sm leading-[26px] text-[#C9A24D] uppercase font-semibold">
                               {locale === "ar" ? "غرفة" : "Room"}
                             </h4>
-                            <h2 className="text-2xl lg:text-[28px] leading-[26px] font-semibold text-white py-4 group-hover:text-[#c19d68] transition-colors">
+                            <h2 className="text-2xl lg:text-[28px] leading-[26px] font-semibold text-white py-4 group-hover:text-[#C9A24D] transition-colors">
                               {roomDisplayName(room)}
                             </h2>
                             <p className="text-sm font-normal text-zinc-400 font-Lora">
@@ -106,7 +106,7 @@ export function RoomsSectionNext({
                                   {room.capacity} {locale === "ar" ? "سرير" : "Guests"}
                                 </span>
                               </span>
-                              <ul className="flex items-center text-[#c19d68] space-x-[5px]">
+                              <ul className="flex items-center text-[#C9A24D] space-x-[5px]">
                                 {[1, 2, 3, 4, 5].map((i) => (
                                   <li key={i}>
                                     <FaStar className="w-4 h-4" />

@@ -78,7 +78,7 @@ export function TestimonialNext({
         <div className="text-center sm:px-8 md:px-[80px] lg:px-[120px] xl:px-[200px] 2xl:px-[335px] mx-auto px-5">
           <div className="flex items-center justify-center space-x-2 mb-4 lg:mb-5">
             <hr className="w-[100px] h-[1px] text-[#473f39]" />
-            <img src="/images/logo/logo-s.svg" alt="" className="w-[50px] h-[50px]" />
+            <img src="/images/logo/logo-c.svg" alt="" className="w-[50px] h-[50px]" />
             <hr className="w-[100px] h-[1px] text-[#473f39]" />
           </div>
           <h1 className="text-xl sm:text-2xl md:text-3xl 2xl:text-[38px] leading-[42px] 2xl:leading-[52px] text-white mt-[20px] mb-[16px] font-Garamond font-semibold uppercase">
@@ -93,7 +93,7 @@ export function TestimonialNext({
             <div key={i} className="keen-slider__slide px-2">
               <div className="bg-white p-5 md:p-10 relative">
                 <img src="/images/home-1/testi-quote.png" alt="" className="absolute right-3 xl:right-10 -top-8 w-12 h-12 opacity-80" />
-                <ul className="flex items-center text-[#c19d68] space-x-1">
+                <ul className="flex items-center text-[#C9A24D] space-x-1">
                   {[1, 2, 3, 4, 5].map((j) => (
                     <li key={j}>
                       <FaStar size={16} />

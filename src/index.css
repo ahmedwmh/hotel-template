@@ -16,7 +16,7 @@
 
 /* added select highlight color */
 ::selection {
-  background-color: #c19d68;
+  background-color: #C9A24D;
   color: white;
 }
 /* container code */
@@ -90,11 +90,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 select option:checked {
-  background: -webkit-linear-gradient(bottom, #633c05 0%, #c19d68 100%);
+  background: -webkit-linear-gradient(bottom, #8B6914 0%, #C9A24D 100%);
 }
 option:checked,
 option:hover {
-  background-color: #c19d68;
+  background-color: #C9A24D;
   /* padding: 6px; */
   color: white;
 }

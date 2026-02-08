@@ -63,7 +63,7 @@ export function LatestBlogNext({
           <div className="text-center mx-auto px-5 sm:px-8 md:px-[80px] lg:px-[120px] xl:px-[200px] 2xl:px-[335px]">
             <div className="flex items-center justify-center space-x-2 mb-4">
               <hr className="w-[100px] h-[1px] text-[#3b3b3b]" />
-              <img src="/images/logo/logo-s.svg" alt="" className="w-[50px] h-[50px]" />
+              <img src="/images/logo/logo-c.svg" alt="" className="w-[50px] h-[50px]" />
               <hr className="w-[100px] h-[1px] text-[#3b3b3b]" />
             </div>
             <h1 className="text-xl sm:text-2xl md:text-3xl 2xl:text-[38px] leading-[44px] lg:leading-[52px] text-white font-Garamond font-semibold uppercase mb-[8px]">
@@ -92,7 +92,7 @@ export function LatestBlogNext({
                           </p>
                         </div>
                         <Link href={post.slug ? `/${locale}/blog/${post.slug}` : `/${locale}/about`}>
-                          <h2 className="text-xl sm:text-[22px] xl:text-2xl 2xl:text-[26px] leading-[34px] font-semibold text-white py-2 sm:py-3 md:py-4 hover:text-[#c19d68] transition-colors line-clamp-2">
+                          <h2 className="text-xl sm:text-[22px] xl:text-2xl 2xl:text-[26px] leading-[34px] font-semibold text-white py-2 sm:py-3 md:py-4 hover:text-[#C9A24D] transition-colors line-clamp-2">
                             {post.title}
                           </h2>
                         </Link>
@@ -102,10 +102,10 @@ export function LatestBlogNext({
                           href={post.slug ? `/${locale}/blog/${post.slug}` : `/${locale}/about`}
                           className="px-[30px] flex items-center justify-between group/link"
                         >
-                          <span className="text-sm sm:text-base uppercase text-white font-medium group-hover/link:text-[#c19d68]">
+                          <span className="text-sm sm:text-base uppercase text-white font-medium group-hover/link:text-[#C9A24D]">
                             {readMore}
                           </span>
-                          <BsArrowRight className="text-[#acacac] group-hover/link:text-[#c19d68]" size={24} />
+                          <BsArrowRight className="text-[#acacac] group-hover/link:text-[#C9A24D]" size={24} />
                         </Link>
                       </div>
                     </div>

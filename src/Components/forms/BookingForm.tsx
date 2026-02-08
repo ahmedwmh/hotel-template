@@ -151,7 +151,7 @@ export function BookingForm({
               alt=""
               className="absolute inset-0 w-full h-full object-cover opacity-90"
             />
-            <div className="relative z-10 px-5 py-2 bg-[#c19d68] text-white text-base font-Garamond font-medium">
+            <div className="relative z-10 px-5 py-2 bg-[#C9A24D] text-white text-base font-Garamond font-medium">
               <span>{rateForGuests(selectedRoom, guests)}</span>
               <span className="mx-2">|</span>
               <span>{locale === "ar" ? "لليلة" : "per night"}</span>
@@ -266,7 +266,7 @@ export function BookingForm({
                 const n = Number(e.target.value);
                 setValue("totalGuests", n, { shouldValidate: true });
               }}
-              className="h-12 pl-4 pr-10 text-base appearance-none cursor-pointer border border-[#e8e8e8] dark:border-zinc-600 bg-white dark:bg-zinc-800 text-[#1e1e1e] dark:text-white focus:outline-none focus:ring-2 focus:ring-[#c19d68] focus:border-[#c19d68] dark:focus:ring-[#c19d68] rounded-md font-Lora w-full"
+              className="h-12 pl-4 pr-10 text-base appearance-none cursor-pointer border border-[#e8e8e8] dark:border-zinc-600 bg-white dark:bg-zinc-800 text-[#1e1e1e] dark:text-white focus:outline-none focus:ring-2 focus:ring-[#C9A24D] focus:border-[#C9A24D] dark:focus:ring-[#C9A24D] rounded-md font-Lora w-full"
             />
             <HiChevronDown
               className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#616161] dark:text-zinc-400 pointer-events-none"
@@ -280,10 +280,10 @@ export function BookingForm({
       </div>
 
       {selectedRoom && ratePerNight && (
-        <div className="rounded-xl border-2 border-[#c19d68]/50 dark:border-amber-500/50 bg-[#f8f6f3] dark:bg-zinc-800 px-5 py-4">
+        <div className="rounded-xl border-2 border-[#C9A24D]/50 dark:border-amber-500/50 bg-[#f8f6f3] dark:bg-zinc-800 px-5 py-4">
           <p className="text-lg font-semibold text-[#1e1e1e] dark:text-zinc-100">
             {locale === "ar" ? "السعر: " : "Price: "}
-            <span className="text-[#c19d68] dark:text-amber-400">{ratePerNight}</span>
+            <span className="text-[#C9A24D] dark:text-amber-400">{ratePerNight}</span>
             <span className="text-[#616161] dark:text-zinc-400 font-normal text-base">
               {" "}
               / {locale === "ar" ? "ليلة" : "night"}
@@ -293,7 +293,7 @@ export function BookingForm({
           </p>
           {nights > 0 && totalPrice && (
             <p className="text-base font-medium text-[#1e1e1e] dark:text-zinc-200 mt-2">
-              {nights} {locale === "ar" ? (nights === 1 ? "ليلة" : "ليالي") : nights === 1 ? "night" : "nights"} = <span className="text-[#c19d68] dark:text-amber-400">{totalPrice}</span> {locale === "ar" ? "الإجمالي" : "total"}
+              {nights} {locale === "ar" ? (nights === 1 ? "ليلة" : "ليالي") : nights === 1 ? "night" : "nights"} = <span className="text-[#C9A24D] dark:text-amber-400">{totalPrice}</span> {locale === "ar" ? "الإجمالي" : "total"}
             </p>
           )}
         </div>
@@ -350,7 +350,7 @@ export function BookingForm({
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full sm:w-auto bg-[#c19d68] hover:bg-[#a88652] text-white font-Garamond font-medium uppercase px-8 py-3 h-12 border-0 focus-visible:ring-[#c19d68]"
+        className="w-full sm:w-auto bg-[#C9A24D] hover:bg-[#B8923F] text-white font-Garamond font-medium uppercase px-8 py-3 h-12 border-0 focus-visible:ring-[#C9A24D]"
       >
         {isSubmitting ? messages.loading : messages.submit}
       </Button>

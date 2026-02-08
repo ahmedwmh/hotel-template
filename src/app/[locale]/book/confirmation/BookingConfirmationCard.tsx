@@ -57,13 +57,13 @@ export function BookingConfirmationCard({
           <div className="mb-8">
             <p className="text-sm font-medium text-zinc-400 mb-2">{refLabel}</p>
             <div className="flex items-center gap-2 rounded-xl bg-zinc-800/80 border border-zinc-700/80 px-4 py-3">
-              <code className="flex-1 font-mono text-lg font-semibold text-[#c19d68] tracking-wide">
+              <code className="flex-1 font-mono text-lg font-semibold text-[#C9A24D] tracking-wide">
                 {reference}
               </code>
               <button
                 type="button"
                 onClick={copyReference}
-                className="shrink-0 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-700 hover:text-[#c19d68] transition-colors"
+                className="shrink-0 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-zinc-300 hover:bg-zinc-700 hover:text-[#C9A24D] transition-colors"
                 title={copied ? copiedLabel : copyLabel}
               >
                 <HiOutlineClipboardDocument className="w-5 h-5" />
@@ -77,7 +77,7 @@ export function BookingConfirmationCard({
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href={backHomeHref}
-            className="inline-flex items-center justify-center rounded-xl bg-[#c19d68] px-6 py-3.5 font-Garamond font-semibold text-[#1e1e1e] hover:bg-[#a88652] transition-colors"
+            className="inline-flex items-center justify-center rounded-xl bg-[#C9A24D] px-6 py-3.5 font-Garamond font-semibold text-[#1e1e1e] hover:bg-[#B8923F] transition-colors"
           >
             {backHomeLabel}
           </Link>

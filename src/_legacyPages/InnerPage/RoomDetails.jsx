@@ -36,14 +36,14 @@ const RoomDetails = () => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, i want!",
       color: "#fff",
-      background: "#c19d68",
+      background: "#C9A24D",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Congratulation!",
           text: "Booking Successful!",
           icon: "success",
-          background: "#c19d68",
+          background: "#C9A24D",
           color: "#fff",
           confirmButtonColor: "#008000",
         });

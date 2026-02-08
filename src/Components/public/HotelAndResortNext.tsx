@@ -15,15 +15,21 @@ type HotelAndResortNextProps = {
   moreAboutLabel?: string;
 };
 
+const DEFAULT_DESCRIPTION: Record<Locale, string> = {
+  en: "At Najaf International Hotel, we believe that true hospitality is not measured by service alone, but by respect, genuine care, and the sense of peace throughout the stay.",
+  ar: "في فندق النجف الدولي نؤمن بأن الضيافة الحقيقية لا تُقاس بالخدمة فقط بل بالاحترام والاهتمام والشعور بالطمأنينة طوال الإقامة.",
+};
+
 export function HotelAndResortNext({
   locale,
   title = "LUXURY BEST HOTEL IN NAJAF",
   subtitle,
-  description = "Rapidiously myocardinate cross-platform intellectual capital after marketing model. Appropriately create interactive infrastructures after maintainable. Holisticly facilitate stand-alone inframe. Compellingly create premier open data through economically.",
+  description,
   roomsCount,
   rating = "4.9",
   moreAboutLabel,
 }: HotelAndResortNextProps) {
+  const descriptionText = description?.trim() || DEFAULT_DESCRIPTION[locale];
   const displayRoomsCount = roomsCount ?? 50;
   const [sliderRef] = useKeenSlider({
     breakpoints: {
@@ -53,7 +59,7 @@ export function HotelAndResortNext({
             </div>
           </div>
           <div className="flex-1 font-Garamond mt-5 md:mt-0 md:pl-8 p-5 lg:pl-10 2xl:pl-14">
-            <h5 className="text-base text-[#c19d68] leading-[26px] font-medium">
+            <h5 className="text-base text-[#C9A24D] leading-[26px] font-medium">
               {locale === "ar" ? "فندق ومنتجع فاخر" : "LUXURY HOTEL AND RESORT"}
             </h5>
             <h1 className="text-[22px] sm:text-2xl md:text-[21px] xl:text-3xl 2xl:text-[38px] leading-6 md:leading-7 lg:leading-[30px] 2xl:leading-[44px] text-white font-semibold my-4">
@@ -61,11 +67,11 @@ export function HotelAndResortNext({
             </h1>
             {subtitle && <p className="text-sm text-[#acacac] mb-2">{subtitle}</p>}
             <p className="text-sm xl:text-base font-Lora text-[#acacac] font-normal leading-[26px]">
-              {description}
+              {descriptionText}
             </p>
             <div className="flex items-center mt-4 md:mt-3 lg:mt-4">
               <div>
-                <h2 className="text-4xl md:text-4xl lg:text-5xl xl:text-6xl 3xl:text-[70px] leading-[42px] text-[#c19d68] font-medium">
+                <h2 className="text-4xl md:text-4xl lg:text-5xl xl:text-6xl 3xl:text-[70px] leading-[42px] text-[#C9A24D] font-medium">
                   {displayRoomsCount}+
                 </h2>
                 <p className="text-sm sm:text-base leading-[26px] text-[#acacac] font-Lora pt-5 xl:pt-7">
@@ -73,7 +79,7 @@ export function HotelAndResortNext({
                 </p>
               </div>
               <div className="ml-10 xl:ml-[60px] 2xl:ml-20 3xl:ml-[100px]">
-                <h2 className="text-4xl md:text-4xl lg:text-5xl xl:text-6xl 3xl:text-[70px] leading-[42px] text-[#c19d68] font-medium">
+                <h2 className="text-4xl md:text-4xl lg:text-5xl xl:text-6xl 3xl:text-[70px] leading-[42px] text-[#C9A24D] font-medium">
                   {rating}
                 </h2>
                 <p className="text-sm sm:text-base leading-[26px] text-[#acacac] font-Lora pt-5 xl:pt-7">
@@ -85,7 +91,7 @@ export function HotelAndResortNext({
               <hr className="w-full h-[2px] bg-[#ddd]" />
             </div>
             <Link href={`/${locale}/about`}>
-              <button type="button" className="h-[40px] lg:h-[60px] w-[145px] sm:w-[155px] lg:w-[170px] bg-[#c19d68] text-white uppercase text-sm lg:text-base font-medium font-Garamond hover:bg-[#272727] transition-colors">
+              <button type="button" className="h-[40px] lg:h-[60px] w-[145px] sm:w-[155px] lg:w-[170px] bg-[#C9A24D] text-white uppercase text-sm lg:text-base font-medium font-Garamond hover:bg-[#272727] transition-colors">
                 {moreLabel}
               </button>
             </Link>

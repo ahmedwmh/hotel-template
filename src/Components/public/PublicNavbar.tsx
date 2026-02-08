@@ -39,9 +39,9 @@ export function PublicNavbar({ locale }: { locale: Locale }) {
               alt={name}
               className="hidden lg:block w-20 h-20  object-contain"
             />
-            <span className="hidden lg:block  text-lg  text-white whitespace-nowrap">
+            {/* <span className="hidden lg:block  text-lg  text-white whitespace-nowrap">
               {name}
-            </span>
+            </span> */}
           </Link>
           <div className="px-3 w-full lg:hidden flex justify-between items-center h-[70px] p-3 bg-[#1e1e1e] text-white">
             <Link href={`/${locale}`} className={`flex items-center gap-2 shrink-0 ${isRtl ? "flex-row-reverse" : ""}`} aria-label={name}>
@@ -73,7 +73,7 @@ export function PublicNavbar({ locale }: { locale: Locale }) {
               <li key={href} className="flex">
                 <Link
                   href={href}
-                  className="text-white px-3 py-2 w-full lg:w-auto block text-start hover:text-[#c19d68] transition-colors"
+                  className="text-white px-3 py-2 w-full lg:w-auto block text-start hover:text-[#C9A24D] transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {label}
@@ -89,7 +89,7 @@ export function PublicNavbar({ locale }: { locale: Locale }) {
               </Link>
               <Link
                 href={locale === "ar" ? "/en" : "/ar"}
-                className="px-2 py-2 text-white hover:text-[#c19d68] transition-colors whitespace-nowrap"
+                className="px-2 py-2 text-white hover:text-[#C9A24D] transition-colors whitespace-nowrap"
               >
                 {locale === "ar" ? "English" : "العربية"}
               </Link>

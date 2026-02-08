@@ -24,7 +24,7 @@ export function RoomDetailsSlider() {
       <button
         type="button"
         onClick={prev}
-        className="w-10 h-10 lg:w-12 lg:h-12 bg-white hover:bg-[#c19d68] grid items-center justify-center absolute bottom-[45%] left-0 lg:left-6 opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer border-0"
+        className="w-10 h-10 lg:w-12 lg:h-12 bg-white hover:bg-[#C9A24D] grid items-center justify-center absolute bottom-[45%] left-0 lg:left-6 opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer border-0"
         aria-label="Previous image"
       >
         <BsArrowLeft size={20} className="text-[#1e1e1e] hover:text-white" />
@@ -32,7 +32,7 @@ export function RoomDetailsSlider() {
       <button
         type="button"
         onClick={next}
-        className="w-10 h-10 lg:w-12 lg:h-12 bg-white hover:bg-[#c19d68] grid items-center justify-center absolute bottom-[45%] right-0 lg:right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer border-0"
+        className="w-10 h-10 lg:w-12 lg:h-12 bg-white hover:bg-[#C9A24D] grid items-center justify-center absolute bottom-[45%] right-0 lg:right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer border-0"
         aria-label="Next image"
       >
         <BsArrowRight size={20} className="text-[#1e1e1e] hover:text-white" />

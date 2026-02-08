@@ -8,12 +8,13 @@ import type { Locale } from "@/lib/i18n";
 const DEFAULT_TITLE_EN = "LUXURY BEST HOTEL IN NAJAF";
 const DEFAULT_TITLE_AR = "أفضل فندق فاخر في النجف";
 const DEFAULT_DESCRIPTION_EN =
-  "Rapidiously myocardinate cross-platform intellectual capital after model. Appropriately create interactive infrastructures after main. Holisticly facilitate stand-alone inframe.";
+  "At Najaf International Hotel, we believe that true hospitality is not measured by service alone, but by respect, genuine care, and the sense of peace throughout the stay.";
 const DEFAULT_DESCRIPTION_AR =
-  "نسعى لتقديم تجربة إقامة فاخرة وخدمة متميزة في قلب النجف. مرافق متكاملة وطاقم متخصص لراحتك.";
+  "في فندق النجف الدولي نؤمن بأن الضيافة الحقيقية لا تُقاس بالخدمة فقط بل بالاحترام والاهتمام والشعور بالطمأنينة طوال الإقامة.";
 const DEFAULT_QUOTE_EN =
-  "Model. Appropriately create interactive infrastructures after main. Holisticly facilitate stand-alone inframe of the world.";
-const DEFAULT_QUOTE_AR = "نلتزم بمعايير عالمية في الضيافة والراحة لضمان إقامة لا تُنسى لضيوفنا.";
+  "At Najaf International Hotel, we believe that true hospitality is not measured by service alone, but by respect, genuine care, and the sense of peace throughout the stay.";
+const DEFAULT_QUOTE_AR =
+  "في فندق النجف الدولي نؤمن بأن الضيافة الحقيقية لا تُقاس بالخدمة فقط بل بالاحترام والاهتمام والشعور بالطمأنينة طوال الإقامة.";
 const DEFAULT_MANAGER_NAME_EN = "John D. Alexon";
 const DEFAULT_MANAGER_NAME_AR = "جون د. أليكسون";
 const DEFAULT_MANAGER_ROLE_EN = "Manager";
@@ -82,7 +83,7 @@ export function ActionNext({
           <div
             className={`bg-[#f8f6f3] space-y-[14px] flex-1 font-Garamond px-5 sm:px-7 md:px-9 lg:pl-[70px] lg:pr-[70px] py-10 md:py-[96px] text-start ${isRtl ? "lg:order-2" : ""}`}
           >
-            <h5 className="text-base text-[#c19d68] leading-[26px] font-semibold">
+            <h5 className="text-base text-[#C9A24D] leading-[26px] font-semibold">
               {managerLabel}
             </h5>
             <h1 className="text-[22px] sm:text-2xl md:text-[28px] xl:text-[32px] 2xl:text-[38px] leading-[38px] lg:leading-[44px] text-[#1e1e1e] font-semibold">
@@ -107,7 +108,7 @@ export function ActionNext({
                   {nameText}
                 </h4>
                 <p className="pt-1 text-base leading-[26px] font-normal text-[#616161] font-Lora flex items-center gap-2">
-                  <span className="w-5 h-[1px] shrink-0 bg-[#c19d68]" />
+                  <span className="w-5 h-[1px] shrink-0 bg-[#C9A24D]" />
                   {roleText}
                 </p>
               </div>
@@ -123,7 +124,7 @@ export function ActionNext({
             />
             <button
               type="button"
-              className="w-[70px] h-[70px] text-white absolute top-1/2 md:top-[50%] lg:top-1/2 left-[50%] -translate-x-1/2 -translate-y-1/2 bg-[#c19d68] rounded-full flex items-center justify-center cursor-pointer z-[1] hover:bg-[#272727] transition-colors"
+              className="w-[70px] h-[70px] text-white absolute top-1/2 md:top-[50%] lg:top-1/2 left-[50%] -translate-x-1/2 -translate-y-1/2 bg-[#C9A24D] rounded-full flex items-center justify-center cursor-pointer z-[1] hover:bg-[#272727] transition-colors"
               onClick={() => setToggler(!toggler)}
               aria-label={isRtl ? "تشغيل الفيديو" : "Play video"}
             >

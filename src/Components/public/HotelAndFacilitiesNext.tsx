@@ -3,12 +3,11 @@
 import type { Locale } from "@/lib/i18n";
 
 const FACILITIES = [
-  { icon: "/images/home-1/feature-1.png", labelEn: "Room Services", labelAr: "خدمة الغرف" },
+  { icon: "/images/home-1/feature-1.png", labelEn: "Hotel Restaurant", labelAr: "مطعم الفندق" },
   { icon: "/images/home-1/feature-2.png", labelEn: "Wi-Fi Internet", labelAr: "واي فاي" },
   { icon: "/images/home-1/feature-3.png", labelEn: "Smart Key", labelAr: "مفتاح ذكي" },
   { icon: "/images/home-1/feature-4.png", labelEn: "Breakfast", labelAr: "إفطار" },
-  { icon: "/images/home-1/feature-5.png", labelEn: "Swimming Pool", labelAr: "مسبح" },
-  { icon: "/images/home-1/feature-1.png", labelEn: "Room Service", labelAr: "خدمة الغرف" },
+  { icon: "/images/home-1/feature-4.png", labelEn: "Elegant Coffee Shop", labelAr: "كوفي شوب أنيق" },
 ];
 
 type HotelAndFacilitiesNextProps = {
@@ -43,11 +42,11 @@ export function HotelAndFacilitiesNext({
               {sub}
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-6 3xl:grid-cols-6 gap-4 xl:gap-[26px] pt-[60px] pb-[110px] px-8 lg:px-10 xl:px-28 2xl:px-0 justify-items-center">
+          <div className="flex flex-wrap justify-center gap-4 xl:gap-[26px] pt-[60px] pb-[110px] px-8 lg:px-10 xl:px-28 2xl:px-0">
             {FACILITIES.map((f, i) => (
               <div
                 key={i}
-                className="h-[200px] w-[191px] pt-[37px] pb-[27px] border border-[#343434] text-center transition-all duration-500 hover:border-[#c19d68] group"
+                className="h-[200px] w-[191px] pt-[37px] pb-[27px] border border-[#343434] text-center transition-all duration-500 hover:border-[#C9A24D] group"
               >
                 <img src={f.icon} alt="" className="mx-auto" />
                 <h4 className="text-[22px] leading-[52px] font-Garamond text-white font-medium mt-[45px]">
