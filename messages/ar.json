@@ -1,0 +1,31 @@
+{
+  "common": {
+    "submit": "إرسال",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "loading": "جاري التحميل..."
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "invalidCredentials": "البريد أو كلمة المرور غير صحيحة."
+  },
+  "booking": {
+    "guestName": "الاسم الكامل",
+    "guestEmail": "البريد الإلكتروني",
+    "guestPhone": "الهاتف",
+    "checkIn": "تاريخ الوصول",
+    "checkOut": "تاريخ المغادرة",
+    "room": "الغرفة",
+    "totalGuests": "عدد الضيوف",
+    "roomUnavailable": "الغرفة غير متاحة لهذه التواريخ.",
+    "unavailableTitle": "التواريخ غير متاحة",
+    "unavailableDescription": "الغرفة محجوزة لبعض أو كل هذه الليالي. يرجى اختيار تواريخ أخرى.",
+    "invalidDatesTitle": "التواريخ غير صحيحة",
+    "invalidDatesDescription": "تاريخ المغادرة يجب أن يكون بعد تاريخ الوصول. يرجى تصحيح التواريخ.",
+    "errorTitle": "حدث خطأ",
+    "success": "تم استلام الحجز. سنؤكد قريباً."
+  }
+}

@@ -47,12 +47,12 @@ const Navbar4 = () => {
           <div className=" w-48 lg:w-52 lg:p-4 hidden lg:block">
             <Link to="/">
               <img
-                src="/images/home-4/logo.png"
+                src="/images/logo/logo-s.svg"
                 className="dark:hidden"
                 alt="website_logo"
               />
               <img
-                src="/images/home-4/logo-2.png"
+                src="/images/logo/logo-s.svg"
                 className=" hidden dark:block"
                 alt="website_logo"
               />
@@ -64,12 +64,12 @@ const Navbar4 = () => {
             <div className=" w-28  ">
               <Link to="/">
                 <img
-                  src="/images/home-4/logo.png"
+                  src="/images/logo/logo-s.svg"
                   className="dark:hidden"
                   alt="website_logo"
                 />
                 <img
-                  src="/images/home-4/logo-2.png"
+                  src="/images/logo/logo-s.svg"
                   className=" hidden dark:block"
                   alt="website_logo"
                 />

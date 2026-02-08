@@ -34,7 +34,7 @@ const LatestBlog = () => {
             <div className="flex items-center justify-center space-x-2 mb-4  ">
               <hr className="w-[100px] h-[1px] text-[#dedbd4] dark:text-[#3b3b3b] " />
               <img
-                src="/images/home-1/section-shape1.png"
+                src="/images/logo/logo-s.svg"
                 alt="room_section_logo"
                 className="w-[50px] h-[50px]"
               />

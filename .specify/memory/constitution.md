@@ -1,50 +1,39 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Najaf Hotel Constitution
+<!-- Sync: Filled from template for dynamic hotel management (Next.js). Amended v1.1.0: Prisma + Supabase; DATABASE_URL, DIRECT_URL required. -->
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Next.js-First
+The application MUST be built with Next.js. Prefer the App Router; use Server Components by default. All persisted data mutations (bookings, rooms, availability) MUST go through API routes or Server Actions—no client-only persistence. Static or dynamic rendering choices must be explicit and justified by the feature.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Data Model (Single Source of Truth)
+Core entities are non-negotiable: **Rooms** (type, capacity, rate, availability), **Bookings** (guest info, check-in/out dates, room, status), and **Guests** (or equivalent identifier). Room availability and inventory MUST be derived from stored data (bookings + room definitions), not hardcoded in the UI or config. Schema changes require a documented migration (Prisma migrations for Supabase).
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. API & Contracts
+All create/update/delete operations for rooms and bookings MUST use defined API routes or Server Actions with a clear request/response contract. Client state MUST NOT be the source of truth for availability or pricing. Contract changes require spec/plan alignment and backward compatibility or a documented migration.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Authentication (Minimum Viable)
+Admin or staff management areas MUST be protected. At least one minimal auth mechanism (e.g., credential-based or NextAuth) is required for any action that modifies rooms, rates, or bookings. Public-facing pages (browse rooms, submit booking request) may remain unauthenticated as specified per feature.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Simplicity (YAGNI)
+No feature or dependency without a stated requirement in a spec or constitution. Prefer server-side rendering and server state; avoid unnecessary client-side complexity. Complexity must be justified in the implementation plan.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Technology & Stack Constraints
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- **Framework**: Next.js (current LTS); Node 18+.
+- **Database**: Supabase (PostgreSQL). All access MUST go through Prisma; the Prisma schema is the single source of truth for the data model. Schema changes MUST use Prisma migrations.
+- **Connection**: Supabase connection MUST use the standard Prisma env vars: **`DATABASE_URL`** (pooled connection for the app) and **`DIRECT_URL`** (direct connection for migrations and introspection). Both MUST be documented in `.env.example` and never committed.
+- **UI**: No hardcoded room inventory or availability in components; data MUST come from the backend/API (via Prisma).
+- **Deployment**: Build and start scripts MUST succeed; environment and secrets (DATABASE_URL, DIRECT_URL, auth) documented in project docs or `.env.example`.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Development Workflow & Quality Gates
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+- All pull requests MUST pass lint and the Constitution Check defined in the implementation plan template.
+- Schema or contract changes require a migration plan or versioning note in the spec.
+- New features MUST reference a feature spec and plan that align with this constitution.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes ad-hoc technical decisions. All PRs and reviews MUST verify compliance with the principles above. Amendments require documentation, approval, and an impact note (e.g., Sync Impact Report) and MUST be reflected in dependent templates (e.g., plan-template Constitution Check). Use the project spec and implementation plan for per-feature guidance.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.1.0 | **Ratified**: 2025-02-05 | **Last Amended**: 2025-02-05

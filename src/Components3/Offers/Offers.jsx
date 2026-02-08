@@ -33,7 +33,7 @@ const Offers = () => {
               className="absolute w-full h-full mix-blend-overlay group-hover:mix-blend-normal object-cover transition-all duration-500"
             />
             <img
-              src="/images/home-3/logo.png"
+              src="/images/logo/logo-s.svg"
               alt="logo"
               className="absolute top-10 left-10"
             />
@@ -71,7 +71,7 @@ const Offers = () => {
               className="absolute w-full h-full mix-blend-overlay group-hover:mix-blend-normal object-cover transition-all duration-500"
             />
             <img
-              src="/images/home-3/logo.png"
+              src="/images/logo/logo-s.svg"
               alt="logo"
               className="absolute top-10 left-10"
             />
@@ -109,7 +109,7 @@ const Offers = () => {
               className="absolute w-full h-full mix-blend-overlay group-hover:mix-blend-normal object-cover transition-all duration-500"
             />
             <img
-              src="/images/home-3/logo.png"
+              src="/images/logo/logo-s.svg"
               alt="logo"
               className="absolute top-10 left-10"
             />

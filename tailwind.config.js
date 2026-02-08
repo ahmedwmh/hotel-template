@@ -34,6 +34,15 @@ export default {
       boxShadow: {
         custom: "0px 5px 15px rgba(204, 204, 204, 0.25)",
       },
+      keyframes: {
+        "loading-shimmer": {
+          "0%, 100%": { transform: "translateX(-100%)" },
+          "50%": { transform: "translateX(200%)" },
+        },
+      },
+      animation: {
+        "loading-shimmer": "loading-shimmer 1.2s ease-in-out infinite",
+      },
     },
   },
   plugins: [require("flowbite/plugin")],

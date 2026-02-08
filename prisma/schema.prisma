@@ -1,0 +1,109 @@
+// Prisma schema for Najaf Hotel — Supabase (PostgreSQL)
+// Connection: DATABASE_URL (pooled), DIRECT_URL (migrations)
+// See: specs/001-hotel-booking-admin/data-model.md
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Room {
+  id             String     @id @default(cuid())
+  name           String     // fallback / slug base
+  slug           String     @unique
+  capacity       Int
+  quantity       Int        @default(1) // number of physical units of this room type in the hotel
+  rate           Decimal?   @db.Decimal(10, 2) // fallback when no RoomRate for guest count
+  isActive       Boolean    @default(true)
+  nameEn         String?    // display name English
+  nameAr         String?    // display name Arabic
+  descriptionEn  String?   @db.Text
+  descriptionAr  String?   @db.Text
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  bookings       Booking[]
+  rates          RoomRate[]
+
+  @@index([isActive])
+  @@index([isActive, name])
+}
+
+model RoomRate {
+  id         String   @id @default(cuid())
+  roomId     String
+  guestCount Int      // 1, 2, 3, ... (number of guests)
+  rate       Decimal  @db.Decimal(10, 2)
+  room       Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, guestCount])
+  @@index([roomId])
+}
+
+model Guest {
+  id        String    @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  createdAt DateTime  @default(now())
+  bookings  Booking[]
+
+  @@index([email])
+  @@index([name])
+}
+
+model Booking {
+  id             String       @id @default(cuid())
+  guestId        String
+  roomId         String
+  checkIn        DateTime
+  checkOut       DateTime
+  totalGuests    Int          @default(1) // number of guests at booking time
+  rate           Decimal     @db.Decimal(10, 2) @default(0) // per-night rate at booking time
+  status         BookingStatus @default(PENDING)
+  reference      String?      @unique
+  contactedAt    DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  guest          Guest        @relation(fields: [guestId], references: [id], onDelete: Cascade)
+  room           Room         @relation(fields: [roomId], references: [id], onDelete: Restrict)
+
+  @@index([roomId, status, checkIn, checkOut])
+  @@index([status])
+  @@index([guestId])
+  @@index([checkIn])
+  @@index([createdAt])
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  CHECKED_IN
+  CHECKED_OUT
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String
+  value     String   @db.Text
+  locale    String?  // "ar" | "en" | null for shared
+  updatedAt DateTime @updatedAt
+
+  @@unique([key, locale])
+  @@index([key])
+  @@index([key, locale])
+}

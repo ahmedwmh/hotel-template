@@ -12,7 +12,7 @@ const HotelAndFacilities = () => {
             <div className="flex items-center justify-center space-x-2 mb-4 lg:mb-5">
               <hr className="w-[100px] h-[1px] bg-[#3b3b3b] text-[#3b3b3b] " />
               <img
-                src="/images/home-1/section-shape1.png"
+                src="/images/logo/logo-s.svg"
                 alt="room_section_logo"
                 className="w-[50px] h-[50px]"
               />

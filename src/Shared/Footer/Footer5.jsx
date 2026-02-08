@@ -14,7 +14,7 @@ const Footer5 = () => {
           data-aos="fade-up"
           data-aos-duration="1000"
         >
-          <img src="/images/home-2/dark_footer_logo.png" className="" alt="" />
+          <img src="/images/logo/logo-s.svg" className="" alt="" />
           <p className="text-sm sm:text-base leading-[26px] font-Lora font-normal text-lightGray text-opacity-75 mt-6 lg:mt-[35px]">
             Maecenas posuere neque et volutpat accumsan. Aliquam hendrerit
             tincidunt diam eu imperdiet. Etiam dictum suscipit tempus Vestibulum

@@ -1,0 +1,31 @@
+{
+  "common": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "loading": "Loading..."
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Log out",
+    "email": "Email",
+    "password": "Password",
+    "invalidCredentials": "Invalid email or password."
+  },
+  "booking": {
+    "guestName": "Full name",
+    "guestEmail": "Email",
+    "guestPhone": "Phone",
+    "checkIn": "Check-in",
+    "checkOut": "Check-out",
+    "room": "Room",
+    "totalGuests": "Total guests",
+    "roomUnavailable": "Room not available for these dates.",
+    "unavailableTitle": "These dates are not available",
+    "unavailableDescription": "The room is already booked for some or all of these nights. Please choose different dates.",
+    "invalidDatesTitle": "Invalid dates",
+    "invalidDatesDescription": "Check-out must be after check-in. Please correct your dates.",
+    "errorTitle": "Something went wrong",
+    "success": "Booking received. We will confirm shortly."
+  }
+}

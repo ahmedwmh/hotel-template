@@ -39,7 +39,7 @@ const Testimonial = () => {
           <div className="flex items-center justify-center space-x-2 mb-4 lg:mb-5">
             <hr className="w-[100px] h-[1px]  text-[#473f39] " />
             <img
-              src="/images/home-1/section-shape1.png"
+              src="/images/logo/logo-s.svg"
               alt="room_section_logo"
               className="w-[50px] h-[50px]"
             />

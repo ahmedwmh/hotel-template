@@ -108,7 +108,7 @@ const Navbar5 = () => {
             <div className=" w-48 lg:w-52   lg:p-4 hidden lg:block">
               <Link to="/">
                 <img
-                  src="/images/home-5/logo.png"
+                  src="/images/logo/logo-s.svg"
                   className=""
                   alt="website_logo"
                 />
@@ -120,7 +120,7 @@ const Navbar5 = () => {
               <div className=" w-28  ">
                 <Link to="/">
                   <img
-                    src="/images/home-5/logo.png"
+                    src="/images/logo/logo-s.svg"
                     className=""
                     alt="website_logo"
                   />

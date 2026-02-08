@@ -1,0 +1,53 @@
+/* Dark theme for FullCalendar (zinc/amber admin style) - variables inherited by .fc */
+.availability-calendar-dark {
+  --fc-small-font-size: 0.85em;
+  --fc-page-bg-color: rgb(39 39 42);
+  --fc-neutral-bg-color: rgb(63 63 70 / 0.4);
+  --fc-neutral-text-color: rgb(161 161 170);
+  --fc-border-color: rgb(63 63 70);
+  --fc-button-text-color: rgb(228 228 231);
+  --fc-button-bg-color: rgb(63 63 70);
+  --fc-button-border-color: rgb(63 63 70);
+  --fc-button-hover-bg-color: rgb(82 82 91);
+  --fc-button-hover-border-color: rgb(82 82 91);
+  --fc-button-active-bg-color: rgb(217 119 6);
+  --fc-button-active-border-color: rgb(217 119 6);
+  --fc-event-bg-color: rgb(55 136 216);
+  --fc-event-border-color: rgb(55 136 216);
+  --fc-event-text-color: #fff;
+  --fc-event-selected-overlay-color: rgb(0 0 0 / 0.25);
+  --fc-more-link-bg-color: rgb(63 63 70);
+  --fc-more-link-text-color: rgb(228 228 231);
+  --fc-non-business-color: rgb(63 63 70 / 0.3);
+  --fc-bg-event-color: rgb(34 197 94);
+  --fc-bg-event-opacity: 0.2;
+  --fc-highlight-color: rgb(217 119 6 / 0.15);
+  --fc-today-bg-color: rgb(217 119 6 / 0.12);
+  --fc-now-indicator-color: rgb(239 68 68);
+}
+
+.availability-calendar-dark .fc {
+  background-color: rgb(39 39 42);
+  color: rgb(228 228 231);
+}
+
+.availability-calendar-dark .fc-toolbar-title {
+  color: rgb(228 228 231);
+}
+
+.availability-calendar-dark .fc-col-header-cell-cushion,
+.availability-calendar-dark .fc-daygrid-day-number {
+  color: rgb(228 228 231);
+}
+
+.availability-calendar-dark .fc-daygrid-day.fc-day-other .fc-daygrid-day-number {
+  color: rgb(113 113 122);
+}
+
+.availability-calendar-dark .fc-event {
+  border-radius: 4px;
+}
+
+.availability-calendar-dark .fc-daygrid-day-frame {
+  min-height: 100px;
+}

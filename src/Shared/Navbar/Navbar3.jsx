@@ -47,7 +47,7 @@ const Navbar3 = () => {
           <div className=" w-48 lg:w-52 lg:p-4 ">
             <Link to="/">
               <img
-                src="/images/home-3/logo.png"
+                src="/images/logo/logo-s.svg"
                 className="hidden lg:block w-full h-full"
                 alt="website_logo"
               />
@@ -59,7 +59,7 @@ const Navbar3 = () => {
             <div className=" w-28  ">
               <Link to="/">
                 <img
-                  src="/images/home-2/logo.png"
+                  src="/images/logo/logo-s.svg"
                   className="block lg:hidden "
                   alt="Royella_website_logo"
                 />

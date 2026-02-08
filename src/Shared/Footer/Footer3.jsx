@@ -13,7 +13,7 @@ const Footer3 = () => {
     <footer className="bg-lightBlack ">
       <div className="Container">
         <div className="grid items-center justify-center py-20 2xl:py-[110px]">
-          <img src="/images/home-3/logo.png" className="mx-auto" />
+          <img src="/images/logo/logo-s.svg" className="mx-auto" />
           {/* footer contact */}
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-center gap-x-[30px] 2xl:gap-x-[40px] gap-y-4">
             <div

@@ -12,12 +12,12 @@ const Footer2 = () => {
             data-aos-duration="1000"
           >
             <img
-              src="/images/home-2/footer-logo.png"
+              src="/images/logo/logo-s.svg"
               className="dark:hidden"
               alt=""
             />
             <img
-              src="/images/home-2/dark_footer_logo.png"
+              src="/images/logo/logo-s.svg"
               className="hidden dark:block"
               alt=""
             />

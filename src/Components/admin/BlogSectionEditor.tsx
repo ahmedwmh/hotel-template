@@ -1,0 +1,246 @@
+"use client";
+
+import { useState } from "react";
+import { setSiteSetting } from "@/lib/actions/site-content";
+import {
+  parseBlogPosts,
+  stringifyBlogPosts,
+  type BlogPostItem,
+} from "@/lib/blog-posts";
+import { ImageUploadField } from "@/Components/admin/ImageUploadField";
+
+const LOCALES = [
+  { id: "en", label: "English" },
+  { id: "ar", label: "Arabic" },
+] as const;
+
+const inputClass =
+  "h-10 w-full rounded-lg border border-zinc-600 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500";
+
+type Props = { initialValues: Record<string, string> };
+
+export function BlogSectionEditor({ initialValues }: Props) {
+  const [title, setTitle] = useState<Record<string, string>>({
+    en: initialValues["blog_title:en"] ?? "",
+    ar: initialValues["blog_title:ar"] ?? "",
+  });
+  const [subtitle, setSubtitle] = useState<Record<string, string>>({
+    en: initialValues["blog_subtitle:en"] ?? "",
+    ar: initialValues["blog_subtitle:ar"] ?? "",
+  });
+  const [postsByLocale, setPostsByLocale] = useState<Record<string, BlogPostItem[]>>({
+    en: parseBlogPosts(initialValues["blog_posts:en"]),
+    ar: parseBlogPosts(initialValues["blog_posts:ar"]),
+  });
+  const [activeLocale, setActiveLocale] = useState<"en" | "ar">("en");
+  const [saving, setSaving] = useState<string | null>(null);
+  const [message, setMessage] = useState<{ type: "ok" | "err"; text: string } | null>(null);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [adding, setAdding] = useState(false);
+  const [form, setForm] = useState<BlogPostItem>({
+    id: "",
+    title: "",
+    date: "",
+    category: "",
+    image: "",
+    slug: "",
+  });
+
+  const posts = postsByLocale[activeLocale] ?? [];
+
+  async function saveKey(key: string, value: string, locale: string) {
+    setSaving(`${key}:${locale}`);
+    setMessage(null);
+    const res = await setSiteSetting(key, value, locale);
+    if (res.success) {
+      setMessage({ type: "ok", text: "Saved." });
+      setTimeout(() => setMessage(null), 2000);
+    } else {
+      setMessage({ type: "err", text: res.error ?? "Save failed." });
+    }
+    setSaving(null);
+  }
+
+  function handleSaveList(newPosts: BlogPostItem[]) {
+    setPostsByLocale((prev) => ({ ...prev, [activeLocale]: newPosts }));
+    saveKey("blog_posts", stringifyBlogPosts(newPosts), activeLocale);
+  }
+
+  function handleEdit(index: number) {
+    setEditingIndex(index);
+    setAdding(false);
+    setForm({ ...posts[index], slug: posts[index].slug ?? "" });
+  }
+
+  function handleAdd() {
+    setAdding(true);
+    setEditingIndex(null);
+    setForm({
+      id: String(Date.now()),
+      title: "",
+      date: "",
+      category: "",
+      image: "",
+      slug: "",
+    });
+  }
+
+  function handleSaveEdit() {
+    if (adding) {
+      handleSaveList([...posts, form]);
+      setAdding(false);
+    } else if (editingIndex !== null) {
+      const next = [...posts];
+      next[editingIndex] = form;
+      handleSaveList(next);
+      setEditingIndex(null);
+    }
+  }
+
+  function handleDelete(index: number) {
+    if (!confirm("Remove this post?")) return;
+    handleSaveList(posts.filter((_, i) => i !== index));
+    setEditingIndex(null);
+    setAdding(false);
+  }
+
+  const showForm = adding || editingIndex !== null;
+
+  return (
+    <div className="space-y-8">
+      {message && (
+        <div
+          className={`rounded-lg px-4 py-2 text-sm ${
+            message.type === "ok" ? "bg-emerald-900/30 text-emerald-300" : "bg-red-900/30 text-red-300"
+          }`}
+        >
+          {message.text}
+        </div>
+      )}
+
+      <div className="rounded-xl border border-zinc-700/80 bg-zinc-800/80 p-6">
+        <h2 className="text-lg font-medium text-zinc-200">Section title & subtitle</h2>
+        <div className="mt-4 space-y-4">
+          {LOCALES.map((loc) => (
+            <div key={loc.id}>
+              <label className="text-xs font-medium uppercase text-zinc-500">{loc.label}</label>
+              <div className="mt-2 space-y-2">
+                <input
+                  type="text"
+                  value={title[loc.id]}
+                  onChange={(e) => setTitle((p) => ({ ...p, [loc.id]: e.target.value }))}
+                  placeholder="Title"
+                  className={inputClass}
+                />
+                <input
+                  type="text"
+                  value={subtitle[loc.id]}
+                  onChange={(e) => setSubtitle((p) => ({ ...p, [loc.id]: e.target.value }))}
+                  placeholder="Subtitle"
+                  className={inputClass}
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    saveKey("blog_title", title[loc.id], loc.id);
+                    saveKey("blog_subtitle", subtitle[loc.id], loc.id);
+                  }}
+                  disabled={saving !== null}
+                  className="rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-500 disabled:opacity-50"
+                >
+                  Save {loc.label}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-zinc-700/80 bg-zinc-800/80 p-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h2 className="text-lg font-medium text-zinc-200">Blog posts</h2>
+          <div className="flex gap-2">
+            {LOCALES.map((loc) => (
+              <button
+                key={loc.id}
+                type="button"
+                onClick={() => setActiveLocale(loc.id)}
+                className={`rounded-lg px-3 py-1.5 text-sm font-medium ${
+                  activeLocale === loc.id ? "bg-amber-600 text-white" : "bg-zinc-700 text-zinc-300 hover:bg-zinc-600"
+                }`}
+              >
+                {loc.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post, index) => (
+            <div key={post.id} className="overflow-hidden rounded-lg border border-zinc-600 bg-zinc-900">
+              <div
+                className="aspect-video w-full bg-zinc-800 bg-cover bg-center"
+                style={{ backgroundImage: post.image ? `url(${post.image})` : undefined }}
+              >
+                {!post.image && <div className="flex h-full items-center justify-center text-zinc-500 text-sm">No image</div>}
+              </div>
+              <div className="p-3">
+                <p className="truncate font-medium text-zinc-200">{post.title}</p>
+                <p className="text-xs text-zinc-500">{post.date} · {post.category}</p>
+                <div className="mt-2 flex gap-2">
+                  <button type="button" onClick={() => handleEdit(index)} className="rounded bg-zinc-600 px-2 py-1 text-xs text-zinc-200 hover:bg-zinc-500">Edit</button>
+                  <button type="button" onClick={() => handleDelete(index)} className="rounded bg-red-900/50 px-2 py-1 text-xs text-red-300 hover:bg-red-900/70">Delete</button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={handleAdd}
+          className="mt-4 flex items-center gap-2 rounded-lg border border-dashed border-zinc-600 bg-zinc-800/50 px-4 py-3 text-sm font-medium text-zinc-300 hover:border-amber-500 hover:bg-zinc-800 hover:text-amber-400"
+        >
+          <span className="text-lg">+</span> Add post
+        </button>
+
+        {showForm && (
+          <div className="mt-6 rounded-lg border border-amber-600/40 bg-zinc-900/80 p-6">
+            <h3 className="text-base font-medium text-zinc-200">{adding ? "New post" : "Edit post"}</h3>
+            <div className="mt-4 grid gap-4 sm:grid-cols-2">
+              <div>
+                <label className="text-xs font-medium uppercase text-zinc-500">Title</label>
+                <input type="text" value={form.title} onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))} className={inputClass} />
+              </div>
+              <div>
+                <label className="text-xs font-medium uppercase text-zinc-500">Date</label>
+                <input type="text" value={form.date} onChange={(e) => setForm((p) => ({ ...p, date: e.target.value }))} placeholder="August 10, 2023" className={inputClass} />
+              </div>
+              <div>
+                <label className="text-xs font-medium uppercase text-zinc-500">Category</label>
+                <input type="text" value={form.category} onChange={(e) => setForm((p) => ({ ...p, category: e.target.value }))} className={inputClass} />
+              </div>
+              <div>
+                <label className="text-xs font-medium uppercase text-zinc-500">Slug (optional)</label>
+                <input type="text" value={form.slug} onChange={(e) => setForm((p) => ({ ...p, slug: e.target.value }))} className={inputClass} />
+              </div>
+              <div className="sm:col-span-2">
+                <ImageUploadField
+                  value={form.image}
+                  onChange={(url) => setForm((p) => ({ ...p, image: url }))}
+                  label="Image URL or upload"
+                  folder="blog"
+                  onError={(text) => setMessage({ type: "err", text })}
+                />
+              </div>
+            </div>
+            <div className="mt-4 flex gap-2">
+              <button type="button" onClick={handleSaveEdit} className="rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-500">{adding ? "Add" : "Save"}</button>
+              <button type="button" onClick={() => { setAdding(false); setEditingIndex(null); }} className="rounded-lg border border-zinc-600 px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-700">Cancel</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

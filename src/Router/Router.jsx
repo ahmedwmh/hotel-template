@@ -2,32 +2,32 @@ import { createBrowserRouter } from "react-router-dom";
 
 // Home And Main Home1
 import Main from "../Main/Main";
-import Home1 from "../Pages/Home1/Home1";
+import Home1 from "../_legacyPages/Home1/Home1";
 // Home And Main Home2
 import Main2 from "../Main/Main2";
-import Home2 from "../Pages/Home2/Home2";
+import Home2 from "../_legacyPages/Home2/Home2";
 // Home And Main Home3
 import Main3 from "../Main/Main3";
-import Home3 from "../Pages/Home3/Home3";
+import Home3 from "../_legacyPages/Home3/Home3";
 // Home And Main Home4
 import Main4 from "../Main/Main4";
-import Home4 from "../Pages/Home4/Home4";
+import Home4 from "../_legacyPages/Home4/Home4";
 // Home And Main Home-5
-import Home5 from "../Pages/Home5/Home5";
+import Home5 from "../_legacyPages/Home5/Home5";
 import Main5 from "../Main/Main5";
 
 // All InnerPage
-import About from "../Pages/InnerPage/About";
-import Room from "../Pages/InnerPage/Room";
-import FindRoom from "../Pages/InnerPage/FindRoom";
-import RoomDetails from "../Pages/InnerPage/RoomDetails";
-import Services from "../Pages/InnerPage/Services";
-import ServiceDetails from "../Pages/InnerPage/ServiceDetails";
-import Team from "../Pages/InnerPage/Team";
-import Pricing from "../Pages/InnerPage/Pricing";
-import Blog from "../Pages/InnerPage/Blog";
-import BlogDetails from "../Pages/InnerPage/BlogDetails";
-import Contact from "../Pages/InnerPage/Contact";
+import About from "../_legacyPages/InnerPage/About";
+import Room from "../_legacyPages/InnerPage/Room";
+import FindRoom from "../_legacyPages/InnerPage/FindRoom";
+import RoomDetails from "../_legacyPages/InnerPage/RoomDetails";
+import Services from "../_legacyPages/InnerPage/Services";
+import ServiceDetails from "../_legacyPages/InnerPage/ServiceDetails";
+import Team from "../_legacyPages/InnerPage/Team";
+import Pricing from "../_legacyPages/InnerPage/Pricing";
+import Blog from "../_legacyPages/InnerPage/Blog";
+import BlogDetails from "../_legacyPages/InnerPage/BlogDetails";
+import Contact from "../_legacyPages/InnerPage/Contact";
 import ErrorPage from "../Shared/ErrorPage/ErrorPage";
 
 // Starting React Router.

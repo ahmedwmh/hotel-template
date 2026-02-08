@@ -47,7 +47,7 @@ const Navbar = () => {
           <div className=" w-48 lg:w-52 lg:p-4 ">
             <Link to="/">
               <img
-                src="/images/home-3/logo.png"
+                src="/images/logo/logo-s.svg"
                 className="hidden lg:block w-full"
                 alt="website_logo"
               />

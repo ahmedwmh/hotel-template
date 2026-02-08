@@ -14,7 +14,7 @@ const Footer4 = () => {
             data-aos-duration="1000"
           >
             <img
-              src="/images/home-2/dark_footer_logo.png"
+              src="/images/logo/logo-s.svg"
               className=""
               alt=""
             />
