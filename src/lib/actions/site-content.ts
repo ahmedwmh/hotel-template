@@ -3,7 +3,6 @@
 import type { GetSiteSettingResult, SetSiteSettingResult } from "@/lib/content-keys";
 import { getAllContentKeys } from "@/lib/content-structure";
 import { prisma } from "@/lib/prisma";
-import type { Prisma } from "@prisma/client";
 
 const CONTENT_KEY_SET = new Set(getAllContentKeys());
 
@@ -12,10 +11,15 @@ export async function getSiteSetting(
   locale?: string | null
 ): Promise<GetSiteSettingResult> {
   try {
+    const loc = locale ?? null;
+    if (loc === null) {
+      const setting = await prisma.siteSetting.findFirst({
+        where: { key, locale: null },
+      });
+      return { success: true, value: setting?.value ?? null };
+    }
     const setting = await prisma.siteSetting.findUnique({
-      where: {
-        key_locale: { key, locale: locale ?? null },
-      } as Prisma.SiteSettingWhereUniqueInput,
+      where: { key_locale: { key, locale: loc } },
     });
     return { success: true, value: setting?.value ?? null };
   } catch (e) {
@@ -47,11 +51,21 @@ export async function setSiteSetting(
   }
 
   try {
+    const loc = locale ?? null;
+    if (loc === null) {
+      const existing = await prisma.siteSetting.findFirst({
+        where: { key, locale: null },
+      });
+      if (existing) {
+        await prisma.siteSetting.update({ where: { id: existing.id }, data: { value } });
+      } else {
+        await prisma.siteSetting.create({ data: { key, value, locale: null } });
+      }
+      return { success: true };
+    }
     await prisma.siteSetting.upsert({
-      where: {
-        key_locale: { key, locale: locale ?? null },
-      } as Prisma.SiteSettingWhereUniqueInput,
-      create: { key, value, locale: locale ?? null },
+      where: { key_locale: { key, locale: loc } },
+      create: { key, value, locale: loc },
       update: { value },
     });
     return { success: true };

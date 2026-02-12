@@ -26,7 +26,7 @@ export function HotelAndFacilitiesNext({
   const isRtl = locale === "ar";
 
   return (
-    <section className="bg-[#1e1e1e] z-[1]" dir={locale}>
+    <section className="bg-[#000] z-[1]" dir={locale}>
       <div className="py-[110px] bg-[url('/images/home-1/section-shape2.png')] bg-no-repeat bg-top bg-opacity-[0.07]">
         <div className="Container" style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto", paddingLeft: "1rem", paddingRight: "1rem" }}>
           <div className={`text-center mx-auto px-5 sm:px-8 md:px-[80px] lg:px-[120px] xl:px-[200px] 2xl:px-[335px] ${isRtl ? "text-right" : "text-left"}`}>

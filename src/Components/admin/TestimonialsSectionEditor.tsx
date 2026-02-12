@@ -8,6 +8,7 @@ import {
   type TestimonialItem,
 } from "@/lib/testimonial-items";
 import { ImageUploadField } from "@/Components/admin/ImageUploadField";
+import { deleteUploadedImage } from "@/lib/admin-storage";
 
 const LOCALES = [
   { id: "en", label: "English" },
@@ -78,7 +79,7 @@ export function TestimonialsSectionEditor({ initialValues }: Props) {
     setForm({ quote: "", authorName: "", role: "", avatar: "" });
   }
 
-  function handleSaveEdit() {
+  async function handleSaveEdit() {
     const item: TestimonialItem = {
       quote: form.quote,
       authorName: form.authorName,
@@ -89,6 +90,10 @@ export function TestimonialsSectionEditor({ initialValues }: Props) {
       handleSaveList([...items, item]);
       setAdding(false);
     } else if (editingIndex !== null) {
+      const oldItem = items[editingIndex];
+      if (oldItem.avatar && oldItem.avatar !== form.avatar) {
+        await deleteUploadedImage(oldItem.avatar);
+      }
       const next = [...items];
       next[editingIndex] = item;
       handleSaveList(next);
@@ -97,8 +102,9 @@ export function TestimonialsSectionEditor({ initialValues }: Props) {
     setForm({ quote: "", authorName: "", role: "", avatar: "" });
   }
 
-  function handleDelete(index: number) {
-    if (!confirm("Remove this testimonial?")) return;
+  async function handleDelete(index: number) {
+    if (!confirm("Remove this testimonial? The avatar image will also be removed from storage.")) return;
+    await deleteUploadedImage(items[index].avatar);
     handleSaveList(items.filter((_, i) => i !== index));
     setEditingIndex(null);
     setAdding(false);

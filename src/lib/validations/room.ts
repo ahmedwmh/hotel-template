@@ -19,6 +19,7 @@ export const createRoomSchema = z.object({
   nameAr: z.string().optional(),
   descriptionEn: z.string().optional(),
   descriptionAr: z.string().optional(),
+  images: z.array(z.string().url()).optional(),
 });
 
 export const updateRoomSchema = createRoomSchema.partial();

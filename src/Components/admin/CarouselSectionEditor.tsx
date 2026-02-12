@@ -8,6 +8,7 @@ import {
   type HeroSlide,
 } from "@/lib/hero-slides";
 import { ImageUploadField } from "@/Components/admin/ImageUploadField";
+import { deleteUploadedImage } from "@/lib/admin-storage";
 
 const LOCALES = [
   { id: "en", label: "English" },
@@ -76,11 +77,15 @@ export function CarouselSectionEditor({ initialValues }: Props) {
     setFormSlide({ imageUrl: "", title1: "", title2: "" });
   }
 
-  function handleSaveEdit() {
+  async function handleSaveEdit() {
     if (adding) {
       handleSaveSlides([...slides, formSlide]);
       setAdding(false);
     } else if (editingIndex !== null) {
+      const oldSlide = slides[editingIndex];
+      if (oldSlide.imageUrl && oldSlide.imageUrl !== formSlide.imageUrl) {
+        await deleteUploadedImage(oldSlide.imageUrl);
+      }
       const next = [...slides];
       next[editingIndex] = formSlide;
       handleSaveSlides(next);
@@ -89,8 +94,10 @@ export function CarouselSectionEditor({ initialValues }: Props) {
     setFormSlide({ imageUrl: "", title1: "", title2: "" });
   }
 
-  function handleDelete(index: number) {
-    if (!confirm("Remove this slide?")) return;
+  async function handleDelete(index: number) {
+    if (!confirm("Remove this slide? The image will also be removed from storage.")) return;
+    const slide = slides[index];
+    await deleteUploadedImage(slide.imageUrl);
     const next = slides.filter((_, i) => i !== index);
     handleSaveSlides(next);
     setEditingIndex(null);

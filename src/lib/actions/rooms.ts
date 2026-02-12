@@ -41,6 +41,16 @@ function decimalToNum(v: unknown): number {
   return Number.isFinite(n) ? n : 0;
 }
 
+function parseRoomImages(json: string | null | undefined): string[] {
+  if (!json || json.trim() === "") return [];
+  try {
+    const arr = JSON.parse(json) as unknown;
+    return Array.isArray(arr) ? arr.filter((u): u is string => typeof u === "string" && u.length > 0) : [];
+  } catch {
+    return [];
+  }
+}
+
 function toPublicRoom(
   r: {
     id: string;
@@ -53,6 +63,7 @@ function toPublicRoom(
     nameAr?: string | null;
     descriptionEn?: string | null;
     descriptionAr?: string | null;
+    images?: string | null;
   }
 ): PublicRoom {
   const rates: Record<number, string> = {};
@@ -76,5 +87,6 @@ function toPublicRoom(
     nameAr: r.nameAr ?? undefined,
     descriptionEn: r.descriptionEn ?? undefined,
     descriptionAr: r.descriptionAr ?? undefined,
+    images: parseRoomImages(r.images),
   };
 }

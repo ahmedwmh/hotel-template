@@ -68,7 +68,7 @@ export function ActionNext({
   const avatarSrc = managerAvatarUrl?.trim() || DEFAULT_AVATAR;
 
   return (
-    <div className="bg-[#212121]" dir={locale}>
+    <div className="bg-[#000]" dir={locale}>
       <section
         className="Container mt-[-90px] relative z-[1]"
         style={{

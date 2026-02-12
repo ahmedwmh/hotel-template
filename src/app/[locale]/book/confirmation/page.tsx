@@ -27,11 +27,11 @@ export default async function BookingConfirmationPage({
   const copiedLabel = isAr ? "تم النسخ" : "Copied";
 
   return (
-    <main className="min-h-screen bg-zinc-950">
+    <main className="min-h-screen bg-[#000]">
       <PublicNavbar locale={locale} />
 
       {/* Dark hero strip */}
-      <section className="bg-[#1e1e1e] border-b border-zinc-800">
+      <section className="bg-[#000] border-b border-zinc-800">
         <div className="max-w-[1330px] mx-auto px-4 md:px-6 py-12 md:py-16">
           <div className="flex items-center justify-center gap-2 mb-4">
             <hr className="w-16 sm:w-24 h-px border-0 bg-[#C9A24D]/50" />

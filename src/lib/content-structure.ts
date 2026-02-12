@@ -155,6 +155,22 @@ export const CONTENT_PAGES: ContentPage[] = [
     ],
   },
   {
+    id: "restaurants",
+    label: "Restaurants",
+    description: "Restaurants & venues page (Zuwar, Beit Al Qahwa, Jalsa Shisha Lounge)",
+    path: "/restaurants",
+    sections: [
+      {
+        id: "list",
+        label: "Restaurants & venues list",
+        description: "Venues with image, title, subtitle and description (EN/AR)",
+        keys: [
+          { key: "restaurants_list", label: "Restaurants list (JSON)", locale: false, type: "json" },
+        ],
+      },
+    ],
+  },
+  {
     id: "contact",
     label: "Contact",
     description: "Contact page and global contact info",

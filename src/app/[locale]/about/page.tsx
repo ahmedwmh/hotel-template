@@ -109,7 +109,7 @@ export default async function AboutPage({
       </section>
 
       {/* About content */}
-      <section className="py-16 2xl:py-24 bg-zinc-900">
+      <section className="py-16 2xl:py-24 bg-[#000]">
         <div
           className="Container px-4 md:px-6 lg:px-8"
           style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto" }}
@@ -155,7 +155,7 @@ export default async function AboutPage({
       </section>
 
       {/* Location section */}
-      <section className="py-16 2xl:py-24 bg-[#1e1e1e]" dir={locale}>
+      <section className="py-16 2xl:py-24 bg-[#000]" dir={locale}>
         <div
           className="Container px-4 md:px-6 lg:px-8"
           style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto" }}

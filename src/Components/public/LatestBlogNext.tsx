@@ -57,7 +57,7 @@ export function LatestBlogNext({
   const readMore = readMoreLabel ?? (locale === "ar" ? "اقرأ المزيد" : "Read More");
 
   return (
-    <div className="bg-[#272727]">
+    <div className="bg-[#000]">
       <div className="bg-[url('/images/home-1/section-shape2.png')] bg-no-repeat bg-top bg-opacity-[0.07]">
         <section className="Container py-20 lg:py-[120px]" style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto", paddingLeft: "1rem", paddingRight: "1rem" }}>
           <div className="text-center mx-auto px-5 sm:px-8 md:px-[80px] lg:px-[120px] xl:px-[200px] 2xl:px-[335px]">

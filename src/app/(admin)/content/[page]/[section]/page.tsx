@@ -8,6 +8,7 @@ import { CarouselSectionEditor } from "@/Components/admin/CarouselSectionEditor"
 import { TestimonialsSectionEditor } from "@/Components/admin/TestimonialsSectionEditor";
 import { BlogSectionEditor } from "@/Components/admin/BlogSectionEditor";
 import { FacilitiesSectionEditor } from "@/Components/admin/FacilitiesSectionEditor";
+import { RestaurantsSectionEditor } from "@/Components/admin/RestaurantsSectionEditor";
 
 type Props = { params: Promise<{ page: string; section: string }> };
 
@@ -36,6 +37,7 @@ export default async function ContentSectionEditPage({ params }: Props) {
   const isTestimonials = pageId === "home" && sectionId === "testimonials";
   const isLatestBlog = pageId === "home" && sectionId === "latest-blog";
   const isFacilities = pageId === "home" && sectionId === "facilities";
+  const isRestaurants = pageId === "restaurants" && sectionId === "list";
 
   const keys = section.keys.map((k) => ({
     key: k.key,
@@ -73,7 +75,8 @@ export default async function ContentSectionEditPage({ params }: Props) {
       {isTestimonials && <TestimonialsSectionEditor initialValues={initial} />}
       {isLatestBlog && <BlogSectionEditor initialValues={initial} />}
       {isFacilities && <FacilitiesSectionEditor initialValues={initial} />}
-      {!isCarousel && !isTestimonials && !isLatestBlog && !isFacilities && (
+      {isRestaurants && <RestaurantsSectionEditor initialValues={initial} />}
+      {!isCarousel && !isTestimonials && !isLatestBlog && !isFacilities && !isRestaurants && (
         <ContentEditor
           keys={keys}
           initialValues={initial}

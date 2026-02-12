@@ -131,8 +131,39 @@ async function seedSiteSettings() {
     { key: "facilities_items", value: FACILITIES_ITEMS_JSON, locale: "ar" },
   ];
 
+  const RESTAURANTS_LIST_JSON = JSON.stringify([
+    {
+      imageUrl: "https://placehold.co/800x600/1a1a1a/C9A24D?text=Zuwar+Restaurant",
+      titleEn: "Zuwar Restaurant",
+      titleAr: "مطعم زوّار",
+      subtitleEn: "A destination of elegance… and an unmatched culinary journey.",
+      subtitleAr: "عنوان الفخامة… وتجربة مذاق لا تُضاهى.",
+      descriptionEn: "At Zuwar Restaurant, the finest standards of luxury hospitality come to life. We invite our guests on an exceptional voyage through carefully curated Eastern and international flavors — masterfully prepared and artistically presented.\n\nRefined interiors, a warm ambiance, and service devoted to perfection transform every moment into an indulgent experience worthy of our distinguished guests.\n\nAt Zuwar… we don't simply serve cuisine — we craft memories in luxury.",
+      descriptionAr: "في مطعم زوّار تتجلّى أرقى معايير الضيافة الرفيعة، حيث نأخذ ضيوفنا في رحلةٍ استثنائية عبر نكهاتٍ مختارة من المطبخين الشرقي والعالمي، أُعدّت بإتقانٍ عالٍ ولمسةٍ فنيةٍ راقية.\n\nتصميم أنيق، أجواء دافئة، وخدمة تُجسّد معنى الاهتمام بالتفاصيل… لتتحوّل كل لحظة إلى تجربةٍ مترفة تليق بضيوفنا الكرام.\n\nفي زوّار… لا نقدّم طعاماً فحسب، بل نصنع ذكرياتٍ تُحاكى بالفخامة.",
+    },
+    {
+      imageUrl: "https://placehold.co/800x600/1a1a1a/C9A24D?text=Beit+Al+Qahwa",
+      titleEn: "Beit Al Qahwa Café",
+      titleAr: "كافيه بيت القهوة",
+      subtitleEn: "A sanctuary for connoisseurs… and a taste of serenity.",
+      subtitleAr: "ملاذ الذوّاقة… وعنوان الصفاء.",
+      descriptionEn: "At Beit Al Qahwa, we redefine the pleasure of quiet moments, where the aroma of premium coffee blends with an atmosphere of refined elegance. We offer a curated selection of the finest Arabic and international coffees, alongside hot and cold beverages and exquisite desserts — all crafted to satisfy the most discerning tastes.\n\nContemporary design with classic touches, paired with gracious service, transforms every visit into a luxurious escape.\n\nAt Beit Al Qahwa… every cup tells a story, and every gathering has a memorable flavor.",
+      descriptionAr: "في بيت القهوة نُعيد اكتشاف متعة اللحظات الهادئة، حيث تمتزج رائحة القهوة الفاخرة بأجواءٍ دافئة تنبض بالأناقة. نقدّم تشكيلة مختارة من أفخر أنواع القهوة العربية والعالمية، إلى جانب المشروبات الساخنة والباردة والحلويات الراقية، المُحضّرة بعناية لتُرضي مختلف الأذواق.\n\nتصميم عصري بلمساتٍ كلاسيكية، وخدمة راقية تجعل من كل زيارة تجربة استرخاءٍ مترفة.\n\nفي بيت القهوة… لكل فنجان حكاية، ولكل لقاء نكهة لا تُنسى.",
+    },
+    {
+      imageUrl: "https://placehold.co/800x600/1a1a1a/C9A24D?text=Jalsa+Shisha+Lounge",
+      titleEn: "Jalsa Shisha Lounge",
+      titleAr: "جلسة شيشة لاونج",
+      subtitleEn: "An atmosphere of luxury… with a view to remember.",
+      subtitleAr: "رفاهية الأجواء… وسحر الإطلالة.",
+      descriptionEn: "At Jalsa Shisha Lounge, relaxation is elevated to a new level, where refined ambiance meets the stunning panoramic view of Bahr Al-Najaf. A serene setting, elegant seating, and exclusive privacy create the perfect escape.\n\nWe offer a premium selection of shisha flavors, complemented by a variety of hot and cold beverages — all served in a sophisticated environment designed for unforgettable moments.\n\nAt Jalsa Shisha Lounge… every puff is pleasure, and every moment overlooks luxury.",
+      descriptionAr: "في \"جلسة شيشة لاونج\" نرتقي بتجربة الاسترخاء إلى مستوى آخر، حيث تلتقي فخامة المكان مع روعة الإطلالة المباشرة على بحر النجف، في أجواءٍ هادئة تنبض بالأناقة والخصوصية.\n\nنقدّم نخبة مختارة من أفخر نكهات الشيشة، إلى جانب تشكيلة مميزة من المشروبات الساخنة والباردة، ضمن جلساتٍ مريحة وتصميمٍ راقٍ يمنح ضيوفنا لحظاتٍ استثنائية لا تُنسى.\n\nفي جلسة شيشة لاونج… لكل نفسٍ متعة، ولكل لحظةٍ إطلالة تُحاكي الفخامة.",
+    },
+  ]);
+
   const settingsLocaleNull: { key: string; value: string }[] = [
     { key: "contact_map_embed", value: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.0!2d44.33!3d32.03!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDAxJzQ4LjAiTiA0NMKwMTknNDguMCJF!5e0!3m2!1sen!2s!4v1" },
+    { key: "restaurants_list", value: RESTAURANTS_LIST_JSON },
   ];
 
   for (const { key, value, locale } of settingsWithLocale) {
@@ -155,6 +186,7 @@ async function seedSiteSettings() {
   }
 
   console.log("Site settings: upserted", settingsWithLocale.length + settingsLocaleNull.length, "entries");
+  console.log("  Restaurants list: seeded (restaurants_list)");
 }
 
 async function main() {

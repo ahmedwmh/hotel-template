@@ -8,6 +8,7 @@ import {
   type FacilityItem,
 } from "@/lib/facilities-items";
 import { ImageUploadField } from "@/Components/admin/ImageUploadField";
+import { deleteUploadedImage } from "@/lib/admin-storage";
 
 const LOCALES = [
   { id: "en", label: "English" },
@@ -89,11 +90,15 @@ export function FacilitiesSectionEditor({ initialValues }: Props) {
     });
   }
 
-  function handleSaveEdit() {
+  async function handleSaveEdit() {
     if (adding) {
       handleSaveList([...items, form]);
       setAdding(false);
     } else if (editingIndex !== null) {
+      const oldItem = items[editingIndex];
+      if (oldItem.image && oldItem.image !== form.image) {
+        await deleteUploadedImage(oldItem.image);
+      }
       const next = [...items];
       next[editingIndex] = form;
       handleSaveList(next);
@@ -101,8 +106,9 @@ export function FacilitiesSectionEditor({ initialValues }: Props) {
     }
   }
 
-  function handleDelete(index: number) {
-    if (!confirm("Remove this facility?")) return;
+  async function handleDelete(index: number) {
+    if (!confirm("Remove this facility? The image will also be removed from storage.")) return;
+    await deleteUploadedImage(items[index].image);
     handleSaveList(items.filter((_, i) => i !== index));
     setEditingIndex(null);
     setAdding(false);

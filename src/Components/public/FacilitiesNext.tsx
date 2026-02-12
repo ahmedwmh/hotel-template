@@ -20,6 +20,11 @@ const DEFAULT_HEADING: Record<Locale, string> = {
   ar: "استمتع بمرافق متكاملة وبأفضل جودة",
 };
 
+const DEFAULT_SECTION_TITLE: Record<Locale, string> = {
+  en: "OUR FACILITIES & AMENITIES",
+  ar: "مرافقنا وخدماتنا",
+};
+
 type FacilitiesNextProps = {
   locale: Locale;
   facilityItems?: FacilityItem[];
@@ -31,23 +36,24 @@ type FacilitiesNextProps = {
 export function FacilitiesNext({
   locale,
   facilityItems,
-  facilitiesTitle = "ENJOY COMPLETE & BEST QUALITY FACILITIES",
+  facilitiesTitle,
   facilitiesHeading,
   viewMoreLabel,
 }: FacilitiesNextProps) {
   const items = facilityItems?.length ? facilityItems : FACILITY_ITEMS;
+  const sectionTitle = facilitiesTitle ?? DEFAULT_SECTION_TITLE[locale];
   const heading = facilitiesHeading ?? DEFAULT_HEADING[locale];
   const viewMore = viewMoreLabel ?? (locale === "ar" ? "عرض المزيد" : "View more item");
   const isRtl = locale === "ar";
 
   return (
-    <div className="bg-[#212121]" dir={locale}>
+    <div className="bg-[#000]" dir={locale}>
       <section className="Container py-[120px] md:py-0 md:pb-[120px] lg:py-[120px]" style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto", paddingLeft: "1rem", paddingRight: "1rem" }}>
         {/* Header: title and View more button — LTR: title left, button right; RTL: title right, button left */}
         <div className={`flex flex-col md:flex-row md:items-center justify-between gap-5 mb-12 px-3 sm:px-5 ${isRtl ? "md:flex-row-reverse" : ""}`}>
           <div className="md:max-w-[450px] font-Garamond text-start">
             <h5 className="text-base text-[#C9A24D] leading-[26px] font-medium mb-[14px]">
-              {facilitiesTitle}
+              {sectionTitle}
             </h5>
             <h1 className="text-[22px] sm:text-2xl md:text-3xl 2xl:text-[38px] leading-[38px] lg:leading-[44px] text-white font-semibold">
               {heading}

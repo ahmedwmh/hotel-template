@@ -58,7 +58,7 @@ export default async function RoomsPage({
       </section>
 
       {/* Rooms grid */}
-      <section className="py-16 2xl:py-24 bg-zinc-900">
+      <section className="py-16 2xl:py-24 bg-[#000]">
         <div
           className="Container px-4 md:px-6"
           style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto" }}
@@ -69,7 +69,7 @@ export default async function RoomsPage({
                 <RoomCard
                   key={room.id}
                   room={room}
-                  imageSrc={getRoomImage(index)}
+                  imageSrc={room.images?.[0] ?? getRoomImage(index)}
                   locale={locale}
                   roomLabel={roomLabel}
                   guestsLabel={guestsLabel}

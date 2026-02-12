@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/session";
-import { getSupabaseServer, getUploadBucket } from "@/lib/supabase-server";
+import {
+  getSupabaseServer,
+  getUploadBucket,
+  getStoragePathFromPublicUrl,
+} from "@/lib/supabase-server";
 
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
@@ -68,6 +72,50 @@ export async function POST(request: Request) {
     console.error("[admin/upload]", e);
     return NextResponse.json(
       { error: e instanceof Error ? e.message : "Upload failed" },
+      { status: 500 }
+    );
+  }
+}
+
+/** Delete an image from Supabase storage by its public URL (only URLs from our bucket are accepted). */
+export async function DELETE(request: Request) {
+  try {
+    const session = await getSession();
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await request.json().catch(() => ({}));
+    const url = typeof body.url === "string" ? body.url.trim() : "";
+    if (!url) {
+      return NextResponse.json({ error: "Missing url" }, { status: 400 });
+    }
+
+    const path = getStoragePathFromPublicUrl(url);
+    if (!path) {
+      return NextResponse.json(
+        { error: "URL is not from uploads bucket" },
+        { status: 400 }
+      );
+    }
+
+    const supabase = getSupabaseServer();
+    const bucket = getUploadBucket();
+    const { error } = await supabase.storage.from(bucket).remove([path]);
+
+    if (error) {
+      console.error("[admin/upload DELETE]", error);
+      return NextResponse.json(
+        { error: error.message || "Delete failed" },
+        { status: 500 }
+      );
+    }
+
+    return NextResponse.json({ ok: true });
+  } catch (e) {
+    console.error("[admin/upload DELETE]", e);
+    return NextResponse.json(
+      { error: e instanceof Error ? e.message : "Delete failed" },
       { status: 500 }
     );
   }

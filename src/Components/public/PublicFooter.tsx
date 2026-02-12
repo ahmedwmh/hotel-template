@@ -21,13 +21,13 @@ export function PublicFooter({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <footer className="pt-16 md:pt-20 lg:pt-[13rem] 2xl:pt-56 bg-[#1e1e1e]">
-        <div className="bg-[#1e1e1e]">
+      <footer className="pt-16 md:pt-20 lg:pt-[13rem] 2xl:pt-56 bg-[#000]">
+        <div className="bg-[#000]">
           <div
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-10 2xl:grid-cols-12 gap-5 lg:gap-3 xl:gap-5 2xl:gap-[30px] pt-14 lg:pt-[100px] px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-[30px]"
             style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto" }}
           >
-            <div className="lg:mt-[-195px] lg:col-span-3 2xl:col-span-4 bg-[#272727]">
+            <div className="lg:mt-[-195px] lg:col-span-3 2xl:col-span-4 bg-[#000]">
               <div className="py-6 md:py-7 lg:py-[50px] px-10 lg:px-5 xl:px-8 2xl:px-9">
                 <img src="/images/logo/logo-s.svg" alt="Najaf Hotel" className="h-12 w-auto object-contain" />
                 <div className="py-8 2xl:py-[50px]">
@@ -85,7 +85,7 @@ export function PublicFooter({ locale }: { locale: Locale }) {
               </div>
             </div>
           </div>
-          <div className="text-center py-5 2xl:py-7 bg-[#161616] text-sm md:text-base text-[#acacac] font-Lora font-normal">
+          <div className="text-center py-5 2xl:py-7 bg-[#000] text-sm md:text-base text-[#acacac] font-Lora font-normal">
             {copyright}
           </div>
         </div>

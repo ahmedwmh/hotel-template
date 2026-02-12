@@ -101,7 +101,7 @@ export default async function ContactPage({
       </section>
 
       {/* Contact content + form */}
-      <section className="py-16 2xl:py-24 bg-zinc-900">
+      <section className="py-16 2xl:py-24 bg-[#000]">
         <div
           className="Container px-4 md:px-6 lg:px-8"
           style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto" }}

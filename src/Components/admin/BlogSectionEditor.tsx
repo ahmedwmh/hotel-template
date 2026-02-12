@@ -8,6 +8,7 @@ import {
   type BlogPostItem,
 } from "@/lib/blog-posts";
 import { ImageUploadField } from "@/Components/admin/ImageUploadField";
+import { deleteUploadedImage } from "@/lib/admin-storage";
 
 const LOCALES = [
   { id: "en", label: "English" },
@@ -85,11 +86,15 @@ export function BlogSectionEditor({ initialValues }: Props) {
     });
   }
 
-  function handleSaveEdit() {
+  async function handleSaveEdit() {
     if (adding) {
       handleSaveList([...posts, form]);
       setAdding(false);
     } else if (editingIndex !== null) {
+      const oldPost = posts[editingIndex];
+      if (oldPost.image && oldPost.image !== form.image) {
+        await deleteUploadedImage(oldPost.image);
+      }
       const next = [...posts];
       next[editingIndex] = form;
       handleSaveList(next);
@@ -97,8 +102,9 @@ export function BlogSectionEditor({ initialValues }: Props) {
     }
   }
 
-  function handleDelete(index: number) {
-    if (!confirm("Remove this post?")) return;
+  async function handleDelete(index: number) {
+    if (!confirm("Remove this post? The image will also be removed from storage.")) return;
+    await deleteUploadedImage(posts[index].image);
     handleSaveList(posts.filter((_, i) => i !== index));
     setEditingIndex(null);
     setAdding(false);

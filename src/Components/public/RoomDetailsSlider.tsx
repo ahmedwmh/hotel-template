@@ -4,20 +4,26 @@ import { useState } from "react";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { hotelImages } from "@/lib/hotel-images";
 
-const ROOM_DETAIL_IMAGES = hotelImages.roomDetails;
+const FALLBACK_IMAGES = hotelImages.roomDetails;
 
-export function RoomDetailsSlider() {
+type RoomDetailsSliderProps = {
+  /** Room images from DB; when provided, these are used instead of fallback. */
+  images?: string[];
+};
+
+export function RoomDetailsSlider({ images }: RoomDetailsSliderProps) {
+  const list = images != null && images.length > 0 ? images : FALLBACK_IMAGES;
   const [imageIndex, setImageIndex] = useState(0);
 
   const prev = () =>
-    setImageIndex((i) => (i - 1 + ROOM_DETAIL_IMAGES.length) % ROOM_DETAIL_IMAGES.length);
+    setImageIndex((i) => (i - 1 + list.length) % list.length);
   const next = () =>
-    setImageIndex((i) => (i + 1) % ROOM_DETAIL_IMAGES.length);
+    setImageIndex((i) => (i + 1) % list.length);
 
   return (
     <div className="overflow-hidden relative group">
       <img
-        src={ROOM_DETAIL_IMAGES[imageIndex]}
+        src={list[imageIndex]}
         alt=""
         className="w-full h-full object-cover transition-all duration-500"
       />

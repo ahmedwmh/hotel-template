@@ -95,13 +95,13 @@ export default async function RoomDetailsPage({
       </section>
 
       {/* Room Details */}
-      <div className="py-12 2xl:py-20 bg-zinc-900">
+      <div className="py-12 2xl:py-20 bg-[#000]">
         <div
           className="grid grid-cols-1 md:grid-cols-7 lg:grid-cols-6 gap-6 px-4 md:px-6"
           style={{ maxWidth: "1250px", margin: "0 auto" }}
         >
           <div className="col-span-1 md:col-span-4 lg:col-span-4">
-            <RoomDetailsSlider />
+            <RoomDetailsSlider images={room.images} />
             <div className="pt-5 lg:pt-8 pr-0 lg:pr-3">
               <p className="text-base font-Lora text-[#C9A24D]">{luxuryRoom}</p>
               <h2 className="py-2 sm:py-3 md:py-4 lg:py-5 font-Garamond text-xl sm:text-2xl md:text-3xl lg:text-4xl 2xl:text-[38px] leading-snug text-white font-semibold">

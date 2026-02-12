@@ -47,7 +47,7 @@ export function HotelAndResortNext({
   const customerRatingsLabel = locale === "ar" ? "تقييم العملاء" : "Customer Ratings";
 
   return (
-    <section className="bg-[#212121] py-20 2xl:py-[120px]">
+    <section className="bg-[#000] py-20 2xl:py-[120px]">
       <div className="Container sm:overflow-hidden lg:overflow-auto" style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto", paddingLeft: "1rem", paddingRight: "1rem" }}>
         <div className="md:flex items-center justify-between">
           <div className="flex-1 keen-slider w-screen md:w-[60%] 2xl:w-[580px] md:pr-5 lg:pr-6 xl:pr-8 2xl:pr-9 3xl:pr-10 md:mt-0" ref={sliderRef}>

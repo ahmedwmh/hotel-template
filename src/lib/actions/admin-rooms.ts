@@ -8,6 +8,16 @@ import {
   type UpdateRoomInput,
 } from "@/lib/validations";
 
+function parseRoomImages(json: string | null | undefined): string[] {
+  if (!json || json.trim() === "") return [];
+  try {
+    const arr = JSON.parse(json) as unknown;
+    return Array.isArray(arr) ? arr.filter((u): u is string => typeof u === "string" && u.length > 0) : [];
+  } catch {
+    return [];
+  }
+}
+
 export type RoomListItem = {
   id: string;
   name: string;
@@ -21,6 +31,7 @@ export type RoomListItem = {
   nameAr?: string | null;
   descriptionEn?: string | null;
   descriptionAr?: string | null;
+  images?: string[];
 };
 
 /** أسعار الليلة حسب عدد الضيوف (1–5) */
@@ -80,6 +91,7 @@ export async function listRooms(activeOnly?: boolean): Promise<ListRoomsResult> 
       nameAr: r.nameAr ?? undefined,
       descriptionEn: r.descriptionEn ?? undefined,
       descriptionAr: r.descriptionAr ?? undefined,
+      images: parseRoomImages(r.images),
     }));
     return { success: true, data };
   } catch (e) {
@@ -116,6 +128,7 @@ export async function getRoomForEdit(id: string): Promise<GetRoomForEditResult> 
         nameAr: room.nameAr ?? undefined,
         descriptionEn: room.descriptionEn ?? undefined,
         descriptionAr: room.descriptionAr ?? undefined,
+        images: parseRoomImages(room.images),
       },
     };
   } catch (e) {
@@ -139,6 +152,10 @@ export async function createRoom(
   try {
     const rates = parsed.data.rates;
     const slugValue = parsed.data.slug;
+    const imagesJson =
+      parsed.data.images != null && parsed.data.images.length > 0
+        ? JSON.stringify(parsed.data.images)
+        : null;
     const room = await prisma.room.create({
       data: {
         name: slugValue,
@@ -151,6 +168,7 @@ export async function createRoom(
         ...(parsed.data.nameAr != null && parsed.data.nameAr !== "" && { nameAr: parsed.data.nameAr }),
         ...(parsed.data.descriptionEn != null && parsed.data.descriptionEn !== "" && { descriptionEn: parsed.data.descriptionEn }),
         ...(parsed.data.descriptionAr != null && parsed.data.descriptionAr !== "" && { descriptionAr: parsed.data.descriptionAr }),
+        ...(imagesJson != null && { images: imagesJson }),
       },
     });
     for (let guestCount = 1; guestCount <= 5; guestCount++) {
@@ -211,6 +229,11 @@ export async function updateRoom(
         ...(parsed.data.nameAr !== undefined && { nameAr: parsed.data.nameAr || null }),
         ...(parsed.data.descriptionEn !== undefined && { descriptionEn: parsed.data.descriptionEn || null }),
         ...(parsed.data.descriptionAr !== undefined && { descriptionAr: parsed.data.descriptionAr || null }),
+        ...(parsed.data.images !== undefined && {
+          images: parsed.data.images != null && parsed.data.images.length > 0
+            ? JSON.stringify(parsed.data.images)
+            : null,
+        }),
       },
     });
     if (parsed.data.rates != null) {

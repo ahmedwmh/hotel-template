@@ -12,6 +12,7 @@ export type PublicRoom = {
   nameAr?: string | null;
   descriptionEn?: string | null;
   descriptionAr?: string | null;
+  images?: string[];
 };
 
 /**

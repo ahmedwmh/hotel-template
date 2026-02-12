@@ -10,6 +10,7 @@ import { createRoom, updateRoom, type RoomWithRates } from "@/lib/actions/admin-
 import { Button } from "@/Components/ui/button";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
+import { ImageUploadField } from "@/Components/admin/ImageUploadField";
 
 const inputClass =
   "h-10 w-full rounded-lg border border-zinc-600 bg-zinc-800 px-3 py-2 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500";
@@ -39,6 +40,7 @@ export function RoomForm({ room }: { room?: RoomWithRates }) {
           nameAr: room.nameAr ?? "",
           descriptionEn: room.descriptionEn ?? "",
           descriptionAr: room.descriptionAr ?? "",
+          images: room.images ?? [],
         }
       : {
           slug: "",
@@ -50,10 +52,12 @@ export function RoomForm({ room }: { room?: RoomWithRates }) {
           nameAr: "",
           descriptionEn: "",
           descriptionAr: "",
+          images: [],
         },
   });
 
   const nameEnValue = watch("nameEn");
+  const imagesList = watch("images") ?? [];
   const isEdit = !!room;
 
   function slugFromName(name: string) {
@@ -67,9 +71,11 @@ export function RoomForm({ room }: { room?: RoomWithRates }) {
     <form
       onSubmit={handleSubmit(async (data) => {
         setError(null);
+        const images = (data.images ?? []).filter((u): u is string => typeof u === "string" && u.trim() !== "" && /^https?:\/\//i.test(u));
+        const payload = { ...data, images };
         const res = isEdit
-          ? await updateRoom(room!.id, data)
-          : await createRoom(data);
+          ? await updateRoom(room!.id, payload)
+          : await createRoom(payload);
         if (res.success) {
           router.push("/rooms");
           router.refresh();
@@ -156,6 +162,52 @@ export function RoomForm({ room }: { room?: RoomWithRates }) {
         </div>
       </div>
 
+      {/* Room images — first image is used on room card and detail slider */}
+      <div className="space-y-4 rounded-lg border border-zinc-600/80 bg-zinc-900/50 p-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <h3 className="text-sm font-semibold text-zinc-200">Room images</h3>
+            <p className="text-xs text-zinc-500 mt-0.5">Upload or paste URLs. First image is shown on the room card and detail page.</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setValue("images", [...imagesList, ""], { shouldValidate: true })}
+            className="rounded-lg border border-zinc-600 px-3 py-2 text-sm text-zinc-300 hover:bg-zinc-700 hover:text-zinc-100"
+          >
+            + Add image
+          </button>
+        </div>
+        <div className="space-y-3">
+          {imagesList.map((url, index) => (
+            <div key={index} className="flex gap-2 items-start rounded-lg border border-zinc-600/80 bg-zinc-800/50 p-3">
+              <div className="flex-1 min-w-0">
+                <ImageUploadField
+                  value={url}
+                  onChange={(newUrl) => {
+                    const next = [...imagesList];
+                    next[index] = newUrl;
+                    setValue("images", next, { shouldValidate: true });
+                  }}
+                  label={`Image ${index + 1}`}
+                  folder="rooms"
+                  onError={(msg) => setError(msg)}
+                />
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  const next = imagesList.filter((_, i) => i !== index);
+                  setValue("images", next, { shouldValidate: true });
+                }}
+                className="shrink-0 rounded-lg border border-red-900/50 bg-red-900/20 px-2 py-2 text-sm text-red-300 hover:bg-red-900/40 mt-6"
+                title="Remove image"
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>

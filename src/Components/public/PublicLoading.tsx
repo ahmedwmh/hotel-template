@@ -7,7 +7,7 @@
 export function PublicLoading() {
   return (
     <div
-      className="flex min-h-screen flex-col items-center justify-center bg-[#f8f6f3] dark:bg-zinc-900 px-4 py-16"
+      className="flex min-h-screen flex-col items-center justify-center bg-[#000] px-4 py-16"
       aria-busy="true"
       aria-live="polite"
     >

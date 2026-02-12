@@ -41,7 +41,7 @@ export function RoomsSectionNext({
     locale === "ar" ? (r.nameAr || r.name) : (r.nameEn || r.name);
 
   return (
-    <div className="bg-zinc-900">
+    <div className="bg-[#000]">
       <div className="py-20 2xl:py-[120px] w-full">
         <div className="Container" style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto", paddingLeft: "1rem", paddingRight: "1rem" }}>
           <div className="text-center sm:px-8 md:px-[80px] lg:px-[120px] xl:px-[200px] 2xl:px-[335px] mx-auto px-5">

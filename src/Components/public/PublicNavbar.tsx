@@ -8,9 +8,10 @@ import type { Locale } from "@/lib/i18n";
 
 const navLinks = (locale: Locale) => [
   { href: `/${locale}`, label: locale === "ar" ? "الرئيسية" : "Home" },
+  { href: `/${locale}/about`, label: locale === "ar" ? "من نحن" : "About Us" },
   { href: `/${locale}/rooms`, label: locale === "ar" ? "الغرف" : "Rooms" },
-  { href: `/${locale}/about`, label: locale === "ar" ? "من نحن" : "About" },
-  { href: `/${locale}/contact`, label: locale === "ar" ? "اتصل" : "Contact" },
+  { href: `/${locale}/restaurants`, label: locale === "ar" ? "مطاعم" : "Restaurants" },
+  { href: `/${locale}/contact`, label: locale === "ar" ? "اتصل بنا" : "Contact Us" },
 ];
 
 const brandName = (locale: Locale) =>
@@ -24,7 +25,7 @@ export function PublicNavbar({ locale }: { locale: Locale }) {
 
   return (
     <nav
-      className="w-full font-Lora z-10 lg:px-5 lg:py-2 transition-all duration-300 lg:bg-[#1e1e1e] bg-[#1e1e1e]"
+      className="w-full font-Lora z-10 lg:px-5 lg:py-2 transition-all duration-300 bg-[#000]"
       dir={locale}
     >
       <div className="lg:px-10 max-w-[1330px] mx-auto">
@@ -43,7 +44,7 @@ export function PublicNavbar({ locale }: { locale: Locale }) {
               {name}
             </span> */}
           </Link>
-          <div className="px-3 w-full lg:hidden flex justify-between items-center h-[70px] p-3 bg-[#1e1e1e] text-white">
+          <div className="px-3 w-full lg:hidden flex justify-between items-center h-[70px] p-3 bg-[#000] text-white">
             <Link href={`/${locale}`} className={`flex items-center gap-2 shrink-0 ${isRtl ? "flex-row-reverse" : ""}`} aria-label={name}>
               <img
                 src="/images/logo/logo-s.svg"
@@ -67,7 +68,7 @@ export function PublicNavbar({ locale }: { locale: Locale }) {
           <ul
             className={`${
               isOpen ? "flex" : "hidden"
-            } lg:flex flex-col lg:flex-row w-full lg:w-auto lg:flex-1 justify-center items-stretch lg:items-center gap-0 lg:gap-6 text-sm text-white uppercase font-normal bg-[#272727] lg:bg-transparent py-3 lg:py-0 text-start`}
+            } lg:flex flex-col lg:flex-row w-full lg:w-auto lg:flex-1 justify-center items-stretch lg:items-center gap-0 lg:gap-6 text-sm text-white uppercase font-normal bg-[#000] lg:bg-transparent py-3 lg:py-0 text-start`}
           >
             {links.map(({ href, label }) => (
               <li key={href} className="flex">
@@ -83,7 +84,7 @@ export function PublicNavbar({ locale }: { locale: Locale }) {
             <li className="hidden lg:flex lg:items-center lg:gap-4 shrink-0 ms-4">
               <Link
                 href={`/${locale}/book`}
-                className="border border-white inline-block px-4 py-2 text-white text-sm font-medium hover:bg-white hover:text-[#1e1e1e] transition-colors whitespace-nowrap"
+                className="border border-white inline-block px-4 py-2 text-white text-sm font-medium hover:bg-white hover:text-[#000] transition-colors whitespace-nowrap"
               >
                 {locale === "ar" ? "احجز الآن" : "Booking Online"}
               </Link>

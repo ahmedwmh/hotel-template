@@ -56,7 +56,7 @@ export function OffersNext({
         }));
 
   return (
-    <section className="bg-[#f8f6f3]">
+    <section className="bg-[#000]">
       <div className="Container py-20 lg:py-[120px]" style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto", paddingLeft: "1rem", paddingRight: "1rem" }}>
         <div className="flex items-center justify-between relative">
           <div className="md:w-[450px] lg:w-[450px] xl:w-[500px] font-Garamond">

@@ -54,7 +54,7 @@ export default async function BookPage({
       </section>
 
       {/* Booking form */}
-      <section className="py-16 2xl:py-24 bg-[#f8f6f3] dark:bg-zinc-900 bg-[url('/images/home-1/section-shape2.png')] dark:bg-none bg-no-repeat bg-top">
+      <section className="py-16 2xl:py-24 bg-[#000] bg-no-repeat bg-top">
         <div
           className="Container px-4 md:px-6"
           style={{ maxWidth: "1330px", marginLeft: "auto", marginRight: "auto" }}
