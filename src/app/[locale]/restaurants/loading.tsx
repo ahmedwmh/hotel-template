@@ -4,9 +4,11 @@ import { PublicLoading } from "@/Components/public/PublicLoading";
 
 export default function RestaurantsLoading() {
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen flex flex-col bg-[#000]">
       <PublicNavbar locale="en" />
-      <PublicLoading />
+      <div className="flex-1 flex items-center justify-center bg-[#000]">
+        <PublicLoading fullScreen={false} />
+      </div>
       <PublicFooter locale="en" />
     </main>
   );

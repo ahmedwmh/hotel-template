@@ -9,6 +9,9 @@ import { TestimonialsSectionEditor } from "@/Components/admin/TestimonialsSectio
 import { BlogSectionEditor } from "@/Components/admin/BlogSectionEditor";
 import { FacilitiesSectionEditor } from "@/Components/admin/FacilitiesSectionEditor";
 import { RestaurantsSectionEditor } from "@/Components/admin/RestaurantsSectionEditor";
+import { LogoSectionEditor } from "@/Components/admin/LogoSectionEditor";
+import { HotelResortSectionEditor } from "@/Components/admin/HotelResortSectionEditor";
+import { ActionSectionEditor } from "@/Components/admin/ActionSectionEditor";
 
 type Props = { params: Promise<{ page: string; section: string }> };
 
@@ -38,6 +41,9 @@ export default async function ContentSectionEditPage({ params }: Props) {
   const isLatestBlog = pageId === "home" && sectionId === "latest-blog";
   const isFacilities = pageId === "home" && sectionId === "facilities";
   const isRestaurants = pageId === "restaurants" && sectionId === "list";
+  const isLogo = pageId === "site" && sectionId === "logo";
+  const isHotelResort = pageId === "home" && sectionId === "hotel-resort";
+  const isAction = pageId === "home" && sectionId === "action";
 
   const keys = section.keys.map((k) => ({
     key: k.key,
@@ -76,7 +82,10 @@ export default async function ContentSectionEditPage({ params }: Props) {
       {isLatestBlog && <BlogSectionEditor initialValues={initial} />}
       {isFacilities && <FacilitiesSectionEditor initialValues={initial} />}
       {isRestaurants && <RestaurantsSectionEditor initialValues={initial} />}
-      {!isCarousel && !isTestimonials && !isLatestBlog && !isFacilities && !isRestaurants && (
+      {isLogo && <LogoSectionEditor initialValues={initial} />}
+      {isHotelResort && <HotelResortSectionEditor initialValues={initial} />}
+      {isAction && <ActionSectionEditor initialValues={initial} />}
+      {!isCarousel && !isTestimonials && !isLatestBlog && !isFacilities && !isRestaurants && !isLogo && !isHotelResort && !isAction && (
         <ContentEditor
           keys={keys}
           initialValues={initial}

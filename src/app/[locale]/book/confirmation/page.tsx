@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { getMessages, type Locale } from "@/lib/i18n";
-import { PublicNavbar } from "@/Components/public/PublicNavbar";
-import { PublicFooter } from "@/Components/public/PublicFooter";
+import { PublicLayout } from "@/Components/public/PublicLayout";
 import { HiCheckCircle } from "react-icons/hi2";
 import { BookingConfirmationCard } from "./BookingConfirmationCard";
 
@@ -27,9 +26,8 @@ export default async function BookingConfirmationPage({
   const copiedLabel = isAr ? "تم النسخ" : "Copied";
 
   return (
-    <main className="min-h-screen bg-[#000]">
-      <PublicNavbar locale={locale} />
-
+    <PublicLayout locale={locale}>
+      <div className="min-h-screen bg-[#000]">
       {/* Dark hero strip */}
       <section className="bg-[#000] border-b border-zinc-800">
         <div className="max-w-[1330px] mx-auto px-4 md:px-6 py-12 md:py-16">
@@ -64,7 +62,7 @@ export default async function BookingConfirmationPage({
         </div>
       </section>
 
-      <PublicFooter locale={locale} />
-    </main>
+      </div>
+    </PublicLayout>
   );
 }

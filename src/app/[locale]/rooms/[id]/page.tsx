@@ -5,8 +5,7 @@ import { FiLogOut } from "react-icons/fi";
 import { getRoomById } from "@/lib/actions/rooms";
 import { hotelImages } from "@/lib/hotel-images";
 import type { Locale } from "@/lib/i18n";
-import { PublicNavbar } from "@/Components/public/PublicNavbar";
-import { PublicFooter } from "@/Components/public/PublicFooter";
+import { PublicLayout } from "@/Components/public/PublicLayout";
 import { RoomDetailsSlider } from "@/Components/public/RoomDetailsSlider";
 
 const ROOM_AMENITIES = [
@@ -68,9 +67,8 @@ export default async function RoomDetailsPage({
   );
 
   return (
-    <main className="min-h-screen" dir={locale}>
-      <PublicNavbar locale={locale} />
-
+    <PublicLayout locale={locale}>
+      <div className="min-h-screen" dir={locale}>
       {/* Breadcrumb */}
       <section
         className="bg-no-repeat bg-cover min-h-[280px] lg:min-h-[350px] bg-center grid items-center justify-center"
@@ -251,7 +249,7 @@ export default async function RoomDetailsPage({
         </div>
       </div>
 
-      <PublicFooter locale={locale} />
-    </main>
+      </div>
+    </PublicLayout>
   );
 }

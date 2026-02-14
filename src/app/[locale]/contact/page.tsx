@@ -1,7 +1,6 @@
 import { getSiteSetting } from "@/lib/actions/site-content";
 import { getMessages, type Locale } from "@/lib/i18n";
-import { PublicNavbar } from "@/Components/public/PublicNavbar";
-import { PublicFooter } from "@/Components/public/PublicFooter";
+import { PublicLayout } from "@/Components/public/PublicLayout";
 import { ContactForm, type ContactLabels } from "@/Components/forms/ContactForm";
 import { hotelImages } from "@/lib/hotel-images";
 import Image from "next/image";
@@ -35,6 +34,7 @@ export default async function ContactPage({
     descriptionRes,
     emailRes,
     phoneRes,
+    phone2Res,
     addressRes,
     formHeadingRes,
     mapRes,
@@ -44,6 +44,7 @@ export default async function ContactPage({
     getSiteSetting("contact_description", locale),
     getSiteSetting("contact_email", locale),
     getSiteSetting("contact_phone", locale),
+    getSiteSetting("contact_phone_2", locale),
     getSiteSetting("contact_address", locale),
     getSiteSetting("contact_form_heading", locale),
     getSiteSetting("contact_map_embed", null),
@@ -60,6 +61,7 @@ export default async function ContactPage({
     (isAr ? DEFAULT_DESCRIPTION_AR : DEFAULT_DESCRIPTION_EN);
   const email = (emailRes.success ? emailRes.value : null)?.trim() || "";
   const phone = (phoneRes.success ? phoneRes.value : null)?.trim() || "";
+  const phone2 = (phone2Res.success ? phone2Res.value : null)?.trim() || "";
   const address = (addressRes.success ? addressRes.value : null)?.trim() || "";
   const formHeading =
     (formHeadingRes.success ? formHeadingRes.value : null)?.trim() ||
@@ -69,9 +71,7 @@ export default async function ContactPage({
   const t = getMessages(locale).contact as ContactLabels;
 
   return (
-    <main className="min-h-screen">
-      <PublicNavbar locale={locale} />
-
+    <PublicLayout locale={locale}>
       {/* Breadcrumb / Header */}
       <section
         className="bg-no-repeat bg-cover min-h-[280px] lg:min-h-[320px] bg-center grid items-center justify-center relative"
@@ -120,7 +120,7 @@ export default async function ContactPage({
                   {description}
                 </p>
 
-                {phone && (
+                {(phone || phone2) && (
                   <>
                     <div className="flex items-center my-6 group">
                       <div className="w-10 h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 bg-[#1e1e1e] group-hover:bg-[#C9A24D] grid items-center justify-center rounded-full transition-all duration-300 shrink-0">
@@ -133,12 +133,24 @@ export default async function ContactPage({
                         <p className="font-Lora text-sm leading-[26px] text-zinc-500 font-normal">
                           {t.callUsNow}
                         </p>
-                        <a
-                          href={`tel:${phone.replace(/\s/g, "")}`}
-                          className="font-Garamond text-lg sm:text-xl text-white font-medium hover:text-[#C9A24D]"
-                        >
-                          {phone}
-                        </a>
+                        <div className="flex flex-col gap-1">
+                          {phone ? (
+                            <a
+                              href={`tel:${phone.replace(/\s/g, "")}`}
+                              className="font-Garamond text-lg sm:text-xl text-white font-medium hover:text-[#C9A24D]"
+                            >
+                              {phone}
+                            </a>
+                          ) : null}
+                          {phone2 ? (
+                            <a
+                              href={`tel:${phone2.replace(/\s/g, "")}`}
+                              className="font-Garamond text-lg sm:text-xl text-white font-medium hover:text-[#C9A24D]"
+                            >
+                              {phone2}
+                            </a>
+                          ) : null}
+                        </div>
                       </div>
                     </div>
                     <hr className="border-zinc-600 my-4" />
@@ -213,7 +225,6 @@ export default async function ContactPage({
         </section>
       )}
 
-      <PublicFooter locale={locale} />
-    </main>
+    </PublicLayout>
   );
 }

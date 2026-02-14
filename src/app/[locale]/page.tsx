@@ -4,14 +4,13 @@ import { parseHeroSlides } from "@/lib/hero-slides";
 import { parseFacilitiesItems } from "@/lib/facilities-items";
 import { prisma } from "@/lib/prisma";
 import type { Locale } from "@/lib/i18n";
-import { PublicNavbar } from "@/Components/public/PublicNavbar";
+import { PublicLayout } from "@/Components/public/PublicLayout";
 import { HeroSectionNext } from "@/Components/public/HeroSectionNext";
 import { RoomsSectionNext } from "@/Components/public/RoomsSectionNext";
 import { HotelAndResortNext } from "@/Components/public/HotelAndResortNext";
 import { HotelAndFacilitiesNext } from "@/Components/public/HotelAndFacilitiesNext";
 import { ActionNext } from "@/Components/public/ActionNext";
 import { FacilitiesNext } from "@/Components/public/FacilitiesNext";
-import { PublicFooter } from "@/Components/public/PublicFooter";
 
 export default async function LocaleHomePage({
   params,
@@ -27,6 +26,17 @@ export default async function LocaleHomePage({
     facilitiesItemsRes,
     facilitiesTitleRes,
     facilitiesSubtitleRes,
+    hotelFacilitiesTitleRes,
+    hotelFacilitiesSubtitleRes,
+    hotelResortImageRes,
+    hotelResortSubtitleRes,
+    hotelResortTitleRes,
+    hotelResortDescriptionRes,
+    hotelResortRoomsCountRes,
+    hotelResortRatingRes,
+    hotelResortRoomsLabelRes,
+    hotelResortRatingsLabelRes,
+    hotelResortMoreLabelRes,
     actionTitleRes,
     actionDescriptionRes,
     actionQuoteRes,
@@ -38,11 +48,22 @@ export default async function LocaleHomePage({
   ] = await Promise.all([
     getActiveRooms(),
     prisma.room.count({ where: { isActive: true } }),
-    getSiteSetting("hero_slides", locale),
+    getSiteSetting("hero_slides", null),
     getSiteSetting("contact_phone", null),
     getSiteSetting("facilities_items", locale),
     getSiteSetting("facilities_title", locale),
     getSiteSetting("facilities_subtitle", locale),
+    getSiteSetting("hotel_facilities_title", locale),
+    getSiteSetting("hotel_facilities_subtitle", locale),
+    getSiteSetting("hotel_resort_image", null),
+    getSiteSetting("hotel_resort_subtitle", locale),
+    getSiteSetting("hotel_resort_title", locale),
+    getSiteSetting("hotel_resort_description", locale),
+    getSiteSetting("hotel_resort_rooms_count", null),
+    getSiteSetting("hotel_resort_rating", null),
+    getSiteSetting("hotel_resort_rooms_label", locale),
+    getSiteSetting("hotel_resort_ratings_label", locale),
+    getSiteSetting("hotel_resort_more_label", locale),
     getSiteSetting("action_title", locale),
     getSiteSetting("action_description", locale),
     getSiteSetting("action_quote", locale),
@@ -59,9 +80,24 @@ export default async function LocaleHomePage({
     facilitiesItemsRes.success && facilitiesItemsRes.value
       ? parseFacilitiesItems(facilitiesItemsRes.value)
       : undefined;
-  const facilitiesTitle: string | undefined = facilitiesTitleRes.success ? (facilitiesTitleRes.value ?? undefined) : undefined;
-  const facilitiesHeading: string | undefined = facilitiesSubtitleRes.success ? (facilitiesSubtitleRes.value ?? undefined) : undefined;
+  const facilitiesTitle: string | undefined =
+    (hotelFacilitiesSubtitleRes.success && hotelFacilitiesSubtitleRes.value?.trim()) ? hotelFacilitiesSubtitleRes.value?.trim() ?? undefined
+    : (facilitiesTitleRes.success ? (facilitiesTitleRes.value ?? undefined) : undefined);
+  const facilitiesHeading: string | undefined =
+    (hotelFacilitiesTitleRes.success && hotelFacilitiesTitleRes.value?.trim()) ? hotelFacilitiesTitleRes.value?.trim() ?? undefined
+    : (facilitiesSubtitleRes.success ? (facilitiesSubtitleRes.value ?? undefined) : undefined);
   const contactPhone = contactPhoneRes.success && contactPhoneRes.value ? contactPhoneRes.value : undefined;
+  const hotelResortImage = hotelResortImageRes.success && hotelResortImageRes.value?.trim() ? hotelResortImageRes.value.trim() : undefined;
+  const hotelResortSubtitle = hotelResortSubtitleRes.success ? (hotelResortSubtitleRes.value?.trim() ?? undefined) : undefined;
+  const hotelResortTitle = hotelResortTitleRes.success ? (hotelResortTitleRes.value?.trim() ?? undefined) : undefined;
+  const hotelResortDescription = hotelResortDescriptionRes.success ? (hotelResortDescriptionRes.value?.trim() ?? undefined) : undefined;
+  const hotelResortRoomsCountRaw = hotelResortRoomsCountRes.success ? (hotelResortRoomsCountRes.value?.trim() ?? undefined) : undefined;
+  const hotelResortRoomsCountParsed = hotelResortRoomsCountRaw != null && hotelResortRoomsCountRaw !== "" ? parseInt(hotelResortRoomsCountRaw, 10) : undefined;
+  const hotelResortRoomsCount = Number.isFinite(hotelResortRoomsCountParsed) ? hotelResortRoomsCountParsed : undefined;
+  const hotelResortRating = hotelResortRatingRes.success && hotelResortRatingRes.value?.trim() ? hotelResortRatingRes.value.trim() : undefined;
+  const hotelResortRoomsLabel = hotelResortRoomsLabelRes.success ? (hotelResortRoomsLabelRes.value?.trim() ?? undefined) : undefined;
+  const hotelResortRatingsLabel = hotelResortRatingsLabelRes.success ? (hotelResortRatingsLabelRes.value?.trim() ?? undefined) : undefined;
+  const hotelResortMoreLabel = hotelResortMoreLabelRes.success ? (hotelResortMoreLabelRes.value?.trim() ?? undefined) : undefined;
   const actionTitle: string | undefined = actionTitleRes.success ? (actionTitleRes.value ?? undefined) : undefined;
   const actionDescription: string | undefined = actionDescriptionRes.success ? (actionDescriptionRes.value ?? undefined) : undefined;
   const actionQuote: string | undefined = actionQuoteRes.success ? (actionQuoteRes.value ?? undefined) : undefined;
@@ -72,11 +108,22 @@ export default async function LocaleHomePage({
   const actionManagerAvatar: string | undefined = actionManagerAvatarRes.success ? (actionManagerAvatarRes.value ?? undefined) : undefined;
 
   return (
-    <main className="min-h-screen">
-      <PublicNavbar locale={locale} />
+    <PublicLayout locale={locale}>
       <HeroSectionNext locale={locale} slides={heroSlides} contactPhone={contactPhone} />
       <RoomsSectionNext rooms={rooms} locale={locale} />
-      <HotelAndResortNext locale={locale} roomsCount={roomsCount} />
+      <HotelAndResortNext
+        locale={locale}
+        roomsCount={roomsCount}
+        imageUrl={hotelResortImage}
+        subtitle={hotelResortSubtitle}
+        title={hotelResortTitle}
+        description={hotelResortDescription}
+        roomsCountOverride={Number.isFinite(hotelResortRoomsCount) ? hotelResortRoomsCount : undefined}
+        rating={hotelResortRating}
+        luxuryRoomsLabel={hotelResortRoomsLabel}
+        customerRatingsLabel={hotelResortRatingsLabel}
+        moreAboutLabel={hotelResortMoreLabel}
+      />
       <HotelAndFacilitiesNext locale={locale} />
       <ActionNext
         locale={locale}
@@ -95,7 +142,6 @@ export default async function LocaleHomePage({
         facilitiesTitle={facilitiesTitle}
         facilitiesHeading={facilitiesHeading}
       />
-      <PublicFooter locale={locale} />
-    </main>
+    </PublicLayout>
   );
 }

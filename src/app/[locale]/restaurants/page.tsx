@@ -1,8 +1,7 @@
 import { getSiteSetting } from "@/lib/actions/site-content";
 import { parseRestaurantsList } from "@/lib/restaurants-items";
 import type { Locale } from "@/lib/i18n";
-import { PublicNavbar } from "@/Components/public/PublicNavbar";
-import { PublicFooter } from "@/Components/public/PublicFooter";
+import { PublicLayout } from "@/Components/public/PublicLayout";
 import { hotelImages } from "@/lib/hotel-images";
 import Image from "next/image";
 
@@ -23,9 +22,8 @@ export default async function RestaurantsPage({
     : "Dining and relaxation in the heart of Najaf";
 
   return (
-    <main className="min-h-screen" dir={locale}>
-      <PublicNavbar locale={locale} />
-
+    <PublicLayout locale={locale}>
+      <div className="min-h-screen" dir={locale}>
       {/* Breadcrumb / Header */}
       <section
         className="bg-no-repeat bg-cover min-h-[280px] lg:min-h-[320px] bg-center grid items-center justify-center relative"
@@ -121,7 +119,7 @@ export default async function RestaurantsPage({
         </div>
       </section>
 
-      <PublicFooter locale={locale} />
-    </main>
+      </div>
+    </PublicLayout>
   );
 }

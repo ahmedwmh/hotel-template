@@ -48,7 +48,7 @@ export const CONTENT_PAGES: ContentPage[] = [
         keys: [
           { key: "hero_title", label: "Hero title", locale: true },
           { key: "hero_subtitle", label: "Hero subtitle", locale: true },
-          { key: "hero_slides", label: "Carousel slides (JSON)", locale: true, type: "textarea" },
+          { key: "hero_slides", label: "Carousel slides (JSON, titles EN/AR)", locale: false, type: "textarea" },
         ],
       },
       {
@@ -63,11 +63,17 @@ export const CONTENT_PAGES: ContentPage[] = [
       {
         id: "hotel-resort",
         label: "Hotel & Resort",
-        description: "Luxury hotel intro block",
+        description: "Luxury hotel intro block (image, titles, description, stats, button)",
         keys: [
-          { key: "hotel_resort_title", label: "Title", locale: true },
-          { key: "hotel_resort_subtitle", label: "Subtitle", locale: true },
-          { key: "hotel_resort_description", label: "Description", locale: true },
+          { key: "hotel_resort_image", label: "Section image URL", locale: false, type: "text" },
+          { key: "hotel_resort_subtitle", label: "Small gold line (e.g. LUXURY HOTEL AND RESORT)", locale: true },
+          { key: "hotel_resort_title", label: "Main title", locale: true },
+          { key: "hotel_resort_description", label: "Description", locale: true, type: "textarea" },
+          { key: "hotel_resort_rooms_count", label: "Rooms number override (e.g. 10, leave empty to use DB count)", locale: false, type: "text" },
+          { key: "hotel_resort_rating", label: "Rating (e.g. 4.9)", locale: false, type: "text" },
+          { key: "hotel_resort_rooms_label", label: "Luxury Rooms label", locale: true },
+          { key: "hotel_resort_ratings_label", label: "Customer Ratings label", locale: true },
+          { key: "hotel_resort_more_label", label: "More About button text", locale: true },
         ],
       },
       {
@@ -171,6 +177,22 @@ export const CONTENT_PAGES: ContentPage[] = [
     ],
   },
   {
+    id: "site",
+    label: "Site",
+    description: "Site-wide branding (logo)",
+    path: "/",
+    sections: [
+      {
+        id: "logo",
+        label: "Logo",
+        description: "Site logo (navbar, footer). Upload to Supabase storage or paste URL.",
+        keys: [
+          { key: "logo_url", label: "Logo image URL", locale: false, type: "text" },
+        ],
+      },
+    ],
+  },
+  {
     id: "contact",
     label: "Contact",
     description: "Contact page and global contact info",
@@ -189,10 +211,11 @@ export const CONTENT_PAGES: ContentPage[] = [
       {
         id: "contact-info",
         label: "Contact information",
-        description: "Email, phone, address",
+        description: "Email, phones, address",
         keys: [
           { key: "contact_email", label: "Email", locale: true },
-          { key: "contact_phone", label: "Phone", locale: true },
+          { key: "contact_phone", label: "Phone (primary)", locale: true },
+          { key: "contact_phone_2", label: "Phone (secondary)", locale: true },
           { key: "contact_address", label: "Address", locale: true },
         ],
       },

@@ -7,7 +7,24 @@ import { BiEnvelope } from "react-icons/bi";
 import type { Locale } from "@/lib/i18n";
 import { hotelImages } from "@/lib/hotel-images";
 
-export function PublicFooter({ locale }: { locale: Locale }) {
+const DEFAULT_LOGO = "/images/logo/logo-s.svg";
+
+export function PublicFooter({
+  locale,
+  logoUrl = DEFAULT_LOGO,
+  contactEmail = "",
+  contactPhone = "",
+  contactPhone2 = "",
+  contactAddress = "",
+}: {
+  locale: Locale;
+  logoUrl?: string;
+  contactEmail?: string;
+  contactPhone?: string;
+  contactPhone2?: string;
+  contactAddress?: string;
+}) {
+  const src = logoUrl || DEFAULT_LOGO;
   const usefulLinksLabel = locale === "ar" ? "روابط مفيدة" : "Useful Links";
   const aboutLabel = locale === "ar" ? "عن الفندق" : "About Hotel";
   const roomsLabel = locale === "ar" ? "الغرف والأجنحة" : "Rooms & Suites";
@@ -29,24 +46,42 @@ export function PublicFooter({ locale }: { locale: Locale }) {
           >
             <div className="lg:mt-[-195px] lg:col-span-3 2xl:col-span-4 bg-[#000]">
               <div className="py-6 md:py-7 lg:py-[50px] px-10 lg:px-5 xl:px-8 2xl:px-9">
-                <img src="/images/logo/logo-s.svg" alt="Najaf Hotel" className="h-12 w-auto object-contain" />
+                <img src={src} alt="Najaf Hotel" className="h-12 w-auto object-contain" />
                 <div className="py-8 2xl:py-[50px]">
                   <h2 className="text-lg sm:text-xl md:text-[22px] leading-[38px] font-medium text-white relative font-Garamond before:w-7 before:h-[1px] before:bg-[#C9A24D] before:absolute before:left-0 before:top-10">
                     {contactInfoLabel}
                   </h2>
                   <div className="space-y-4 pt-[30px] pb-2 2xl:pb-[30px]">
-                    <p className="flex items-center text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px] mt-2">
-                      <IoIosCall className="text-[#C9A24D] w-5 h-5 mr-3 2xl:mr-4" size={14} />
-                      +980 (1234) 567 220
-                    </p>
-                    <p className="flex items-center text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px]">
-                      <BiEnvelope className="text-[#C9A24D] w-5 h-5 mr-3 2xl:mr-4" size={14} />
-                      info@najafhotel.com
-                    </p>
-                    <p className="flex items-center text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px]">
-                      <IoLocationSharp className="text-[#C9A24D] w-5 h-5 mr-3 2xl:mr-4" size={14} />
-                      Najaf, Iraq
-                    </p>
+                    {contactPhone ? (
+                      <p className="flex items-center text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px] mt-2">
+                        <IoIosCall className="text-[#C9A24D] w-5 h-5 mr-3 2xl:mr-4 shrink-0" size={14} />
+                        <a href={`tel:${contactPhone.replace(/\s/g, "")}`} className="hover:text-[#C9A24D] transition-colors">
+                          {contactPhone}
+                        </a>
+                      </p>
+                    ) : null}
+                    {contactPhone2 ? (
+                      <p className="flex items-center text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px]">
+                        <IoIosCall className="text-[#C9A24D] w-5 h-5 mr-3 2xl:mr-4 shrink-0" size={14} />
+                        <a href={`tel:${contactPhone2.replace(/\s/g, "")}`} className="hover:text-[#C9A24D] transition-colors">
+                          {contactPhone2}
+                        </a>
+                      </p>
+                    ) : null}
+                    {contactEmail ? (
+                      <p className="flex items-center text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px]">
+                        <BiEnvelope className="text-[#C9A24D] w-5 h-5 mr-3 2xl:mr-4 shrink-0" size={14} />
+                        <a href={`mailto:${contactEmail}`} className="hover:text-[#C9A24D] transition-colors">
+                          {contactEmail}
+                        </a>
+                      </p>
+                    ) : null}
+                    {contactAddress ? (
+                      <p className="flex items-center text-[#acacac] font-Lora font-normal text-sm sm:text-base leading-[26px]">
+                        <IoLocationSharp className="text-[#C9A24D] w-5 h-5 mr-3 2xl:mr-4 shrink-0" size={14} />
+                        {contactAddress}
+                      </p>
+                    ) : null}
                   </div>
                 </div>
               </div>

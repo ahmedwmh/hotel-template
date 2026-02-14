@@ -95,7 +95,7 @@ export function BookingForm({
     { value: "", label: `— ${messages.room} —` },
     ...rooms.map((r) => ({
       value: r.id,
-      label: `${roomDisplayName(r)} — ${rateForGuests(r, guests)} / night`,
+      label: roomDisplayName(r),
     })),
   ];
   const ratePerNight = selectedRoom ? rateForGuests(selectedRoom, guests) : null;
@@ -147,26 +147,16 @@ export function BookingForm({
         <Card className="border-[#e8e8e8] dark:border-zinc-600 overflow-hidden bg-white dark:bg-zinc-800">
           <div className="relative h-40 bg-[#f8f6f3] dark:bg-zinc-700 flex items-center justify-center">
             <img
-              src="/images/home-1/room-1.jpg"
-              alt=""
+              src={selectedRoom.images?.[0] ?? "/images/home-1/room-1.jpg"}
+              alt={roomDisplayName(selectedRoom)}
               className="absolute inset-0 w-full h-full object-cover opacity-90"
             />
-            <div className="relative z-10 px-5 py-2 bg-[#C9A24D] text-white text-base font-Garamond font-medium">
-              <span>{rateForGuests(selectedRoom, guests)}</span>
-              <span className="mx-2">|</span>
-              <span>{locale === "ar" ? "لليلة" : "per night"}</span>
-              <span className="mx-2">·</span>
-              <span>{guests} {guests === 1 ? (locale === "ar" ? "ضيف" : "guest") : locale === "ar" ? "ضيوف" : "guests"}</span>
-            </div>
           </div>
           <CardHeader className="font-Garamond font-medium text-lg text-[#1e1e1e] dark:text-white">
-            {selectedRoom.name}
+            {roomDisplayName(selectedRoom)}
           </CardHeader>
           <CardContent className="space-y-1 text-[#616161] dark:text-zinc-400 text-sm">
             <p>{locale === "ar" ? "السعة:" : "Capacity:"} {selectedRoom.capacity} {locale === "ar" ? "ضيوف" : "guests"}</p>
-            <p className="text-base font-semibold text-[#1e1e1e] dark:text-zinc-200 mt-2">
-              {locale === "ar" ? "السعر:" : "Rate:"} {rateForGuests(selectedRoom, guests)} / {locale === "ar" ? "ليلة" : "night"} ({guests} {guests === 1 ? (locale === "ar" ? "ضيف" : "guest") : locale === "ar" ? "ضيوف" : "guests"})
-            </p>
           </CardContent>
         </Card>
       )}

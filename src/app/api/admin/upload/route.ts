@@ -7,11 +7,11 @@ import {
 } from "@/lib/supabase-server";
 
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
-const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"];
 
 function safeName(original: string): string {
   const ext = original.includes(".") ? original.slice(original.lastIndexOf(".")).toLowerCase() : ".jpg";
-  const safeExt = [".jpg", ".jpeg", ".png", ".webp", ".gif"].includes(ext) ? ext : ".jpg";
+  const safeExt = [".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg"].includes(ext) ? ext : ".jpg";
   const base = Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 8);
   return base + safeExt;
 }
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     const contentType = blob.type || "image/jpeg";
     if (!ALLOWED_TYPES.includes(contentType)) {
       return NextResponse.json(
-        { error: "Invalid type. Use JPEG, PNG, WebP or GIF." },
+        { error: "Invalid type. Use JPEG, PNG, WebP, GIF or SVG." },
         { status: 400 }
       );
     }

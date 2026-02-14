@@ -14,9 +14,27 @@ import { hotelImages } from "@/lib/hotel-images";
 import type { HeroSlide } from "@/lib/hero-slides";
 
 const DEFAULT_SLIDES: HeroSlide[] = [
-  { imageUrl: hotelImages.hero[0], title1: "THE BEST LUXURY HOTEL", title2: "IN NAJAF" },
-  { imageUrl: hotelImages.hero[1], title1: "THE BEST LUXURY HOTEL", title2: "& RESORT" },
-  { imageUrl: hotelImages.hero[2], title1: "COMFORT & ELEGANCE", title2: "IN THE HEART OF NAJAF" },
+  {
+    imageUrl: hotelImages.hero[0],
+    title1En: "THE BEST LUXURY HOTEL",
+    title2En: "IN NAJAF",
+    title1Ar: "أفضل فندق فاخر",
+    title2Ar: "في النجف",
+  },
+  {
+    imageUrl: hotelImages.hero[1],
+    title1En: "THE BEST LUXURY HOTEL",
+    title2En: "& RESORT",
+    title1Ar: "أفضل فندق فاخر",
+    title2Ar: "ومنتجع",
+  },
+  {
+    imageUrl: hotelImages.hero[2],
+    title1En: "COMFORT & ELEGANCE",
+    title2En: "IN THE HEART OF NAJAF",
+    title1Ar: "راحة وأناقة",
+    title2Ar: "في قلب النجف",
+  },
 ];
 
 const DEFAULT_PHONE = "+964 592 104 371 964";
@@ -31,7 +49,8 @@ export function HeroSectionNext({
   contactPhone?: string | null;
 }) {
   const slides = slidesProp?.length ? slidesProp : DEFAULT_SLIDES;
-  const discoverLabel = locale === "ar" ? "اكتشف المزيد" : "Discover More";
+  const isAr = locale === "ar";
+  const discoverLabel = isAr ? "اكتشف المزيد" : "Discover More";
   const phone = (contactPhone || DEFAULT_PHONE).trim();
   const telHref = "tel:" + phone.replace(/\s+/g, "");
 
@@ -46,7 +65,10 @@ export function HeroSectionNext({
         modules={[Navigation, Autoplay, Pagination]}
         className="mySwiper"
       >
-        {slides.map((slide, i) => (
+        {slides.map((slide, i) => {
+          const title1 = isAr ? slide.title1Ar : slide.title1En;
+          const title2 = isAr ? slide.title2Ar : slide.title2En;
+          return (
           <SwiperSlide key={i}>
             <div
               className="w-full h-[700px] md:h-[800px] xl:h-[850px] grid items-center justify-center text-white relative pb-[150px] lg:pb-16 xl:pb-0 bg-cover bg-center"
@@ -58,9 +80,10 @@ export function HeroSectionNext({
               
               <img src="/images/logo/logo-c.svg" alt="" className="  mx-auto  object-contain" />
 
-                <div className="mb-7 md:mb-8 lg:mb-9 xl:mb-10">
+                <div className="mb-7 md:mb-8 lg:mb-9 xl:mb-10" dir={isAr ? "rtl" : "ltr"}>
                   <h1 className="text-xl sm:text-3xl md:text-2xl lg:text-3xl 3xl:text-3xl font-semibold  ">
-                    {slide.title1}
+                    {title1}
+                    {title2 && <><br />{title2}</>}
                   </h1>
                  
                 </div>
@@ -81,7 +104,8 @@ export function HeroSectionNext({
               </div>
             </div>
           </SwiperSlide>
-        ))}
+          );
+        })}
       </Swiper>
     </div>
   );

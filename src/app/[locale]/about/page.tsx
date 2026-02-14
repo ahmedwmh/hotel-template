@@ -1,7 +1,6 @@
 import { getSiteSetting } from "@/lib/actions/site-content";
 import type { Locale } from "@/lib/i18n";
-import { PublicNavbar } from "@/Components/public/PublicNavbar";
-import { PublicFooter } from "@/Components/public/PublicFooter";
+import { PublicLayout } from "@/Components/public/PublicLayout";
 import { hotelImages } from "@/lib/hotel-images";
 import Image from "next/image";
 import Link from "next/link";
@@ -77,9 +76,7 @@ export default async function AboutPage({
   const pageTitle = isAr ? "من نحن" : "About Us";
 
   return (
-    <main className="min-h-screen">
-      <PublicNavbar locale={locale} />
-
+    <PublicLayout locale={locale}>
       {/* Breadcrumb / Header */}
       <section
         className="bg-no-repeat bg-cover min-h-[280px] lg:min-h-[320px] bg-center grid items-center justify-center relative"
@@ -207,7 +204,6 @@ export default async function AboutPage({
         </div>
       </section>
 
-      <PublicFooter locale={locale} />
-    </main>
+    </PublicLayout>
   );
 }

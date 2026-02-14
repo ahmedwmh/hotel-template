@@ -1,8 +1,7 @@
 import { getActiveRooms } from "@/lib/actions/rooms";
 import { hotelImages } from "@/lib/hotel-images";
 import { getMessages, type Locale } from "@/lib/i18n";
-import { PublicNavbar } from "@/Components/public/PublicNavbar";
-import { PublicFooter } from "@/Components/public/PublicFooter";
+import { PublicLayout } from "@/Components/public/PublicLayout";
 import { BookingForm } from "@/Components/forms/BookingForm";
 
 export default async function BookPage({
@@ -27,9 +26,7 @@ export default async function BookPage({
     : "Complete your details and stay dates to reserve.";
 
   return (
-    <main className="min-h-screen">
-      <PublicNavbar locale={locale} />
-
+    <PublicLayout locale={locale}>
       {/* Breadcrumb / Header */}
       <section
         className="bg-no-repeat bg-cover min-h-[280px] lg:min-h-[320px] bg-center grid items-center justify-center relative"
@@ -87,7 +84,6 @@ export default async function BookPage({
         </div>
       </section>
 
-      <PublicFooter locale={locale} />
-    </main>
+    </PublicLayout>
   );
 }

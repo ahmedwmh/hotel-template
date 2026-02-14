@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FaBars } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import { IoLanguageOutline } from "react-icons/io5";
 import type { Locale } from "@/lib/i18n";
 
 const navLinks = (locale: Locale) => [
@@ -17,11 +18,20 @@ const navLinks = (locale: Locale) => [
 const brandName = (locale: Locale) =>
   locale === "ar" ? "فندق النجف الدولي" : "Najaf International Hotel";
 
-export function PublicNavbar({ locale }: { locale: Locale }) {
+const DEFAULT_LOGO = "/images/logo/logo-s.svg";
+
+export function PublicNavbar({
+  locale,
+  logoUrl = DEFAULT_LOGO,
+}: {
+  locale: Locale;
+  logoUrl?: string;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const links = navLinks(locale);
   const isRtl = locale === "ar";
   const name = brandName(locale);
+  const src = logoUrl || DEFAULT_LOGO;
 
   return (
     <nav
@@ -36,7 +46,7 @@ export function PublicNavbar({ locale }: { locale: Locale }) {
             aria-label={name}
           >
             <img
-              src="/images/logo/logo-s.svg"
+              src={src}
               alt={name}
               className="hidden lg:block w-20 h-20  object-contain"
             />
@@ -47,23 +57,34 @@ export function PublicNavbar({ locale }: { locale: Locale }) {
           <div className="px-3 w-full lg:hidden flex justify-between items-center h-[70px] p-3 bg-[#000] text-white">
             <Link href={`/${locale}`} className={`flex items-center gap-2 shrink-0 ${isRtl ? "flex-row-reverse" : ""}`} aria-label={name}>
               <img
-                src="/images/logo/logo-s.svg"
+                src={src}
                 alt=""
-                className="h-9 w-auto object-contain [filter:brightness(0)_invert(1)]"
+                className="h-9 w-auto object-contain"
               />
             </Link>
-            <button
-              type="button"
-              className="focus:outline-none shrink-0 text-white"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-            >
-              {isOpen ? (
-                <IoMdClose className="w-6 h-6" />
-              ) : (
-                <FaBars className="w-5 h-5" />
-              )}
-            </button>
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* موبايل: زر اللغة ثم الهامبرجر في أقصى اليمين */}
+              <Link
+                href={locale === "ar" ? "/en" : "/ar"}
+                className="flex items-center gap-1 rounded-full border border-[#C9A24D] bg-[#C9A24D]/10 px-2 py-1.5 text-xs font-medium text-[#C9A24D] transition-all active:scale-[0.98] hover:bg-[#C9A24D] hover:text-[#000] whitespace-nowrap"
+                aria-label={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}
+              >
+                <IoLanguageOutline className="w-3.5 h-3.5 shrink-0" aria-hidden />
+                <span>{locale === "ar" ? "English" : "العربية"}</span>
+              </Link>
+              <button
+                type="button"
+                className="focus:outline-none shrink-0 text-white"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label="Toggle menu"
+              >
+                {isOpen ? (
+                  <IoMdClose className="w-6 h-6" />
+                ) : (
+                  <FaBars className="w-5 h-5" />
+                )}
+              </button>
+            </div>
           </div>
           <ul
             className={`${

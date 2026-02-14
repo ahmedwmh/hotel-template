@@ -29,7 +29,7 @@ export function ImageUploadField({
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file || !file.type.startsWith("image/")) {
-      onError?.("Please select an image (JPEG, PNG, WebP or GIF).");
+      onError?.("Please select an image (JPEG, PNG, WebP, GIF or SVG).");
       return;
     }
     setUploading(true);
@@ -69,7 +69,7 @@ export function ImageUploadField({
           <input
             ref={fileInputRef}
             type="file"
-            accept="image/jpeg,image/png,image/webp,image/gif"
+            accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml"
             className="hidden"
             onChange={handleUpload}
             disabled={uploading}

@@ -31,21 +31,20 @@ export function CarouselSectionEditor({ initialValues }: Props) {
     en: initialValues["hero_subtitle:en"] ?? "",
     ar: initialValues["hero_subtitle:ar"] ?? "",
   });
-  const [slidesByLocale, setSlidesByLocale] = useState<Record<string, HeroSlide[]>>({
-    en: parseHeroSlides(initialValues["hero_slides:en"]),
-    ar: parseHeroSlides(initialValues["hero_slides:ar"]),
-  });
-  const [activeLocale, setActiveLocale] = useState<"en" | "ar">("en");
+  const [slides, setSlides] = useState<HeroSlide[]>(() =>
+    parseHeroSlides(initialValues["hero_slides:"] ?? initialValues["hero_slides:en"] ?? initialValues["hero_slides:ar"])
+  );
   const [saving, setSaving] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: "ok" | "err"; text: string } | null>(null);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [adding, setAdding] = useState(false);
   const [formSlide, setFormSlide] = useState<HeroSlide>({
     imageUrl: "",
-    title1: "",
-    title2: "",
+    title1En: "",
+    title2En: "",
+    title1Ar: "",
+    title2Ar: "",
   });
-  const slides = slidesByLocale[activeLocale] ?? [];
 
   async function saveKey(key: string, value: string, locale: string) {
     setSaving(`${key}:${locale}`);
@@ -60,9 +59,18 @@ export function CarouselSectionEditor({ initialValues }: Props) {
     setSaving(null);
   }
 
-  function handleSaveSlides(newSlides: HeroSlide[]) {
-    setSlidesByLocale((prev) => ({ ...prev, [activeLocale]: newSlides }));
-    saveKey("hero_slides", stringifyHeroSlides(newSlides), activeLocale);
+  async function handleSaveSlides(newSlides: HeroSlide[]) {
+    setSlides(newSlides);
+    setSaving("hero_slides");
+    setMessage(null);
+    const res = await setSiteSetting("hero_slides", stringifyHeroSlides(newSlides), null);
+    if (res.success) {
+      setMessage({ type: "ok", text: "Saved." });
+      setTimeout(() => setMessage(null), 2000);
+    } else {
+      setMessage({ type: "err", text: res.error ?? "Save failed." });
+    }
+    setSaving(null);
   }
 
   function handleEdit(index: number) {
@@ -74,7 +82,13 @@ export function CarouselSectionEditor({ initialValues }: Props) {
   function handleAdd() {
     setAdding(true);
     setEditingIndex(null);
-    setFormSlide({ imageUrl: "", title1: "", title2: "" });
+    setFormSlide({
+      imageUrl: "",
+      title1En: "",
+      title2En: "",
+      title1Ar: "",
+      title2Ar: "",
+    });
   }
 
   async function handleSaveEdit() {
@@ -91,7 +105,13 @@ export function CarouselSectionEditor({ initialValues }: Props) {
       handleSaveSlides(next);
       setEditingIndex(null);
     }
-    setFormSlide({ imageUrl: "", title1: "", title2: "" });
+    setFormSlide({
+      imageUrl: "",
+      title1En: "",
+      title2En: "",
+      title1Ar: "",
+      title2Ar: "",
+    });
   }
 
   async function handleDelete(index: number) {
@@ -161,30 +181,11 @@ export function CarouselSectionEditor({ initialValues }: Props) {
         </div>
       </div>
 
-      {/* Slides by locale */}
+      {/* Slides (bilingual: EN + AR) */}
       <div className="rounded-xl border border-zinc-700/80 bg-zinc-800/80 p-6">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <h2 className="text-lg font-medium text-zinc-200">Carousel slides</h2>
-          <div className="flex gap-2">
-            {LOCALES.map((loc) => (
-              <button
-                key={loc.id}
-                type="button"
-                onClick={() => setActiveLocale(loc.id)}
-                className={`rounded-lg px-3 py-1.5 text-sm font-medium ${
-                  activeLocale === loc.id
-                    ? "bg-amber-600 text-white"
-                    : "bg-zinc-700 text-zinc-300 hover:bg-zinc-600"
-                }`}
-              >
-                {loc.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
+        <h2 className="text-lg font-medium text-zinc-200">Carousel slides</h2>
         <p className="mt-1 text-sm text-zinc-500">
-          Edit or add slides for the hero carousel. Each slide has an image and two title lines.
+          Edit or add slides. Each slide has an image and two title lines in English and Arabic.
         </p>
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -206,8 +207,12 @@ export function CarouselSectionEditor({ initialValues }: Props) {
                 )}
               </div>
               <div className="p-3">
-                <p className="truncate text-sm font-medium text-zinc-200">{slide.title1}</p>
-                <p className="truncate text-xs text-zinc-500">{slide.title2}</p>
+                <p className="truncate text-sm font-medium text-zinc-200">
+                  EN: {slide.title1En} / {slide.title2En}
+                </p>
+                <p className="truncate text-xs text-zinc-500">
+                  AR: {slide.title1Ar} / {slide.title2Ar}
+                </p>
                 <div className="mt-2 flex gap-2">
                   <button
                     type="button"
@@ -252,33 +257,67 @@ export function CarouselSectionEditor({ initialValues }: Props) {
                 folder="carousel"
                 onError={(text) => setMessage({ type: "err", text })}
               />
-              <div>
-                <label className="text-xs font-medium uppercase text-zinc-500">
-                  Title line 1
-                </label>
-                <input
-                  type="text"
-                  value={formSlide.title1}
-                  onChange={(e) =>
-                    setFormSlide((p) => ({ ...p, title1: e.target.value }))
-                  }
-                  placeholder="e.g. THE BEST LUXURY HOTEL"
-                  className={inputClass}
-                />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="block text-xs font-medium uppercase text-zinc-500">
+                    Title line 1 – English
+                  </label>
+                  <input
+                    type="text"
+                    value={formSlide.title1En}
+                    onChange={(e) =>
+                      setFormSlide((p) => ({ ...p, title1En: e.target.value }))
+                    }
+                    placeholder="e.g. THE BEST LUXURY HOTEL"
+                    className={`mt-1 ${inputClass}`}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium uppercase text-zinc-500">
+                    Title line 1 – Arabic
+                  </label>
+                  <input
+                    type="text"
+                    value={formSlide.title1Ar}
+                    onChange={(e) =>
+                      setFormSlide((p) => ({ ...p, title1Ar: e.target.value }))
+                    }
+                    placeholder="مثال: أفضل فندق فاخر"
+                    className={`mt-1 ${inputClass}`}
+                    dir="rtl"
+                  />
+                </div>
               </div>
-              <div>
-                <label className="text-xs font-medium uppercase text-zinc-500">
-                  Title line 2
-                </label>
-                <input
-                  type="text"
-                  value={formSlide.title2}
-                  onChange={(e) =>
-                    setFormSlide((p) => ({ ...p, title2: e.target.value }))
-                  }
-                  placeholder="e.g. IN NAJAF"
-                  className={inputClass}
-                />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label className="block text-xs font-medium uppercase text-zinc-500">
+                    Title line 2 – English
+                  </label>
+                  <input
+                    type="text"
+                    value={formSlide.title2En}
+                    onChange={(e) =>
+                      setFormSlide((p) => ({ ...p, title2En: e.target.value }))
+                    }
+                    placeholder="e.g. IN NAJAF"
+                    className={`mt-1 ${inputClass}`}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium uppercase text-zinc-500">
+                    Title line 2 – Arabic
+                  </label>
+                  <input
+                    type="text"
+                    value={formSlide.title2Ar}
+                    onChange={(e) =>
+                      setFormSlide((p) => ({ ...p, title2Ar: e.target.value }))
+                    }
+                    placeholder="مثال: في النجف"
+                    className={`mt-1 ${inputClass}`}
+                    dir="rtl"
+                  />
+                </div>
               </div>
               <div className="flex gap-2">
                 <button

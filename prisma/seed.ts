@@ -107,10 +107,12 @@ async function seedSiteSettings() {
     { key: "contact_description", value: "تواصل معنا للحجوزات أو الاستفسارات. نحن هنا لمساعدتك.", locale: "ar" },
     { key: "contact_form_heading", value: "Get in Touch", locale: "en" },
     { key: "contact_form_heading", value: "تواصل معنا", locale: "ar" },
-    { key: "contact_email", value: "info@najafhotel.com", locale: "en" },
-    { key: "contact_email", value: "info@najafhotel.com", locale: "ar" },
-    { key: "contact_phone", value: "+964 770 123 4567", locale: "en" },
-    { key: "contact_phone", value: "+964 770 123 4567", locale: "ar" },
+    { key: "contact_email", value: "info@najaf-int.com", locale: "en" },
+    { key: "contact_email", value: "info@najaf-int.com", locale: "ar" },
+    { key: "contact_phone", value: "+964 (0)785 001 1950", locale: "en" },
+    { key: "contact_phone", value: "+964 (0)785 001 1950", locale: "ar" },
+    { key: "contact_phone_2", value: "+964 (0)775 001 1950", locale: "en" },
+    { key: "contact_phone_2", value: "+964 (0)775 001 1950", locale: "ar" },
     { key: "about_title", value: "Luxury Best Hotel in Najaf", locale: "en" },
     { key: "about_title", value: "أفضل فندق فاخر في النجف", locale: "ar" },
     { key: "about_subtitle", value: "Luxury Hotel and Resort", locale: "en" },
@@ -123,12 +125,34 @@ async function seedSiteSettings() {
     { key: "action_description", value: "في فندق النجف الدولي نؤمن بأن الضيافة الحقيقية لا تُقاس بالخدمة فقط بل بالاحترام والاهتمام والشعور بالطمأنينة طوال الإقامة.", locale: "ar" },
     { key: "action_quote", value: "At Najaf International Hotel, we believe that true hospitality is not measured by service alone, but by respect, genuine care, and the sense of peace throughout the stay.", locale: "en" },
     { key: "action_quote", value: "في فندق النجف الدولي نؤمن بأن الضيافة الحقيقية لا تُقاس بالخدمة فقط بل بالاحترام والاهتمام والشعور بالطمأنينة طوال الإقامة.", locale: "ar" },
-    { key: "facilities_title", value: "ENJOY COMPLETE & BEST QUALITY FACILITIES", locale: "en" },
-    { key: "facilities_title", value: "ENJOY COMPLETE & BEST QUALITY FACILITIES", locale: "ar" },
-    { key: "facilities_subtitle", value: "24-Hour Reception – Room Service – Hotel Restaurant – Elegant Coffee Shop – Luxury Shisha Lounge – Free Wi-Fi – Modern Elevators", locale: "en" },
-    { key: "facilities_subtitle", value: "استقبال 24 ساعة – خدمة الغرف – مطعم الفندق – كوفي شوب أنيق – شيشه لاونج فاخر – واي فاي مجاني – مصاعد حديثة", locale: "ar" },
+    { key: "action_manager_name", value: "Ahmed Al-Hassan", locale: "en" },
+    { key: "action_manager_name", value: "أحمد الحسن", locale: "ar" },
+    { key: "action_manager_role", value: "General Manager", locale: "en" },
+    { key: "action_manager_role", value: "المدير العام", locale: "ar" },
+    { key: "facilities_title", value: "OUR FACILITIES & AMENITIES", locale: "en" },
+    { key: "facilities_title", value: "مرافقنا وخدماتنا", locale: "ar" },
+    { key: "facilities_subtitle", value: "ENJOY COMPLETE & BEST QUALITY FACILITIES", locale: "en" },
+    { key: "facilities_subtitle", value: "استمتع بمرافق متكاملة وبأفضل جودة", locale: "ar" },
     { key: "facilities_items", value: FACILITIES_ITEMS_JSON, locale: "en" },
     { key: "facilities_items", value: FACILITIES_ITEMS_JSON, locale: "ar" },
+    // Hotel & Facilities intro (content/home/hotel-facilities) — same content, so dashboard section is pre-filled
+    { key: "hotel_facilities_title", value: "ENJOY COMPLETE & BEST QUALITY FACILITIES", locale: "en" },
+    { key: "hotel_facilities_title", value: "استمتع بمرافق متكاملة وبأفضل جودة", locale: "ar" },
+    { key: "hotel_facilities_subtitle", value: "24-Hour Reception – Room Service – Hotel Restaurant – Elegant Coffee Shop – Luxury Shisha Lounge – Free Wi-Fi – Modern Elevators", locale: "en" },
+    { key: "hotel_facilities_subtitle", value: "استقبال 24 ساعة – خدمة الغرف – مطعم الفندق – كوفي شوب أنيق – شيشه لاونج فاخر – واي فاي مجاني – مصاعد حديثة", locale: "ar" },
+    // Hotel & Resort block (content/home/hotel-resort)
+    { key: "hotel_resort_subtitle", value: "LUXURY HOTEL AND RESORT", locale: "en" },
+    { key: "hotel_resort_subtitle", value: "فندق ومنتجع فاخر", locale: "ar" },
+    { key: "hotel_resort_title", value: "LUXURY BEST HOTEL IN NAJAF", locale: "en" },
+    { key: "hotel_resort_title", value: "أفضل فندق فاخر في النجف", locale: "ar" },
+    { key: "hotel_resort_description", value: "At Najaf International Hotel, we believe that true hospitality is not measured by service alone, but by respect, genuine care, and the sense of peace throughout the stay.", locale: "en" },
+    { key: "hotel_resort_description", value: "في فندق النجف الدولي نؤمن بأن الضيافة الحقيقية لا تُقاس بالخدمة فقط بل بالاحترام والاهتمام والشعور بالطمأنينة طوال الإقامة.", locale: "ar" },
+    { key: "hotel_resort_rooms_label", value: "Luxury Rooms", locale: "en" },
+    { key: "hotel_resort_rooms_label", value: "غرف فاخرة", locale: "ar" },
+    { key: "hotel_resort_ratings_label", value: "Customer Ratings", locale: "en" },
+    { key: "hotel_resort_ratings_label", value: "تقييم العملاء", locale: "ar" },
+    { key: "hotel_resort_more_label", value: "MORE ABOUT", locale: "en" },
+    { key: "hotel_resort_more_label", value: "المزيد عنا", locale: "ar" },
   ];
 
   const RESTAURANTS_LIST_JSON = JSON.stringify([
@@ -164,6 +188,13 @@ async function seedSiteSettings() {
   const settingsLocaleNull: { key: string; value: string }[] = [
     { key: "contact_map_embed", value: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.0!2d44.33!3d32.03!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDAxJzQ4LjAiTiA0NMKwMTknNDguMCJF!5e0!3m2!1sen!2s!4v1" },
     { key: "restaurants_list", value: RESTAURANTS_LIST_JSON },
+    // Hotel & Resort (locale: null)
+    { key: "hotel_resort_rooms_count", value: "10" },
+    { key: "hotel_resort_rating", value: "4.9" },
+    // hotel_resort_image left empty so component falls back to default image until admin uploads one
+    // Action section: video and optional poster (content/home/action)
+    { key: "action_video_url", value: "https://www.youtube.com/embed/dQw4w9WgXcQ" },
+    { key: "action_video_poster", value: "" },
   ];
 
   for (const { key, value, locale } of settingsWithLocale) {
