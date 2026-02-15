@@ -31,13 +31,19 @@ export async function getSiteSetting(
 export async function getSiteSettingsBatch(
   keys: { key: string; locale?: string | null }[]
 ): Promise<Record<string, string | null>> {
+  if (keys.length === 0) return {};
+  const orConditions = keys.map(({ key, locale }) => ({
+    key,
+    locale: locale === undefined || locale === null ? null : locale,
+  }));
+  const rows = await prisma.siteSetting.findMany({
+    where: { OR: orConditions },
+    select: { key: true, locale: true, value: true },
+  });
   const out: Record<string, string | null> = {};
-  await Promise.all(
-    keys.map(async ({ key, locale }) => {
-      const res = await getSiteSetting(key, locale);
-      if (res.success) out[`${key}:${locale ?? ""}`] = res.value;
-    })
-  );
+  for (const r of rows) {
+    out[`${r.key}:${r.locale ?? ""}`] = r.value;
+  }
   return out;
 }
 

@@ -78,7 +78,7 @@ export async function listBookings(
         guest: true,
         room: { select: { id: true, name: true, slug: true } },
       },
-      orderBy: { checkIn: "desc" },
+      orderBy: { createdAt: "desc" },
     });
 
     const data: BookingListItem[] = bookings.map((b) => ({
@@ -109,13 +109,18 @@ export async function listBookings(
   }
 }
 
+/** Statuses that count as "confirmed" real bookings (shown on availability calendar). */
+const CONFIRMED_REAL_STATUSES: BookingStatus[] = ["CONFIRMED", "CHECKED_IN", "CHECKED_OUT"];
+
 /**
  * List bookings that overlap the given date range (for calendar view).
  * A booking overlaps if checkIn < rangeEnd && checkOut > rangeStart.
+ * When confirmedOnly is true, only returns bookings with status CONFIRMED, CHECKED_IN, or CHECKED_OUT.
  */
 export async function listBookingsInRange(
   rangeStart: Date,
-  rangeEnd: Date
+  rangeEnd: Date,
+  options?: { confirmedOnly?: boolean }
 ): Promise<ListBookingsResult> {
   try {
     const start = new Date(rangeStart);
@@ -127,6 +132,7 @@ export async function listBookingsInRange(
       where: {
         checkIn: { lt: end },
         checkOut: { gt: start },
+        ...(options?.confirmedOnly ? { status: { in: CONFIRMED_REAL_STATUSES } } : {}),
       },
       include: {
         guest: true,

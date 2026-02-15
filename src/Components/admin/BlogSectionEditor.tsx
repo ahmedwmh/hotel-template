@@ -35,6 +35,7 @@ export function BlogSectionEditor({ initialValues }: Props) {
   });
   const [activeLocale, setActiveLocale] = useState<"en" | "ar">("en");
   const [saving, setSaving] = useState<string | null>(null);
+  const [savingAll, setSavingAll] = useState(false);
   const [message, setMessage] = useState<{ type: "ok" | "err"; text: string } | null>(null);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [adding, setAdding] = useState(false);
@@ -60,6 +61,33 @@ export function BlogSectionEditor({ initialValues }: Props) {
       setMessage({ type: "err", text: res.error ?? "Save failed." });
     }
     setSaving(null);
+  }
+
+  async function handleSaveAll() {
+    setSavingAll(true);
+    setMessage(null);
+    const toSave: [string, string, string][] = [
+      ["blog_title", title.en, "en"],
+      ["blog_title", title.ar, "ar"],
+      ["blog_subtitle", subtitle.en, "en"],
+      ["blog_subtitle", subtitle.ar, "ar"],
+      ["blog_posts", stringifyBlogPosts(postsByLocale.en ?? []), "en"],
+      ["blog_posts", stringifyBlogPosts(postsByLocale.ar ?? []), "ar"],
+    ];
+    let ok = true;
+    for (const [key, value, locale] of toSave) {
+      const res = await setSiteSetting(key, value, locale);
+      if (!res.success) {
+        setMessage({ type: "err", text: res.error ?? "Save failed." });
+        ok = false;
+        break;
+      }
+    }
+    if (ok) {
+      setMessage({ type: "ok", text: "All changes saved." });
+      setTimeout(() => setMessage(null), 2500);
+    }
+    setSavingAll(false);
   }
 
   function handleSaveList(newPosts: BlogPostItem[]) {
@@ -145,17 +173,6 @@ export function BlogSectionEditor({ initialValues }: Props) {
                   placeholder="Subtitle"
                   className={inputClass}
                 />
-                <button
-                  type="button"
-                  onClick={() => {
-                    saveKey("blog_title", title[loc.id], loc.id);
-                    saveKey("blog_subtitle", subtitle[loc.id], loc.id);
-                  }}
-                  disabled={saving !== null}
-                  className="rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-500 disabled:opacity-50"
-                >
-                  Save {loc.label}
-                </button>
               </div>
             </div>
           ))}
@@ -246,6 +263,27 @@ export function BlogSectionEditor({ initialValues }: Props) {
             </div>
           </div>
         )}
+      </div>
+
+      <div className="sticky bottom-0 flex flex-col gap-3 rounded-xl border border-zinc-700/80 bg-zinc-800/80 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-zinc-400">
+          Edit title, subtitle and posts above. Save once to apply all changes.
+        </p>
+        <button
+          type="button"
+          onClick={handleSaveAll}
+          disabled={savingAll || saving !== null}
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-amber-600 px-6 py-3 text-sm font-medium text-white hover:bg-amber-500 disabled:opacity-60 min-w-[140px]"
+        >
+          {savingAll ? (
+            <>
+              <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+              Saving…
+            </>
+          ) : (
+            "Save all"
+          )}
+        </button>
       </div>
     </div>
   );

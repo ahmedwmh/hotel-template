@@ -211,8 +211,26 @@ export function BookingForm({
         <Input
           id="guestPhone"
           type="tel"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          autoComplete="tel"
           className="mt-1 border-[#e8e8e8] dark:border-zinc-600 dark:bg-zinc-800 dark:text-white"
-          {...register("guestPhone")}
+          {...register("guestPhone", {
+            onChange: (e) => {
+              const v = e.target.value.replace(/\D/g, "");
+              if (e.target.value !== v) {
+                e.target.value = v;
+                setValue("guestPhone", v, { shouldValidate: true });
+              }
+            },
+            onBlur: (e) => {
+              const v = e.target.value.replace(/\D/g, "");
+              if (v !== e.target.value) {
+                e.target.value = v;
+                setValue("guestPhone", v, { shouldValidate: true });
+              }
+            },
+          })}
         />
         {errors.guestPhone && (
           <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.guestPhone.message}</p>

@@ -15,7 +15,7 @@ export function ContentEditor({
   showTextareaForType?: boolean;
 }) {
   const [values, setValues] = useState<Record<string, string>>(initialValues);
-  const [saving, setSaving] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "ok" | "err"; text: string } | null>(null);
 
   const locales = ["en", "ar"];
@@ -30,18 +30,34 @@ export function ContentEditor({
     setValues((prev) => ({ ...prev, [k]: value }));
   }
 
-  async function handleSave(key: string, locale: string | null) {
-    const k = locale ? `${key}:${locale}` : `${key}:`;
-    setSaving(k);
+  async function handleSaveAll() {
+    setSaving(true);
     setMessage(null);
-    const res = await setSiteSetting(key, values[k] ?? "", locale ?? undefined);
-    if (res.success) {
-      setMessage({ type: "ok", text: "Saved." });
-      setTimeout(() => setMessage(null), 2000);
-    } else {
-      setMessage({ type: "err", text: res.error });
+    const entries: { key: string; locale: string | null }[] = [];
+    for (const { key, locale: hasLocale } of keys) {
+      if (hasLocale) {
+        for (const loc of locales) {
+          entries.push({ key, locale: loc });
+        }
+      } else {
+        entries.push({ key, locale: null });
+      }
     }
-    setSaving(null);
+    let ok = true;
+    for (const { key, locale } of entries) {
+      const k = locale ? `${key}:${locale}` : `${key}:`;
+      const res = await setSiteSetting(key, values[k] ?? "", locale ?? undefined);
+      if (!res.success) {
+        setMessage({ type: "err", text: res.error ?? "Save failed." });
+        ok = false;
+        break;
+      }
+    }
+    if (ok) {
+      setMessage({ type: "ok", text: "All changes saved." });
+      setTimeout(() => setMessage(null), 2500);
+    }
+    setSaving(false);
   }
 
   const inputClass =
@@ -64,7 +80,7 @@ export function ContentEditor({
     const val = getValue(keyName, loc);
     const isTextarea = useTextarea(type);
     return (
-      <div className="mt-1 flex flex-col gap-2 sm:flex-row sm:items-start">
+      <div className="mt-1">
         {isTextarea ? (
           <textarea
             value={val}
@@ -82,14 +98,6 @@ export function ContentEditor({
             placeholder={loc === "ar" ? "القيمة بالعربية" : "English value"}
           />
         )}
-        <button
-          type="button"
-          onClick={() => handleSave(keyName, loc)}
-          disabled={saving !== null}
-          className="shrink-0 rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-500 disabled:opacity-50"
-        >
-          {saving === (loc ? `${keyName}:${loc}` : `${keyName}:`) ? "Saving…" : "Save"}
-        </button>
       </div>
     );
   }
@@ -132,6 +140,27 @@ export function ContentEditor({
           )}
         </div>
       ))}
+
+      <div className="sticky bottom-0 flex flex-col gap-3 rounded-xl border border-zinc-700/80 bg-zinc-800/80 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-zinc-400">
+          Edit the fields above, then save once to apply all changes.
+        </p>
+        <button
+          type="button"
+          onClick={handleSaveAll}
+          disabled={saving}
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-amber-600 px-6 py-3 text-sm font-medium text-white hover:bg-amber-500 disabled:opacity-60 min-w-[140px]"
+        >
+          {saving ? (
+            <>
+              <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+              Saving…
+            </>
+          ) : (
+            "Save all"
+          )}
+        </button>
+      </div>
     </div>
   );
 }

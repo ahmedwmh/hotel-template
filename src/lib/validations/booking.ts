@@ -7,7 +7,10 @@ const dateString = z.string().refine((s) => !Number.isNaN(Date.parse(s)), {
 const bookingBaseSchema = z.object({
   guestName: z.string().min(1, "Name is required"),
   guestEmail: z.string().email("Invalid email"),
-  guestPhone: z.string().optional(),
+  guestPhone: z
+    .string()
+    .optional()
+    .refine((v) => !v || /^\d+$/.test(v), { message: "Phone must contain only numbers" }),
   roomId: z.string().min(1, "Room is required"),
   checkIn: dateString,
   checkOut: dateString,

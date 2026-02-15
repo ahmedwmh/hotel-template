@@ -12,7 +12,7 @@ export async function getActiveRooms(): Promise<PublicRoom[]> {
     include: {
       rates: { orderBy: { guestCount: "asc" } },
     },
-    orderBy: { name: "asc" },
+    orderBy: { createdAt: "desc" },
   });
   return rooms.map((r) => toPublicRoom(r));
 }

@@ -1,4 +1,4 @@
-import { getSiteSetting } from "@/lib/actions/site-content";
+import { getSiteSettingsBatch } from "@/lib/actions/site-content";
 import { getMessages, type Locale } from "@/lib/i18n";
 import { PublicLayout } from "@/Components/public/PublicLayout";
 import { ContactForm, type ContactLabels } from "@/Components/forms/ContactForm";
@@ -20,6 +20,10 @@ const DEFAULT_FORM_HEADING_AR = "تواصل معنا";
 const DEFAULT_MAP_EMBED =
   "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3191.0!2d44.33!3d32.03!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDAxJzQ4LjAiTiA0NMKwMTknNDguMCJF!5e0!3m2!1sen!2s!4v1";
 
+function get(batch: Record<string, string | null>, key: string, locale: string | null): string | null {
+  return batch[`${key}:${locale ?? ""}`] ?? null;
+}
+
 export default async function ContactPage({
   params,
 }: {
@@ -28,45 +32,35 @@ export default async function ContactPage({
   const { locale } = await params;
   const isAr = locale === "ar";
 
-  const [
-    titleRes,
-    subtitleRes,
-    descriptionRes,
-    emailRes,
-    phoneRes,
-    phone2Res,
-    addressRes,
-    formHeadingRes,
-    mapRes,
-  ] = await Promise.all([
-    getSiteSetting("contact_title", locale),
-    getSiteSetting("contact_subtitle", locale),
-    getSiteSetting("contact_description", locale),
-    getSiteSetting("contact_email", locale),
-    getSiteSetting("contact_phone", locale),
-    getSiteSetting("contact_phone_2", locale),
-    getSiteSetting("contact_address", locale),
-    getSiteSetting("contact_form_heading", locale),
-    getSiteSetting("contact_map_embed", null),
+  const batch = await getSiteSettingsBatch([
+    { key: "contact_title", locale },
+    { key: "contact_subtitle", locale },
+    { key: "contact_description", locale },
+    { key: "contact_email", locale },
+    { key: "contact_phone", locale },
+    { key: "contact_phone_2", locale },
+    { key: "contact_address", locale },
+    { key: "contact_form_heading", locale },
+    { key: "contact_map_embed", locale: null },
   ]);
 
   const title =
-    (titleRes.success ? titleRes.value : null)?.trim() ||
+    get(batch, "contact_title", locale)?.trim() ||
     (isAr ? DEFAULT_TITLE_AR : DEFAULT_TITLE_EN);
   const subtitle =
-    (subtitleRes.success ? subtitleRes.value : null)?.trim() ||
+    get(batch, "contact_subtitle", locale)?.trim() ||
     (isAr ? DEFAULT_SUBTITLE_AR : DEFAULT_SUBTITLE_EN);
   const description =
-    (descriptionRes.success ? descriptionRes.value : null)?.trim() ||
+    get(batch, "contact_description", locale)?.trim() ||
     (isAr ? DEFAULT_DESCRIPTION_AR : DEFAULT_DESCRIPTION_EN);
-  const email = (emailRes.success ? emailRes.value : null)?.trim() || "";
-  const phone = (phoneRes.success ? phoneRes.value : null)?.trim() || "";
-  const phone2 = (phone2Res.success ? phone2Res.value : null)?.trim() || "";
-  const address = (addressRes.success ? addressRes.value : null)?.trim() || "";
+  const email = get(batch, "contact_email", locale)?.trim() || "";
+  const phone = get(batch, "contact_phone", locale)?.trim() || "";
+  const phone2 = get(batch, "contact_phone_2", locale)?.trim() || "";
+  const address = get(batch, "contact_address", locale)?.trim() || "";
   const formHeading =
-    (formHeadingRes.success ? formHeadingRes.value : null)?.trim() ||
+    get(batch, "contact_form_heading", locale)?.trim() ||
     (isAr ? DEFAULT_FORM_HEADING_AR : DEFAULT_FORM_HEADING_EN);
-  const mapEmbed = (mapRes.success ? mapRes.value : null)?.trim() || DEFAULT_MAP_EMBED;
+  const mapEmbed = get(batch, "contact_map_embed", null)?.trim() || DEFAULT_MAP_EMBED;
 
   const t = getMessages(locale).contact as ContactLabels;
 

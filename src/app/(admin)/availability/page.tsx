@@ -11,7 +11,7 @@ export default async function AvailabilityPage() {
       <div>
         <h1 className="text-2xl font-semibold text-zinc-100 sm:text-3xl">Availability</h1>
         <p className="mt-1 text-sm text-zinc-400">
-          View bookings on the calendar and check room availability by date range.
+          Confirmed bookings only. When you confirm a booking in Bookings, it appears here. Click an event to edit or cancel.
         </p>
       </div>
 

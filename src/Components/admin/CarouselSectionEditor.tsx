@@ -35,6 +35,7 @@ export function CarouselSectionEditor({ initialValues }: Props) {
     parseHeroSlides(initialValues["hero_slides:"] ?? initialValues["hero_slides:en"] ?? initialValues["hero_slides:ar"])
   );
   const [saving, setSaving] = useState<string | null>(null);
+  const [savingAll, setSavingAll] = useState(false);
   const [message, setMessage] = useState<{ type: "ok" | "err"; text: string } | null>(null);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [adding, setAdding] = useState(false);
@@ -46,10 +47,11 @@ export function CarouselSectionEditor({ initialValues }: Props) {
     title2Ar: "",
   });
 
-  async function saveKey(key: string, value: string, locale: string) {
-    setSaving(`${key}:${locale}`);
+  async function saveKey(key: string, value: string, locale: string | null) {
+    const id = locale ? `${key}:${locale}` : key;
+    setSaving(id);
     setMessage(null);
-    const res = await setSiteSetting(key, value, locale);
+    const res = await setSiteSetting(key, value, locale ?? undefined);
     if (res.success) {
       setMessage({ type: "ok", text: "Saved." });
       setTimeout(() => setMessage(null), 2000);
@@ -71,6 +73,32 @@ export function CarouselSectionEditor({ initialValues }: Props) {
       setMessage({ type: "err", text: res.error ?? "Save failed." });
     }
     setSaving(null);
+  }
+
+  async function handleSaveAll() {
+    setSavingAll(true);
+    setMessage(null);
+    const steps: [string, string, string | null][] = [
+      ["hero_title", heroTitle.en, "en"],
+      ["hero_title", heroTitle.ar, "ar"],
+      ["hero_subtitle", heroSubtitle.en, "en"],
+      ["hero_subtitle", heroSubtitle.ar, "ar"],
+      ["hero_slides", stringifyHeroSlides(slides), null],
+    ];
+    let ok = true;
+    for (const [key, value, locale] of steps) {
+      const res = await setSiteSetting(key, value, locale ?? undefined);
+      if (!res.success) {
+        setMessage({ type: "err", text: res.error ?? "Save failed." });
+        ok = false;
+        break;
+      }
+    }
+    if (ok) {
+      setMessage({ type: "ok", text: "All changes saved." });
+      setTimeout(() => setMessage(null), 2500);
+    }
+    setSavingAll(false);
   }
 
   function handleEdit(index: number) {
@@ -164,17 +192,6 @@ export function CarouselSectionEditor({ initialValues }: Props) {
                   placeholder="Hero subtitle"
                   className={inputClass}
                 />
-                <button
-                  type="button"
-                  onClick={() => {
-                    saveKey("hero_title", heroTitle[loc.id], loc.id);
-                    saveKey("hero_subtitle", heroSubtitle[loc.id], loc.id);
-                  }}
-                  disabled={saving !== null}
-                  className="rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-500 disabled:opacity-50"
-                >
-                  Save {loc.label}
-                </button>
               </div>
             </div>
           ))}
@@ -341,6 +358,27 @@ export function CarouselSectionEditor({ initialValues }: Props) {
             </div>
           </div>
         )}
+      </div>
+
+      <div className="sticky bottom-0 flex flex-col gap-3 rounded-xl border border-zinc-700/80 bg-zinc-800/80 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm text-zinc-400">
+          Edit titles and slides above, then save once to apply all changes.
+        </p>
+        <button
+          type="button"
+          onClick={handleSaveAll}
+          disabled={savingAll || saving !== null}
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-amber-600 px-6 py-3 text-sm font-medium text-white hover:bg-amber-500 disabled:opacity-60 min-w-[140px]"
+        >
+          {savingAll ? (
+            <>
+              <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+              Saving…
+            </>
+          ) : (
+            "Save all"
+          )}
+        </button>
       </div>
     </div>
   );

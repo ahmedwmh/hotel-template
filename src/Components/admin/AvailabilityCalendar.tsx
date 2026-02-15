@@ -6,7 +6,10 @@ import { useRouter } from "next/navigation";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import type { DatesSetArg, EventClickArg } from "@fullcalendar/core";
-import { listBookingsInRange } from "@/lib/actions/admin-bookings";
+import {
+  listBookingsInRange,
+  updateBookingStatus,
+} from "@/lib/actions/admin-bookings";
 import type { BookingListItem } from "@/lib/actions/admin-bookings";
 import type { RoomListItem } from "@/lib/actions/admin-rooms";
 import "./AvailabilityCalendar.css";
@@ -44,11 +47,23 @@ type AvailabilityCalendarProps = {
   rooms: RoomListItem[];
 };
 
+function formatDate(d: Date) {
+  return new Date(d).toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 export function AvailabilityCalendar({ rooms }: AvailabilityCalendarProps) {
   const router = useRouter();
   const [rawBookings, setRawBookings] = useState<BookingListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [roomFilter, setRoomFilter] = useState<string>("");
+  const [selectedBooking, setSelectedBooking] = useState<BookingListItem | null>(null);
+  const [showViewDetails, setShowViewDetails] = useState(false);
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const roomIdToColor = useMemo(() => {
     const map: Record<string, string> = {};
@@ -68,7 +83,7 @@ export function AvailabilityCalendar({ rooms }: AvailabilityCalendarProps) {
 
   const handleDatesSet = useCallback(async (arg: DatesSetArg) => {
     setLoading(true);
-    const result = await listBookingsInRange(arg.start, arg.end);
+    const result = await listBookingsInRange(arg.start, arg.end, { confirmedOnly: true });
     if (result.success) {
       setRawBookings(result.data);
     } else {
@@ -77,10 +92,36 @@ export function AvailabilityCalendar({ rooms }: AvailabilityCalendarProps) {
     setLoading(false);
   }, []);
 
-  const handleEventClick = useCallback(
-    (arg: EventClickArg) => {
-      const id = arg.event.extendedProps.bookingId as string;
-      if (id) router.push(`/bookings/${id}/edit`);
+  const handleEventClick = useCallback((arg: EventClickArg) => {
+    const id = arg.event.extendedProps.bookingId as string;
+    if (!id) return;
+    const booking = rawBookings.find((b) => b.id === id) ?? null;
+    setSelectedBooking(booking);
+    setShowViewDetails(false);
+    setError(null);
+  }, [rawBookings]);
+
+  const handleClosePanel = useCallback(() => {
+    setSelectedBooking(null);
+    setShowViewDetails(false);
+    setError(null);
+  }, []);
+
+  const handleCancelBooking = useCallback(
+    async (bookingId: string) => {
+      setCancellingId(bookingId);
+      setError(null);
+      try {
+        const res = await updateBookingStatus(bookingId, "CANCELLED");
+        if (res.success) {
+          setSelectedBooking(null);
+          router.refresh();
+        } else {
+          setError(res.error);
+        }
+      } finally {
+        setCancellingId(null);
+      }
     },
     [router]
   );
@@ -110,6 +151,110 @@ export function AvailabilityCalendar({ rooms }: AvailabilityCalendarProps) {
           + Add booking
         </Link>
       </div>
+
+      {selectedBooking && (
+        <div className="rounded-xl border border-zinc-600 bg-zinc-800 p-4 shadow-lg">
+          {showViewDetails ? (
+            <>
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="font-medium text-zinc-100">Guest & booking details</h3>
+                <button
+                  type="button"
+                  onClick={() => setShowViewDetails(false)}
+                  className="rounded-lg border border-zinc-500 px-3 py-1.5 text-sm text-zinc-400 hover:bg-zinc-700"
+                >
+                  Back
+                </button>
+              </div>
+              <dl className="grid gap-3 text-sm">
+                <div>
+                  <dt className="text-zinc-500">Name</dt>
+                  <dd className="mt-0.5 font-medium text-zinc-100">{selectedBooking.guest.name}</dd>
+                </div>
+                <div>
+                  <dt className="text-zinc-500">Email</dt>
+                  <dd className="mt-0.5 text-zinc-200">{selectedBooking.guest.email}</dd>
+                </div>
+                <div>
+                  <dt className="text-zinc-500">Phone</dt>
+                  <dd className="mt-0.5 text-zinc-200">{selectedBooking.guest.phone || "—"}</dd>
+                </div>
+                <div>
+                  <dt className="text-zinc-500">Room</dt>
+                  <dd className="mt-0.5 text-zinc-200">{selectedBooking.room.name}</dd>
+                </div>
+                <div>
+                  <dt className="text-zinc-500">Check-in</dt>
+                  <dd className="mt-0.5 text-zinc-200">{formatDate(selectedBooking.checkIn)}</dd>
+                </div>
+                <div>
+                  <dt className="text-zinc-500">Check-out</dt>
+                  <dd className="mt-0.5 text-zinc-200">{formatDate(selectedBooking.checkOut)}</dd>
+                </div>
+                <div>
+                  <dt className="text-zinc-500">Guests</dt>
+                  <dd className="mt-0.5 text-zinc-200">{selectedBooking.totalGuests}</dd>
+                </div>
+                <div>
+                  <dt className="text-zinc-500">Rate (per night)</dt>
+                  <dd className="mt-0.5 text-zinc-200">{selectedBooking.rate}</dd>
+                </div>
+                {selectedBooking.reference && (
+                  <div>
+                    <dt className="text-zinc-500">Reference</dt>
+                    <dd className="mt-0.5 font-mono text-zinc-200">{selectedBooking.reference}</dd>
+                  </div>
+                )}
+              </dl>
+            </>
+          ) : (
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div>
+                <h3 className="font-medium text-zinc-100">
+                  {selectedBooking.room.name} · {selectedBooking.guest.name}
+                </h3>
+                <p className="mt-1 text-sm text-zinc-400">
+                  {formatDate(selectedBooking.checkIn)} – {formatDate(selectedBooking.checkOut)} · {selectedBooking.totalGuests} guest
+                  {selectedBooking.totalGuests !== 1 ? "s" : ""}
+                </p>
+                {error && (
+                  <p className="mt-2 text-sm text-red-400">{error}</p>
+                )}
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowViewDetails(true)}
+                  className="inline-flex items-center rounded-lg border border-zinc-500 bg-zinc-700 px-3 py-1.5 text-sm font-medium text-zinc-100 hover:bg-zinc-600"
+                >
+                  View
+                </button>
+                <Link
+                  href={`/bookings/${selectedBooking.id}/edit`}
+                  className="inline-flex items-center rounded-lg border border-zinc-500 bg-zinc-700 px-3 py-1.5 text-sm font-medium text-zinc-100 hover:bg-zinc-600"
+                >
+                  Edit
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => handleCancelBooking(selectedBooking.id)}
+                  disabled={cancellingId === selectedBooking.id}
+                  className="inline-flex items-center rounded-lg border border-red-500/80 bg-red-600/20 px-3 py-1.5 text-sm font-medium text-red-300 hover:bg-red-600/40 disabled:opacity-50"
+                >
+                  {cancellingId === selectedBooking.id ? "Cancelling…" : "Cancel booking"}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleClosePanel}
+                  className="inline-flex items-center rounded-lg border border-zinc-500 px-3 py-1.5 text-sm text-zinc-400 hover:bg-zinc-700"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       <div className="availability-calendar-dark rounded-xl border border-zinc-700/80 bg-zinc-800/80 p-4 shadow-sm">
         {loading && (

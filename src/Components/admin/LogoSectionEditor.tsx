@@ -66,9 +66,16 @@ export function LogoSectionEditor({ initialValues }: Props) {
               type="button"
               onClick={handleSave}
               disabled={saving}
-              className="rounded-lg bg-amber-600 px-4 py-2 text-sm font-medium text-white hover:bg-amber-500 disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-amber-600 px-6 py-3 text-sm font-medium text-white hover:bg-amber-500 disabled:opacity-60 min-w-[120px]"
             >
-              {saving ? "جاري الحفظ…" : "حفظ"}
+              {saving ? (
+                <>
+                  <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
+                  Saving…
+                </>
+              ) : (
+                "Save"
+              )}
             </button>
             {logoUrl && (
               <div className="flex items-center gap-2 text-xs text-zinc-500">

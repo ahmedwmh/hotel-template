@@ -1,9 +1,13 @@
-import { getSiteSetting } from "@/lib/actions/site-content";
+import { getSiteSettingsBatch } from "@/lib/actions/site-content";
 import type { Locale } from "@/lib/i18n";
 import { PublicLayout } from "@/Components/public/PublicLayout";
 import { hotelImages } from "@/lib/hotel-images";
 import Image from "next/image";
 import Link from "next/link";
+
+function get(batch: Record<string, string | null>, key: string, locale: string | null): string | null {
+  return batch[`${key}:${locale ?? ""}`] ?? null;
+}
 
 const DEFAULT_TITLE_EN = "About Us";
 const DEFAULT_TITLE_AR = "من نحن";
@@ -46,26 +50,26 @@ export default async function AboutPage({
   const { locale } = await params;
   const isAr = locale === "ar";
 
-  const [titleRes, subtitleRes, textRes, imageRes, mapRes] = await Promise.all([
-    getSiteSetting("about_title", locale),
-    getSiteSetting("about_subtitle", locale),
-    getSiteSetting("about_text", locale),
-    getSiteSetting("about_image", null),
-    getSiteSetting("contact_map_embed", null),
+  const batch = await getSiteSettingsBatch([
+    { key: "about_title", locale },
+    { key: "about_subtitle", locale },
+    { key: "about_text", locale },
+    { key: "about_image", locale: null },
+    { key: "contact_map_embed", locale: null },
   ]);
 
   const title =
-    (titleRes.success ? titleRes.value : null)?.trim() ||
+    get(batch, "about_title", locale)?.trim() ||
     (isAr ? DEFAULT_TITLE_AR : DEFAULT_TITLE_EN);
   const subtitle =
-    (subtitleRes.success ? subtitleRes.value : null)?.trim() ||
+    get(batch, "about_subtitle", locale)?.trim() ||
     (isAr ? DEFAULT_SUBTITLE_AR : DEFAULT_SUBTITLE_EN);
   const text =
-    (textRes.success ? textRes.value : null)?.trim() ||
+    get(batch, "about_text", locale)?.trim() ||
     (isAr ? DEFAULT_TEXT_AR : DEFAULT_TEXT_EN);
   const aboutImage =
-    (imageRes.success ? imageRes.value : null)?.trim() || DEFAULT_ABOUT_IMAGE;
-  const mapEmbed = (mapRes.success ? mapRes.value : null)?.trim() || DEFAULT_MAP_EMBED;
+    get(batch, "about_image", null)?.trim() || DEFAULT_ABOUT_IMAGE;
+  const mapEmbed = get(batch, "contact_map_embed", null)?.trim() || DEFAULT_MAP_EMBED;
 
   const locationTitle = isAr ? LOCATION_TITLE.ar : LOCATION_TITLE.en;
   const locationIntro = isAr ? LOCATION_INTRO_AR : LOCATION_INTRO_EN;

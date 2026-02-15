@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPageById, getSectionById } from "@/lib/content-structure";
-import { getSiteSetting } from "@/lib/actions/site-content";
+import { getSiteSettingsBatch } from "@/lib/actions/site-content";
 import { ContentBreadcrumb } from "@/Components/admin/ContentBreadcrumb";
 import { ContentEditor } from "@/Components/admin/ContentEditor";
 import { CarouselSectionEditor } from "@/Components/admin/CarouselSectionEditor";
@@ -22,18 +22,18 @@ export default async function ContentSectionEditPage({ params }: Props) {
   if (!page || !section) notFound();
 
   const locales = ["en", "ar"] as const;
-  const initial: Record<string, string> = {};
-
+  const batchKeys: { key: string; locale?: string | null }[] = [];
   for (const keyDef of section.keys) {
     if (keyDef.locale) {
-      for (const loc of locales) {
-        const res = await getSiteSetting(keyDef.key, loc);
-        if (res.success && res.value != null) initial[`${keyDef.key}:${loc}`] = res.value;
-      }
+      for (const loc of locales) batchKeys.push({ key: keyDef.key, locale: loc });
     } else {
-      const res = await getSiteSetting(keyDef.key, null);
-      if (res.success && res.value != null) initial[`${keyDef.key}:`] = res.value;
+      batchKeys.push({ key: keyDef.key, locale: null });
     }
+  }
+  const batchResult = await getSiteSettingsBatch(batchKeys);
+  const initial: Record<string, string> = {};
+  for (const [k, v] of Object.entries(batchResult)) {
+    if (v != null) initial[k] = v;
   }
 
   const isCarousel = pageId === "home" && sectionId === "carousel";

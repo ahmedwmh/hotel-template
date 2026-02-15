@@ -58,8 +58,8 @@ export function RoomsSectionNext({
             </p>
           </div>
 
-          <div className="relative mt-14 2xl:mt-[60px]">
-            <div className="keen-slider" ref={sliderRef}>
+          <div className="relative mt-14 2xl:mt-[60px] overflow-hidden max-h-[520px]">
+            <div className="keen-slider overflow-hidden" ref={sliderRef}>
               {rooms.length > 0 ? (
                 rooms.map((room, index) => (
                   <div key={room.id} className="keen-slider__slide">

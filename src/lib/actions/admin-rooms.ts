@@ -76,7 +76,7 @@ export async function listRooms(activeOnly?: boolean): Promise<ListRoomsResult> 
     const rooms = await prisma.room.findMany({
       where: activeOnly ? { isActive: true } : undefined,
       include: { rates: true },
-      orderBy: { name: "asc" },
+      orderBy: { createdAt: "desc" },
     });
     const data: RoomListItem[] = rooms.map((r) => ({
       id: r.id,
